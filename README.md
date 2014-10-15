@@ -1,5 +1,5 @@
-Student JavaScript-to-Python Port Examples
-==========================================
+JavaScript-to-Python Port Examples
+==================================
 
 Often coding is about creative expression, but not always. Sometimes the
 working world demands coders &mdash; especially juniors &mdash; to create
