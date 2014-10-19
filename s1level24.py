@@ -18,4 +18,4 @@ bob.right(90)
 bob.forward(100)
 
 # you only need this if not using Python IDLE to keep it from closing early
-input()
+turtle.exitonclick()

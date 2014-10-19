@@ -23,3 +23,5 @@ for count2 in range(36):
         artist.move_forward(100)
         artist.turn_right(120)
     artist.turn_right(10)
+
+codestudio.exitonclick()

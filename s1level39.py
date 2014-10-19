@@ -20,4 +20,4 @@ for count2 in range(36):
         bob.right(120)
     bob.right(10)
 
-input()
+turtle.exitonclick()

@@ -15,3 +15,5 @@ farmer.move_forward()
 farmer.move_forward()
 farmer.move_forward()
 farmer.dig()
+
+codestudio.exitonclick()

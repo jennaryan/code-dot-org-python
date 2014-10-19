@@ -12,3 +12,4 @@ bird = codestudio.MazeBird()
 bird.move_forward()
 bird.move_forward()
 
+codestudio.exitonclick()
