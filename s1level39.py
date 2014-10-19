@@ -12,8 +12,6 @@ import turtle
 import mymod
 
 bob = turtle.Turtle()
-bob.pensize(7)
-bob.speed(100)
 
 for count2 in range(36):
     bob.pencolor(mymod.random_color())

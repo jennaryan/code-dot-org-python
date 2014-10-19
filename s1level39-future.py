@@ -16,11 +16,9 @@ import codestudio
 import mymod
 
 artist = codestudio.Artist()
-artist.pen.size = 7
-artist.speed = 100
 
 for count2 in range(36):
-    artist.pen.color = mymod.random_color()
+    artist.pen_color(mymod.random_color())
     for count in range(3):
         artist.move_forward(100)
         artist.turn_right(120)

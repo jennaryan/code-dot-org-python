@@ -10,8 +10,6 @@ moveForward(100)
 import codestudio
 
 artist = codestudio.Artist()
-artist.pen.width = 7
-artist.pen.color = 'red'
 
 artist.move_forward(100)
 artist.turn_right(90)

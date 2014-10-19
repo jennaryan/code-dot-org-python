@@ -10,8 +10,6 @@ import turtle
 
 # always create a new Turtle object and give him/her a pen
 bob = turtle.Turtle()
-bob.pensize(7)
-bob.pencolor('red')
 
 # here is where your port goes, notice looks like JavaScript
 # use https://docs.python.org/3.4/library/turtle.html for reference
