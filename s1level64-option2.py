@@ -10,17 +10,15 @@ for (counter = 50; counter <= 90; counter += 10) {
 }
 '''
 
-
 import codestudio
 
-def draw_square(self,size):
-    for count in range(4):
-        self.move_forward(size)
-        self.turn_right(90)
+class Artist(codestudio.Artist):
+    def draw_square(self,size):
+        for count in range(4):
+            self.move_forward(size)
+            self.turn_right(90)
 
-codestudio.Artist.draw_square = draw_square
-
-artist = codestudio.Artist()
+artist = Artist()
 
 for counter in range(50,90,10):
     artist.draw_square(counter)
