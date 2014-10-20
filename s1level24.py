@@ -1,21 +1,18 @@
-# very first thing must be the JavaScript code from 'Show Code'
+# STOP: Artist challenges (this way) are not yet supported.
+# This is just an example of what one will look like.
+
 ''' s1level24
 moveForward(100)
 turnRight(90)
 moveForward(100)
 '''
 
-# always import Turtle class (never *)
-import turtle
+import codestudio
 
-# always create a new Turtle object and give him/her a pen
-bob = turtle.Turtle()
+artist = codestudio.Artist()
 
-# here is where your port goes, notice looks like JavaScript
-# use https://docs.python.org/3.4/library/turtle.html for reference
-bob.forward(100)
-bob.right(90)
-bob.forward(100)
+artist.move_forward(100)
+artist.turn_right(90)
+artist.move_forward(100)
 
-# you only need this if not using Python IDLE to keep it from closing early
-turtle.exitonclick()
+codestudio.exitonclick()
