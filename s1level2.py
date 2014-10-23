@@ -7,6 +7,7 @@ moveForward();
 '''
 
 import codestudio
+codestudio.s1level2()
 
 bird = codestudio.MazeBird()
 bird.move_forward()

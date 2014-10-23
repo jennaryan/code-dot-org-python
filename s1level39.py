@@ -14,10 +14,10 @@ import mymod
 artist = codestudio.Artist()
 
 for count2 in range(36):
-    artist.pencolor(mymod.random_color())
+    artist.pen_color(mymod.random_color())
     for count in range(3):
-        artist.forward(100)
-        artist.right(120)
-    artist.right(10)
+        artist.move_forward(100)
+        artist.move_right(120)
+    artist.move_right(10)
 
 codestudio.exitonclick()
