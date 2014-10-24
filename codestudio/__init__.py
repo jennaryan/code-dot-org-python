@@ -7,3 +7,6 @@ from . game import *
 from . artist import *
 from . maze import *
 from . farmer import *
+
+def do(challenge):
+    pass
