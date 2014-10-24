@@ -1,1 +1,4 @@
-name: Something Here
+ref: s1level24
+lines:
+  - 0 0 100 0
+  - 100 0 100 100
