@@ -1,4 +1,4 @@
-from yamlconfig import YamlConfig
+import json
 from os import path
 here = path.abspath(path.dirname(__file__))
 files_path = path.join(here,'challenges')
@@ -14,7 +14,7 @@ class ArtistChallenge():
     '''
 
     def __init__(self,name=None,fname=None):
-        if not fname and name: fname = path.join(files_path,name+'.yaml')
+        if not fname and name: fname = path.join(files_path,name+'.json')
         if not name and fname: name = path.splitext(path.basename(fname))[0]
         self.name = name
         self.fname = fname
@@ -22,11 +22,12 @@ class ArtistChallenge():
         if fname: self.load(fname)
 
     def load(self,fname=None):
-        '''Loads an artist config (yaml) file'''
+        '''Loads an artist challenge config (json) file'''
         if fname: self.fname = fname
-        with YamlConfig(self.fname) as yaml:
-            for line in yaml.data['lines']:
-                self.lines.append(tuple([int(s) for s in line.split()]))
+        with open(self.fname, 'r') as f:
+            data = json.load(f)
+            for line in data['lines']:
+                self.lines.append(tuple(line))
         self.number_lines = len(self.lines)
 
     def check(self,solution):
@@ -40,9 +41,6 @@ class ArtistChallenge():
 if __name__ == '__main__':
 
     # TODO turn this into proper unittests later
-
-    #ArtistChallenge('s1level24').dump()
-    #ArtistChallenge('s1level24',fname='./challenges/s1level24.yaml').dump()
 
     c = ArtistChallenge('s1level24')
     c.raise_exception = False
