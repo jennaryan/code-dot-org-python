@@ -1,8 +1,5 @@
 import json
 import artist
-from os import path
-here = path.abspath(path.dirname(__file__))
-files_path = path.join(here,'challenges')
 
 class Challenge():
     '''
@@ -31,16 +28,7 @@ class Challenge():
                 for line in data['lines']:
                     self.lines.append(tuple(line))
                 self.number_lines = len(self.lines)
-                Artist().trace()
-                
 
-    def check(self,solution):
-        if len(set(solution)) != self.number_lines: return False
-        for line in self.lines:
-            backward = (line[2],line[3],line[0],line[1])
-            if line not in solution and backward not in solution:
-                return False, line
-        return True
 
 if __name__ == '__main__':
 
