@@ -6,12 +6,13 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 files_path = path.join(here,'challenges')
 
-def load(name):
+def load(uid):
     '''Loads an artist challenge config (json) file'''
-    fname = path.join(files_path,name+'.json')
+    fname = path.join(files_path,uid+'.json')
     actor = None
     with open(fname, 'r') as f:
         config = json.load(f)
+        if not config['uid']: config['uid'] = uid
         t = config['type']
         if (t == 'artist'):
             challenge = ArtistChallenge(config)

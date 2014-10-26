@@ -7,10 +7,39 @@ def flipy(t):
     return (t[0],-t[1],t[2],-t[3])
 
 class Solution():
+    '''
+    Contains the solution for a given challenge against
+    which everything can be tested and which can be displayed
+    in greyed out form or image form to illustrate what needs
+    to be done graphically.
+    '''
+
     lines = []
     number = []
+    image = None
+    canvas = None
+
+    def draw_image(self,canvas=None):
+        '''Faster method to display the solution'''
+        if not canvas: canvas = self.canvas
+        pass
+
+    def draw_lines(self,canvas=None):
+        if not canvas: canvas = self.canvas
+        for line in self.lines:
+            canvas.create_line(flipy(line), fill='lightgrey',
+                    width=7,capstyle='round',arrow=None)
+
+    def draw(self,canvas=None):
+        '''Draws solution fast (image) or slow (lines) way'''
+        if not canvas: canvas = self.canvas
+        if self.image:
+            return self.draw_image(canvas)
+        else:
+            return self.draw_lines(canvas)
 
 class Log():
+    '''Keeps track of all the lines and calls made.'''
     lines = []
     calls = []
 
@@ -25,25 +54,31 @@ class ArtistChallenge():
     '''
 
     def __init__(self,config=None):
+        self.uid = 'code.org'
+        self.title = 'Artist'
+        self.solution = Solution()
         self.turtle = turtle.Turtle()
-        self.canvas = turtle.getcanvas()
         self.turtle.pensize(7)
         self.pos = tuple(self.turtle.pos())
-        self.solution = Solution()
         self.log = Log()
+        self.screen = turtle.Screen()
+        self.canvas = self.screen.getcanvas()
         #self.sprite = sprite.Sprite()
         if config:
+            config_keys = config.keys()
+            if 'uid' in config_keys:
+                self.uid = config['uid']
+                self.title += ' ({})'.format(self.uid)
+            if 'title' in config_keys:
+                self.title += ' {}'.format(config['title'])
             for line in config['lines']:
                 self.solution.lines.append(tuple(line))
                 self.solution.number = len(self.solution.lines)
+        self.screen.title(self.title)
 
     def setup(self):
-        '''Setup the display and draw a faded trace as guide'''
-        #self.canvas.title("self.
-        for line in self.solution.lines:
-            self.canvas.create_line(flipy(line), fill='lightgrey',
-                    width=7,capstyle='round')
-        #input('Ready?')
+        self.solution.draw(self.canvas)
+        input('Ready?')
 
     def check(self):
         lines = self.log.lines
