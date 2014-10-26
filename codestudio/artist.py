@@ -46,12 +46,10 @@ class Artist():
         return self.good_job()
 
     def try_again(self,msg=''):
-        # TODO spice this up
         print('Nope.',msg)
         return False
 
     def good_job(self,msg=None):
-        # TODO spice this up
         print('Perfect! Congrats!')
         return True
 
