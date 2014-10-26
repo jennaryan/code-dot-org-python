@@ -1,3 +1,3 @@
-class Maze():
+class MazeChallenge():
     pass
 

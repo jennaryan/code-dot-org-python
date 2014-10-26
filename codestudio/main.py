@@ -1,7 +1,7 @@
 import json
-from . artist import Artist 
-from . maze import Maze
-from . farmer import Farmer
+from . artist import ArtistChallenge
+from . maze import MazeChallenge
+from . farmer import FarmerChallenge
 from os import path
 here = path.abspath(path.dirname(__file__))
 files_path = path.join(here,'challenges')
@@ -14,12 +14,12 @@ def load(name):
         config = json.load(f)
         t = config['type']
         if (t == 'artist'):
-            actor = Artist(config)
+            challenge = ArtistChallenge(config)
         elif (t == 'maze'):
-            actor = Maze(config)
+            challenge = MazeChallenge(config)
         elif (t == 'farmer'):
-            actor = Farmer(config)
+            challenge = FarmerChallege(config)
         else:
             raise Exception('Invalid or missing challenge type')
-    actor.setup()
-    return actor
+    challenge.setup()
+    return challenge

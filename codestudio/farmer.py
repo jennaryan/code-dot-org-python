@@ -1,2 +1,2 @@
-class Farmer(object):
+class FarmerChallenge():
     pass
