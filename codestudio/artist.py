@@ -16,7 +16,9 @@ class Artist():
     def __init__(self):
         self._turtle = turtle.Turtle()
         self._turtle.pensize(7)
-        self.pos = self._turtle.pos()
+        self.pos = tuple(self._turtle.pos())
+        self.lines = []
+        self.calls = []
         #self.sprite = sprite.Sprite()
 
     def speed(self,speed):
@@ -24,27 +26,38 @@ class Artist():
 
     def pen_color(self,color):
         if color == 'random':
-            return self._turtle.pencolor((random(),random(),random()))
-        else:
-            return self._turtle.pencolor(color)
+            color = (random(),random(),random())
+        self.calls.append(__name__+'('+str(color)+')')
+        return self._turtle.pencolor(color)
 
     def pen_width(self,width):
+        self.calls.append(__name__+'('+str(width)+')')
         return self._turtle.penwidth(width)
 
     def move_forward(self,amount):
-        return self._turtle.forward(amount)
+        self.last_pos = tuple(self._turtle.pos())
+        self._turtle.forward(amount)
+        self.pos = tuple(self._turtle.pos())
+        self.lines.append(self.last_pos + self.pos)
 
     def move_backward(self,amount):
-        return self._turtle.backward(amount)
+        self.last_pos = tuple(self._turtle.pos())
+        self._turtle.backward(amount)
+        self.pos = tuple(self._turtle.pos())
+        self.lines.append(self.last_pos + self.pos)
 
     def jump_backward(self,amount):
         self._turtle.penup()
+        self.last_pos = tuple(self._turtle.pos())
         self._turtle.backward(amount)
+        self.pos = tuple(self._turtle.pos())
         self._turtle.pendown()
 
     def jump_forward(self,amount):
         self._turtle.penup()
+        self.last_pos = tuple(self._turtle.pos())
         self._turtle.forward(amount)
+        self.pos = tuple(self._turtle.pos())
         self._turtle.pendown()
 
     def turn_right(self,amount):
@@ -58,4 +71,3 @@ class Artist():
     def save(self,fname='artist.eps'):
         turtle.getscreen().getcanvas().postscript(file=fname)
         
-

@@ -1,9 +1,10 @@
 import json
+import artist
 from os import path
 here = path.abspath(path.dirname(__file__))
 files_path = path.join(here,'challenges')
 
-class ArtistChallenge():
+class Challenge():
     '''
     c = ArtistChallenge('s1level24')
     c = ArtistChallenge(fname='s1level24')
@@ -26,9 +27,12 @@ class ArtistChallenge():
         if fname: self.fname = fname
         with open(self.fname, 'r') as f:
             data = json.load(f)
-            for line in data['lines']:
-                self.lines.append(tuple(line))
-        self.number_lines = len(self.lines)
+            if (data['type'].lower() == 'artist'):
+                for line in data['lines']:
+                    self.lines.append(tuple(line))
+                self.number_lines = len(self.lines)
+                Artist().trace()
+                
 
     def check(self,solution):
         if len(set(solution)) != self.number_lines: return False

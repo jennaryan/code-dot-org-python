@@ -7,6 +7,7 @@ from . game import *
 from . artist import *
 from . maze import *
 from . farmer import *
+from . challenge import *
 
-def do(challenge):
-    pass
+def load(challenge):
+    return Challenge(challenge)
