@@ -1,69 +1,126 @@
-import turtle
-from random import random
-#from . import sprite
+r"""The basis for the Artist challenges from <http://code.org> built
+on `tkinter` only. 
 
-def flipy(t):
-    '''Utility function to use same Cartesian coords as turtle'''
-    return (t[0],-t[1],t[2],-t[3])
+Artist is a similar to the great `turtle` standard module for teaching
+programming but with these main differences:
+
+- Artist has only `move_*`, `turn_*`, and `jump_*` and always uses
+  verbs to begin method and function names.
+
+- Artist methods correspond one-to-one with those from <http://code.org>
+  for easier porting by students.
+
+- Artist supports sprite animation and theming (e.g. zombie, turtle, etc.).
+
+- Artist includes sound and sound theming as well. 
+
+- Artist can be made to be very slow or very, very fast unlike `turtle`
+
+- Artist metaphor matches 'canvas' metaphor used in all graphics coding.
+
+- Artist challenge and solution paths can be loaded and saved in JSON
+
+"""
+
+import tkinter as tk
+import random as r
+from .canvas import Canvas
+from .challenge import Challenge
+
+def flipy(line):
+    return (line[0],-line[1],line[2],-line[3])
+
+#--------------------------------------------------------------------------
+
+class Pen():
+    """Gimme somethin' to write with, man."""
+
+    def __init__(self):
+        self.on = True
+        self.color = 'black'
+        self.width = 7
+
+    @staticmethod
+    def random_color():
+        return (r.random(),r.random(),r.random())
+
+#--------------------------------------------------------------------------
 
 class Solution():
-    '''
-    Contains the solution for a given challenge against
-    which everything can be tested and which can be displayed
-    in greyed out form or image form to illustrate what needs
-    to be done graphically.
-    '''
 
-    lines = []
-    number = []
-    image = None
-    canvas = None
+    def __init__(self):
+        self.lines = []
+        self.number_lines = []
+        self.image = None
 
-    def draw_image(self,canvas=None):
-        '''Faster method to display the solution'''
-        if not canvas: canvas = self.canvas
-        pass
+    def draw(self,canvas):
+        '''Draws solution fast (image) or slow (lines) way'''
 
-    def draw_lines(self,canvas=None):
-        if not canvas: canvas = self.canvas
+        if self.image:
+            return self._draw_image(canvas)
+        else:
+            return self._draw_lines(canvas)
+
+    def _draw_lines(self,canvas):
         for line in self.lines:
             canvas.create_line(flipy(line), fill='lightgrey',
                     width=7,capstyle='round',arrow=None)
 
-    def draw(self,canvas=None):
-        '''Draws solution fast (image) or slow (lines) way'''
-        if not canvas: canvas = self.canvas
-        if self.image:
-            return self.draw_image(canvas)
-        else:
-            return self.draw_lines(canvas)
+    def _draw_image(self,canvas):
+        pass
+
+#--------------------------------------------------------------------------
 
 class Log():
     '''Keeps track of all the lines and calls made.'''
     lines = []
     calls = []
 
-class ArtistChallenge():
-    '''
-    Wraps Python turtle with methods matching the JavaScript from
-    the studio.code.org challenges and Artist sections. This is a minimal
-    subset of everything Python turtle can do to help encourage students
-    to learn turtle and eventually tkinter rather than depend on the
-    codestudio module.
+#--------------------------------------------------------------------------
 
-    '''
+class Artist():
+    def __init__(self,canvas=None,pen=Pen(),log=Log()):
+        self.canvas = canvas if canvas else Canvas()
+        self.pen = pen
+        self.log = log
+        self.x = canvas.centerx
+        self.y = canvas.centery
+        self.lastx = self.x
+        self.lasty = self.y
+
+    def move_forward(self,amount):
+        pass
+        """self.last_pos = tuple(self.artist.pos())
+        self.artist.forward(amount)
+        self.pos = tuple(self.artist.pos())
+        self.log.lines.append(self.last_pos + self.pos)
+        """
+
+    def move_backward(self,amount):
+        pass
+
+    def jump_forward(self,amount):
+        pass
+
+    def jump_backward(self,amount):
+        pass
+
+    def turn_left(self,amount):
+        pass
+
+    def turn_right(self,amount):
+        pass
+
+#--------------------------------------------------------------------------
+
+class ArtistChallenge(Challenge):
 
     def __init__(self,config=None):
+        self.solution = Solution()
+        self.canvas = Canvas()
+        self.artist = Artist(self.canvas)
         self.uid = 'code.org'
         self.title = 'Artist'
-        self.solution = Solution()
-        self.turtle = turtle.Turtle()
-        self.turtle.pensize(7)
-        self.pos = tuple(self.turtle.pos())
-        self.log = Log()
-        self.screen = turtle.Screen()
-        self.canvas = self.screen.getcanvas()
-        #self.sprite = sprite.Sprite()
         if config:
             config_keys = config.keys()
             if 'uid' in config_keys:
@@ -73,17 +130,19 @@ class ArtistChallenge():
                 self.title += ' {}'.format(config['title'])
             for line in config['lines']:
                 self.solution.lines.append(tuple(line))
-                self.solution.number = len(self.solution.lines)
-        self.screen.title(self.title)
+                self.solution.number_lines = len(self.solution.lines)
 
     def setup(self):
         self.solution.draw(self.canvas)
         input('Ready?')
 
+    def draw_solution(self):
+        return self.solution.draw(self.canvas)
+
     def check(self):
         lines = self.log.lines
         solution = self.solution.lines
-        number = self.solution.number
+        number = self.solution.number_lines
         if len(set(lines)) != number:
             return self.try_again('Need more.')
         for line in solution:
@@ -103,52 +162,29 @@ class ArtistChallenge():
         return True
 
     def speed(self,speed):
-        return self.turtle.speed(speed)
-
-    def pen_color(self,color):
-        if color == 'random':
-            color = (random(),random(),random())
-        self.calls.append(__name__+'('+str(color)+')')
-        return self.turtle.pencolor(color)
-
-    def pen_width(self,width):
-        self.calls.append(__name__+'('+str(width)+')')
-        return self.turtle.penwidth(width)
+        return self.artist.speed(speed)
 
     def move_forward(self,amount):
-        self.last_pos = tuple(self.turtle.pos())
-        self.turtle.forward(amount)
-        self.pos = tuple(self.turtle.pos())
-        self.log.lines.append(self.last_pos + self.pos)
+        return self.artist.move_forward(amount)
 
     def move_backward(self,amount):
-        self.last_pos = tuple(self.turtle.pos())
-        self.turtle.backward(amount)
-        self.pos = tuple(self.turtle.pos())
-        self.log.lines.append(self.last_pos + self.pos)
+        return self.artist.move_backward(amount)
 
     def jump_backward(self,amount):
-        self.turtle.penup()
-        self.last_pos = tuple(self.turtle.pos())
-        self.turtle.backward(amount)
-        self.pos = tuple(self.turtle.pos())
-        self.turtle.pendown()
+        return self.artist.jump_backward(amount)
 
     def jump_forward(self,amount):
-        self.turtle.penup()
-        self.last_pos = tuple(self.turtle.pos())
-        self.turtle.forward(amount)
-        self.pos = tuple(self.turtle.pos())
-        self.turtle.pendown()
+        return self.artist.jump_forward(amount)
 
     def turn_right(self,amount):
-        #self.sprite.rotate(amount)
-        return self.turtle.right(amount)
+        return self.artist.turn_right(amount)
 
     def turn_left(self,amount):
-        #self.sprite.rotate(-amount)
-        return self.turtle.left(amount)
+        return self.artist.turn_left(amount)
 
-    def save(self,fname='artist.eps'):
-        turtle.canvas.postscript(file=fname)
+    def save(self,name=__name__):
+        self.canvas.save(name)
         
+if __name__ == '__main__':
+    print(Pen.random_color())
+    print(Pen().random_color())
