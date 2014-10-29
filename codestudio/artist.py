@@ -26,9 +26,7 @@ import tkinter as tk
 import random as r
 from .canvas import Canvas
 from .challenge import Challenge
-
-def flipy(line):
-    return (line[0],-line[1],line[2],-line[3])
+from math import radians,sin,cos
 
 #--------------------------------------------------------------------------
 
@@ -63,7 +61,7 @@ class Solution():
 
     def _draw_lines(self,canvas):
         for line in self.lines:
-            canvas.create_line(flipy(line), fill='lightgrey',
+            canvas.create_line(canvas.flipy(line), fill='lightgrey',
                     width=7,capstyle='round',arrow=None)
 
     def _draw_image(self,canvas):
@@ -71,45 +69,76 @@ class Solution():
 
 #--------------------------------------------------------------------------
 
-class Log():
-    '''Keeps track of all the lines and calls made.'''
-    lines = []
-    calls = []
+class TooManyLines(Exception):
+    pass
 
 #--------------------------------------------------------------------------
 
 class Artist():
-    def __init__(self,canvas=None,pen=Pen(),log=Log()):
+    maxlines = 10000
+    wait_for_draw = True
+    logging = True
+
+    def __init__(self,canvas=None,pen=None,linelog=[]):
         self.canvas = canvas if canvas else Canvas()
-        self.pen = pen
-        self.log = log
+        self.pen = pen if pen else Pen()
+        self.linelog = linelog
+        self.linecount = 0
+        self._cache = []
         self.x = canvas.centerx
         self.y = canvas.centery
         self.lastx = self.x
         self.lasty = self.y
+        self.direction = 0
+        self.last_direction = 0
+
+    def clear(self):
+        self._cache = []
+        self.linelog = []
+        self.linecount = 0
+
+    def draw(self):
+        for line in self._cache:
+            self.canvas.draw_line(line)
+        self._cache = []
 
     def move_forward(self,amount):
-        pass
-        """self.last_pos = tuple(self.artist.pos())
-        self.artist.forward(amount)
-        self.pos = tuple(self.artist.pos())
-        self.log.lines.append(self.last_pos + self.pos)
-        """
+        if self.linecount >= self.maxlines:
+            raise TooManyLines
+        self.lastx = self.x
+        self.lasty = self.y
+        print(self.direction)
+        self.y = round(cos(radians(self.direction)) * amount) + self.y
+        self.x = round(sin(radians(self.direction)) * amount) + self.x
+        line = (self.lastx,self.lasty,self.x,self.y)
+        print(line)
+        self._cache.append(line)
+        if self.logging:
+            self.linelog.append(line)
+        if not self.wait_for_draw:
+            self.draw()
 
     def move_backward(self,amount):
+        return move_backward(-amount)
+
+    def jump(self,amount):
         pass
 
     def jump_forward(self,amount):
-        pass
+        return self.jump(amount)
 
     def jump_backward(self,amount):
-        pass
+        return self.jump(-amount)
 
-    def turn_left(self,amount):
-        pass
+    def turn(self,amount):
+        self.last_direction = self.direction
+        self.direction += amount
 
-    def turn_right(self,amount):
-        pass
+    def turn_right(self,amount=90):
+        return self.turn(amount)
+
+    def turn_left(self,amount=90):
+        return self.turn(-amount)
 
 #--------------------------------------------------------------------------
 
@@ -134,13 +163,13 @@ class ArtistChallenge(Challenge):
 
     def setup(self):
         self.solution.draw(self.canvas)
-        input('Ready?')
 
     def draw_solution(self):
         return self.solution.draw(self.canvas)
 
     def check(self):
-        lines = self.log.lines
+        self.artist.draw()
+        lines = self.artist.linelog
         solution = self.solution.lines
         number = self.solution.number_lines
         if len(set(lines)) != number:
