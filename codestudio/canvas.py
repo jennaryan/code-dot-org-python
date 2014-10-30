@@ -16,10 +16,6 @@ class Canvas(tk.Canvas):
         self.center = (self.centerx,self.centery)
         self.title = 'codestudio'
 
-    @staticmethod
-    def flipy(line):
-        return (line[0],-line[1],line[2],-line[3])
-
     def __setattr__(self,name,value):
         super().__setattr__(name,value)
         if name == 'title': self.master.title(value)
@@ -29,13 +25,16 @@ class Canvas(tk.Canvas):
         fname = name + '.eps'
         return self.postscript(file=fname)
 
-    def draw_line(self,line,color='black',faint=False):
-        self.create_line(self.flipy(line), fill=color,
-            width=7,capstyle='round',arrow=None)
+    def draw_line(self,line,color='black',width=7):
+        n = len(line)
+        coords = (line[0],-line[1],line[2],-line[3])
+        if n >= 5: color = line[4]
+        if n >= 6: width = line[5]
+        self.create_line(coords, fill=color,
+            width=width,capstyle='round',arrow=None)
 
+    def draw_lines(self,lines,*args,**kwargs):
+        [self.draw_line(line,*args,**kwargs) for line in lines]
 
-if __name__ == '__main__':
-    c = Canvas()
-    c.title = 'Blah'
-    c.create_line(0,0,400,400,fill='red',width=7,capstyle='round')
-    tk.mainloop()
+    def draw_image(self,obj):
+        pass

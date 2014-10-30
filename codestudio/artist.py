@@ -50,7 +50,6 @@ class Pen():
 
     @staticmethod
     def random_color():
-        log.debug('random_color()')
         r = random.randint(0,255)
         g = random.randint(0,255)
         b = random.randint(0,255)
@@ -68,17 +67,9 @@ class Solution():
     def draw(self,canvas):
         '''Draws solution fast (image) or slow (lines) way'''
         if self.image:
-            return self._draw_image(canvas)
+            canvas.draw_image(self)
         else:
-            return self._draw_lines(canvas)
-
-    def _draw_lines(self,canvas):
-        for line in self.lines:
-            canvas.create_line(canvas.flipy(line), fill='lightgrey',
-                    width=7,capstyle='round',arrow=None)
-
-    def _draw_image(self,canvas):
-        pass
+            canvas.draw_lines(self.lines,color='lightgrey')
 
 #--------------------------------------------------------------------------
 
@@ -133,8 +124,7 @@ class Artist():
         self.linecount = 0
 
     def draw(self):
-        for line in self._cache:
-            self.canvas.draw_line(line,color=self.pen.color)
+        self.canvas.draw_lines(self._cache)
         self._cache = []
 
     @staticmethod
@@ -156,7 +146,8 @@ class Artist():
         self.lastx = self.x
         self.lasty = self.y
         self._move(amount)
-        line = (self.lastx,self.lasty,self.x,self.y)
+        line = (self.lastx,self.lasty,self.x,self.y,
+                self.pen.color,self.pen.width)
         self._cache.append(line)
         if self.logging:
             self.linelog.append(line)
@@ -218,13 +209,14 @@ class ArtistChallenge(Challenge):
 
     def check(self):
         self.artist.draw()
-        lines = self.artist.linelog
+        lines = [tuple(l[0:4]) for l in self.artist.linelog]
         solution = self.solution.lines
         number = self.solution.number_lines
         if len(set(lines)) != number:
             return self.try_again('Need more.')
         for line in solution:
             backward = (line[2],line[3],line[0],line[1])
+            # TODO raise instead of return
             if line not in lines and backward not in lines:
                 return self.try_again('Missing' + str(line))
         return self.good_job()
@@ -268,20 +260,3 @@ class ArtistChallenge(Challenge):
 
     def save_eps(self,name=__name__):
         self.canvas.save_eps(name)
-        
-if __name__ == '__main__':
-    print(Pen.random_color())
-    print(Pen().random_color())
-
-    def turn_right(self,amount):
-        return self.artist.turn_right(amount)
-
-    def turn_left(self,amount):
-        return self.artist.turn_left(amount)
-
-    def save(self,name=__name__):
-        self.canvas.save(name)
-        
-if __name__ == '__main__':
-    print(Pen.random_color())
-    print(Pen().random_color())
