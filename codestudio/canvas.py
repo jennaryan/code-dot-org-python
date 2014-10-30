@@ -5,6 +5,8 @@ class Canvas(tk.Canvas):
     S = 180
     E = 90
     W = 270
+    delay = 1
+    slowest = 1000
 
     def __init__(self,master=None):
         self.master = master if master else tk.Tk()
@@ -15,10 +17,15 @@ class Canvas(tk.Canvas):
         self.centery = 0
         self.center = (self.centerx,self.centery)
         self.title = 'codestudio'
+        self._delay = 0
 
     def __setattr__(self,name,value):
+        if name == 'title':
+            self.master.title(value)
+        if name == 'speed':
+            if value == 0: value = 1
+            self._delay = round((1/value) * self.slowest)
         super().__setattr__(name,value)
-        if name == 'title': self.master.title(value)
 
     def save_eps(self,name):
         #TODO check for existing fname and if so just increment name by 1
@@ -32,6 +39,8 @@ class Canvas(tk.Canvas):
         if n >= 6: width = line[5]
         self.create_line(coords, fill=color,
             width=width,capstyle='round',arrow=None)
+        self.after(self._delay)
+        self.update()
 
     def draw_lines(self,lines,*args,**kwargs):
         [self.draw_line(line,*args,**kwargs) for line in lines]

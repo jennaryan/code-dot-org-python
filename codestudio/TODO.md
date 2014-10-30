@@ -7,3 +7,6 @@
     slow down extremely higher speed playbacks
 * throw exception from check instead of returning   
 * option check() for matching color and matching penwidth
+* Sprite
+* Maze
+* Farmer

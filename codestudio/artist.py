@@ -1,8 +1,16 @@
 r'''The basis for the Artist challenges from <http://code.org> built
 on `tkinter` only. 
 
-Artist is a similar to the great `turtle` standard module for teaching
-programming but with these main differences:
+Artist is similar to the great `turtle` standard module for teaching
+programming but builds on a foundation of challenge and solution, (which
+`turtle` does not):
+
+- Solutions created by students with Artist can be checked against
+  a known solution saved as JSON.
+
+- New challenges can be created with Artist by simply `artist.save()` and
+  creating challenge stub programs for students to complete that `load()`
+  the saved challenge. 
 
 - Artist has only `move_*`, `turn_*`, and `jump_*` and always uses
   verbs to begin method and function names.
@@ -18,7 +26,14 @@ programming but with these main differences:
 
 - Artist metaphor matches 'canvas' metaphor used in all graphics coding.
 
-- Artist challenge and solution paths can be loaded and saved in JSON
+- Artist draws lines individually instead of updating a single line with
+  new coordinates so that the `lineslog` can be checked to see if the
+  line was drawn forward or backward and give credit for that specific
+  line segment. This allows set() to isolate the essential lines when
+  checking solutions without throwing out an otherwise good solution
+  that was drawn in a different way. This is critical for code.org
+  challenges since often there is more than one way to retrace drawn lines
+  to get to a new position.
 
 '''
 
@@ -80,11 +95,12 @@ class TooManyLines(Exception):
 
 class Artist():
     maxlines = 10000
-    wait_for_draw = True
+    wait_for_draw = False
     logging = True
 
     def __init__(self,canvas=None,pen=None,linelog=[],
-            startx=0,starty=0,start_direction=0):
+            startx=0,starty=0,start_direction=0,
+            speed=75):
         self.canvas = canvas if canvas else Canvas()
         self.pen = pen if pen else Pen()
         self.linelog = linelog
@@ -99,6 +115,12 @@ class Artist():
         self.direction = 0
         self.start_direction = start_direction
         self.last_direction = 0
+        self.speed = speed
+
+    def __setattr__(self,name,value):
+        if name == 'speed':
+            self.canvas.speed = value
+        super().__setattr__(name,value)
 
     def __str__(self):
         return json.dumps({
