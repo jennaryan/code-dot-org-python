@@ -18,8 +18,8 @@ class Canvas(tk.Canvas):
     def __init__(self,master=None,speed='normal'):
         self.master = master if master else tk.Tk()
         self.speed = speed
-        super().__init__(self.master,height=400,width=400,
-                bg='white',scrollregion=(-200,-200,200,200))
+        super().__init__(self.master,height=800,width=800,
+                bg='white',scrollregion=(-400,-400,400,400))
         self.pack()
         self.centerx = 0
         self.centery = 0

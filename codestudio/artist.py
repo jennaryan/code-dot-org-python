@@ -44,8 +44,14 @@ from .challenge import Challenge
 from math import radians,sin,cos
 from codecs import encode
 import json
+from os import path
 #import logging as log
 #log.basicConfig(level=log.DEBUG)
+
+from datetime import datetime
+
+def tstamp():
+    return datetime.now().strftime("%Y%m%d%H%M%S")
 
 #--------------------------------------------------------------------------
 
@@ -138,7 +144,23 @@ class Artist():
                 "color": self.pen.color,
                 "width": self.pen.width
             }
-        })
+        }, sort_keys=True, indent=2)
+
+    def save(self,name=None,fname=None):
+        if not name and not fname:
+            name = path.splitext(path.basename(__file__))[0]
+            name = name + tstamp()
+        with open(fname,'w') as f:
+            f.write(str(self))
+
+    def save_as_solution(self,name=None,fname=None):
+        # TODO convert from save to solution
+        if path.isdir('challenges'):
+            fname = path.join('challenges', name + '.json')
+            assert not path.isfile(fname), '{} already exists'.format(name)
+        else:
+            fname = name + '.json' 
+        return self.save(fname=fname)
 
     def clear(self):
         self._cache = []
@@ -220,15 +242,19 @@ class ArtistChallenge(Challenge):
                 self.title += ' {}'.format(config['title'])
             if 'start-direction' in config_keys:
                 self.artist.direction = config['start-direction']
-            for line in config['lines']:
-                self.solution.lines.append(tuple(line))
-                self.solution.number_lines = len(self.solution.lines)
+            if 'lines' in config_keys:
+                for line in config['lines']:
+                    self.solution.lines.append(tuple(line))
+                    self.solution.number_lines = len(self.solution.lines)
 
     def setup(self):
         self.solution.draw(self.canvas)
 
     def draw_solution(self):
         return self.solution.draw(self.canvas)
+
+    def save_as_solution(self):
+        return self.artist.save_as_solution(self.uid)
 
     def check(self):
         self.artist.draw()
@@ -246,12 +272,10 @@ class ArtistChallenge(Challenge):
 
     def try_again(self,msg=''):
         print('Nope.',msg)
-        input()
         return False
 
     def good_job(self,msg=None):
         print('Perfect! Congrats!')
-        input()
         return True
 
     def speed(self,speed):

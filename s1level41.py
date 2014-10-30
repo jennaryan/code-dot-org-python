@@ -1,7 +1,7 @@
 import codestudio
-artist = codestudio.load('s1level41')
+artist = codestudio.create('s1level41','artist')
 
-artist.turn_left(90)
+artist.speed = 'fastest'
 
 for count in range(10):
     artist.pen.color = 'random'
@@ -10,6 +10,5 @@ for count in range(10):
         artist.turn_right(90)
     artist.move_forward(20)
 
-artist.check()
-#print(artist.artist)
+artist.save_as_solution()
 
