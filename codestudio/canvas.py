@@ -6,10 +6,18 @@ class Canvas(tk.Canvas):
     E = 90
     W = 270
     delay = 1
-    slowest = 1000
+    speed_scale = 1000
+    speed_slowest = 0.5
+    speed_slower = 5 
+    speed_slow = 10 
+    speed_normal = 20 
+    speed_fast = 40
+    speed_faster = 80
+    speed_fastest = 0 
 
-    def __init__(self,master=None,speed=10):
+    def __init__(self,master=None,speed='normal'):
         self.master = master if master else tk.Tk()
+        self.speed = speed
         super().__init__(self.master,height=400,width=400,
                 bg='white',scrollregion=(-200,-200,200,200))
         self.pack()
@@ -24,8 +32,18 @@ class Canvas(tk.Canvas):
         if name == 'title':
             self.master.title(value)
         if name == 'speed':
-            if value == 0: value = 1
-            self._delay = round((1/value) * self.slowest)
+            if isinstance(value,str):
+                if   value == 'fastest': value = self.speed_fastest
+                elif value == 'faster' : value = self.speed_faster
+                elif value == 'fast'   : value = self.speed_fast
+                elif value == 'normal' : value = self.speed_normal
+                elif value == 'slow'   : value = self.speed_slow
+                elif value == 'slower' : value = self.speed_slower
+                elif value == 'slowest': value = self.speed_slowest
+            if value == 0: 
+                self._delay = 0
+            else:
+                self._delay = round((1/value) * self.speed_scale)
         super().__setattr__(name,value)
 
     def save_eps(self,name):
@@ -45,8 +63,7 @@ class Canvas(tk.Canvas):
 
     def delay(self,amount=None):
         amount = amount if amount else self._delay
-        print('delaying {}'.format(amount))
-        self.after(amount)
+        if amount != 0: self.after(amount)
 
     def draw_lines(self,lines,*args,**kwargs):
         [self.draw_line(line,*args,**kwargs) for line in lines]

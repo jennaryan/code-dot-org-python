@@ -100,7 +100,7 @@ class Artist():
 
     def __init__(self,canvas=None,pen=None,linelog=[],
             startx=0,starty=0,start_direction=0,
-            speed=7):
+            speed=20):
         self.canvas = canvas if canvas else Canvas()
         self.pen = pen if pen else Pen()
         self.linelog = linelog
