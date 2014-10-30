@@ -44,8 +44,8 @@ from .challenge import Challenge
 from math import radians,sin,cos
 from codecs import encode
 import json
-import logging as log
-log.basicConfig(level=log.DEBUG)
+#import logging as log
+#log.basicConfig(level=log.DEBUG)
 
 #--------------------------------------------------------------------------
 
@@ -100,7 +100,7 @@ class Artist():
 
     def __init__(self,canvas=None,pen=None,linelog=[],
             startx=0,starty=0,start_direction=0,
-            speed=75):
+            speed=7):
         self.canvas = canvas if canvas else Canvas()
         self.pen = pen if pen else Pen()
         self.linelog = linelog
@@ -192,6 +192,7 @@ class Artist():
     def turn(self,amount):
         self.last_direction = self.direction
         self.direction += amount
+        self.canvas.delay()
 
     def turn_right(self,amount=90):
         self.turn(amount)

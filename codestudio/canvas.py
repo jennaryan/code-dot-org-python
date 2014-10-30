@@ -8,7 +8,7 @@ class Canvas(tk.Canvas):
     delay = 1
     slowest = 1000
 
-    def __init__(self,master=None):
+    def __init__(self,master=None,speed=10):
         self.master = master if master else tk.Tk()
         super().__init__(self.master,height=400,width=400,
                 bg='white',scrollregion=(-200,-200,200,200))
@@ -18,6 +18,7 @@ class Canvas(tk.Canvas):
         self.center = (self.centerx,self.centery)
         self.title = 'codestudio'
         self._delay = 0
+        self.speed = speed 
 
     def __setattr__(self,name,value):
         if name == 'title':
@@ -39,8 +40,13 @@ class Canvas(tk.Canvas):
         if n >= 6: width = line[5]
         self.create_line(coords, fill=color,
             width=width,capstyle='round',arrow=None)
-        self.after(self._delay)
+        self.delay()
         self.update()
+
+    def delay(self,amount=None):
+        amount = amount if amount else self._delay
+        print('delaying {}'.format(amount))
+        self.after(amount)
 
     def draw_lines(self,lines,*args,**kwargs):
         [self.draw_line(line,*args,**kwargs) for line in lines]
