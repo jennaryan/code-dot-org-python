@@ -24,7 +24,7 @@ class Canvas(tk.Canvas):
         super().__setattr__(name,value)
         if name == 'title': self.master.title(value)
 
-    def save(self,name):
+    def save_eps(self,name):
         #TODO check for existing fname and if so just increment name by 1
         fname = name + '.eps'
         return self.postscript(file=fname)
