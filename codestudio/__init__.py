@@ -35,6 +35,7 @@ from os import path
 def load(uid):
     '''Loads an artist challenge config (json) file'''
     fname = path.join('challenges',uid+'.json')
+    assert path.isfile(fname), 'Challenge {} not yet ready.'.format(uid) 
     with open(fname, 'r') as f:
         config = json.load(f)
         if not 'uid' in config.keys(): config['uid'] = uid

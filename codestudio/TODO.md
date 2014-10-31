@@ -1,3 +1,4 @@
+* give \*Challenge classes own `load` and `create` methods
 * save_svg
 * rather than log the artist rotations, infer the new rotation
     for each line drawn in the order in the log (asin, acos) and
