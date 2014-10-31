@@ -1,8 +1,9 @@
 import codestudio
 artist = codestudio.load('s1level25')
 
-# TODO set the pen color to red
+artist.pen.color= 'red'
+artist.move_forward(100)
 
-# TODO draw a square one step at a time
+# TODO complete the square
 
 artist.check()
