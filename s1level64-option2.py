@@ -1,26 +1,14 @@
-''' s1level64
-var counter;
-
-for (counter = 50; counter <= 90; counter += 10) {
-   // draw_a_square
-   for (var count = 0; count < 4; count++) {
-        moveForward((counter));
-        turnRight(90);
-   }
-}
-'''
-
 import codestudio
+artist = codestudio.load('s1level64')
 
-class Artist(codestudio.Artist):
-    def draw_square(self,size):
-        for count in range(4):
-            self.move_forward(size)
-            self.turn_right(90)
+# good, but uses a global artist, which is not best
 
-artist = Artist()
+def draw_square(size):
+    for count in range(4):
+        artist.move_forward(size)
+        artist.turn_right(90)
 
 for counter in range(50,90,10):
-    artist.draw_square(counter)
+    draw_square(counter)
 
-codestudio.exitonclick()
+artist.check()

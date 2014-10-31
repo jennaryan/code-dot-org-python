@@ -58,7 +58,6 @@ def create(uid,ctype,start_direction=0):
     assert not path.isfile(fname), '{} already exists'.format(fname)
     config = {
         'uid': uid,
-        'type': ctype,
         'start-direction': start_direction
     }
     if ctype == 'artist':

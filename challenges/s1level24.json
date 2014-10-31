@@ -1,9 +1,1 @@
-{
-  "type": "artist",
-  "uid": "s1level24",
-  "start-direction": 90,
-  "lines": [
-    [0,0,100,0],
-    [100,0,100,-100]
-  ]
-}
+{"y": -100, "pen": {"color": "black", "width": 7}, "type": "artist", "lastx": 100, "x": 100, "start-direction": 90, "lines": [[0, 0, 100, 0, "black", 7], [100, 0, 100, -100, "black", 7]], "lasty": 0, "starty": 0, "startx": 0, "direction": 180}

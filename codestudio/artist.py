@@ -82,7 +82,6 @@ class Solution():
 
     def __init__(self):
         self.lines = []
-        self.linecount = []
         self.image = None
 
     def draw(self,canvas):
@@ -94,14 +93,7 @@ class Solution():
 
 #--------------------------------------------------------------------------
 
-class TooManyLines(Exception):
-    pass
-
-#--------------------------------------------------------------------------
-
 class Artist():
-    maxlines = 10000
-    wait_for_draw = False
     logging = True
 
     def __init__(self,canvas=None,pen=None,lines=[],
@@ -110,7 +102,6 @@ class Artist():
         self.canvas = canvas if canvas else Canvas()
         self.pen = pen if pen else Pen()
         self.lines = lines
-        self.linecount = 0
         self._cache = []
         self.startx = startx
         self.starty = starty
@@ -133,8 +124,8 @@ class Artist():
 
     def _json(self):
         return {
+            "type" : 'artist',
             "lines" : self.lines,
-            "linecount" : self.linecount,
             "startx": self.startx,
             "starty": self.starty,
             "lastx": self.lastx,
@@ -150,25 +141,20 @@ class Artist():
         }
 
     def save(self,name=None,fname=None):
+        if path.isdir('challenges'):
+            fname = path.join('challenges', name + '.json')
+            assert not path.isfile(fname), '{} already exists'.format(name)
+        else:
+            fname = name + '.json' 
         if not name and not fname:
             name = path.splitext(path.basename(__file__))[0]
             name = name + tstamp()
         with open(fname,'w') as f:
             f.write(str(self))
 
-    def save_as_solution(self,name=None,fname=None):
-        # TODO convert from save to solution
-        if path.isdir('challenges'):
-            fname = path.join('challenges', name + '.json')
-            assert not path.isfile(fname), '{} already exists'.format(name)
-        else:
-            fname = name + '.json' 
-        return self.save(fname=fname)
-
     def clear(self):
         self._cache = []
         self.lines = []
-        self.linecount = 0
 
     def draw(self):
         self.canvas.draw_lines(self._cache)
@@ -188,8 +174,6 @@ class Artist():
                                            self.direction,amount)
 
     def move(self,amount):
-        if self.linecount >= self.maxlines:
-            raise TooManyLines
         self.lastx = self.x
         self.lasty = self.y
         self._move(amount)
@@ -198,8 +182,7 @@ class Artist():
         self._cache.append(line)
         if self.logging:
             self.lines.append(line)
-        if not self.wait_for_draw:
-            self.draw()
+        self.draw()
 
     move_forward = move
 
@@ -249,7 +232,6 @@ class ArtistChallenge(Challenge):
             if 'lines' in config_keys:
                 for line in config['lines']:
                     self.solution.lines.append(tuple(line))
-                    self.solution.linecount = len(self.solution.lines)
 
     def setup(self):
         self.solution.draw(self.canvas)
@@ -257,13 +239,13 @@ class ArtistChallenge(Challenge):
     def draw_solution(self):
         return self.solution.draw(self.canvas)
 
-    def save_as_solution(self):
-        return self.artist.save_as_solution(self.uid)
+    def save(self):
+        return self.artist.save(self.uid)
 
     def check(self):
         lines = [tuple(l[0:4]) for l in self.artist.lines]
-        solution = self.solution.lines
-        number = self.solution.linecount
+        solution = [tuple(l[0:4]) for l in self.solution.lines]
+        number = len(set(solution))
         if len(set(lines)) != number:
             return self.try_again('Need more.')
         for line in solution:

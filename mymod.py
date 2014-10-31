@@ -1,6 +1,6 @@
 '''
-As you port add your functions and class extensions here so you can use
-them again in other challenges.
+Add your functions to this library module to use them again
+in other challenges.
 '''
 
 import codestudio
@@ -33,45 +33,13 @@ are ways of doing these things, but once you start, you've headed down
 the dark path of inheritance.
 '''
 
-class Artist(codestudio.Artist):
+class Artist(codestudio.artist.Artist):
     def draw_square(self,size):
         for count in range(4):
             self.move_forward(size)
             self.turn_right(90)
 
-#---------------------------------------------------------------------------
-'''
-Extending a Class: Binding Methods (and Monkey Patching)
-
-Extending a class this way changes the actual class itself rather than
-creating a new subclass. We simply define a method and add (bind) it to
-a class we've already defined someplace else.
-
-This is commonly found in dynamic languages such as Python, Ruby, Perl
-and especially JavaScript where it is the standard way to define classes
-in the first place.
-
-Extending this way can even be done while the program is running (or
-'runtime') in which case extending this way is called 'monkey patching',
-which refers to changing a pre-defined class in any way after the program
-has started.  Some frown upon this because they claim it can make the
-class hard to keep track of. Others argue this is always better over
-the confusion of inheritance.
-
-In this case we are not 'monkey patching' because we add to the class
-before the program ever starts.
-'''
-
-def draw_square(self,size):
-    for count in range(4):
-        self.move_forward(size)
-        self.turn_right(90)
-
-'''
-Here's where the bind happens. Note that 'draw_square' does not have
-parentheses '()' after it. This copies the reference to the method instead
-of running the method and passing the return value.
-'''
-
-codestudio.Artist.draw_square = draw_square
+class ArtistChallenge(codestudio.artist.ArtistChallenge):
+    def draw_square(self,size):
+        self.artist.draw_square(size)
 
