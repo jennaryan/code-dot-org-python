@@ -82,7 +82,7 @@ class Solution():
 
     def __init__(self):
         self.lines = []
-        self.number_lines = []
+        self.linecount = []
         self.image = None
 
     def draw(self,canvas):
@@ -104,12 +104,12 @@ class Artist():
     wait_for_draw = False
     logging = True
 
-    def __init__(self,canvas=None,pen=None,linelog=[],
+    def __init__(self,canvas=None,pen=None,lines=[],
             startx=0,starty=0,start_direction=0,
             speed=20):
         self.canvas = canvas if canvas else Canvas()
         self.pen = pen if pen else Pen()
-        self.linelog = linelog
+        self.lines = lines
         self.linecount = 0
         self._cache = []
         self.startx = startx
@@ -129,8 +129,11 @@ class Artist():
         super().__setattr__(name,value)
 
     def __str__(self):
-        return json.dumps({
-            "linelog" : self.linelog,
+        return json.dumps(self._json())
+
+    def _json(self):
+        return {
+            "lines" : self.lines,
             "linecount" : self.linecount,
             "startx": self.startx,
             "starty": self.starty,
@@ -144,7 +147,7 @@ class Artist():
                 "color": self.pen.color,
                 "width": self.pen.width
             }
-        }, sort_keys=True, indent=2)
+        }
 
     def save(self,name=None,fname=None):
         if not name and not fname:
@@ -164,7 +167,7 @@ class Artist():
 
     def clear(self):
         self._cache = []
-        self.linelog = []
+        self.lines = []
         self.linecount = 0
 
     def draw(self):
@@ -194,7 +197,7 @@ class Artist():
                 self.pen.color,self.pen.width)
         self._cache.append(line)
         if self.logging:
-            self.linelog.append(line)
+            self.lines.append(line)
         if not self.wait_for_draw:
             self.draw()
 
@@ -242,10 +245,11 @@ class ArtistChallenge(Challenge):
                 self.title += ' {}'.format(config['title'])
             if 'start-direction' in config_keys:
                 self.artist.direction = config['start-direction']
+                self.artist.start_direction = config['start-direction']
             if 'lines' in config_keys:
                 for line in config['lines']:
                     self.solution.lines.append(tuple(line))
-                    self.solution.number_lines = len(self.solution.lines)
+                    self.solution.linecount = len(self.solution.lines)
 
     def setup(self):
         self.solution.draw(self.canvas)
@@ -257,10 +261,9 @@ class ArtistChallenge(Challenge):
         return self.artist.save_as_solution(self.uid)
 
     def check(self):
-        self.artist.draw()
-        lines = [tuple(l[0:4]) for l in self.artist.linelog]
+        lines = [tuple(l[0:4]) for l in self.artist.lines]
         solution = self.solution.lines
-        number = self.solution.number_lines
+        number = self.solution.linecount
         if len(set(lines)) != number:
             return self.try_again('Need more.')
         for line in solution:

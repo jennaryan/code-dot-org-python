@@ -37,7 +37,7 @@ def load(uid):
     fname = path.join('challenges',uid+'.json')
     with open(fname, 'r') as f:
         config = json.load(f)
-        if not config['uid']: config['uid'] = uid
+        if not 'uid' in config.keys(): config['uid'] = uid
         ctype = config['type']
         if ctype == 'artist':
             challenge = ArtistChallenge(config)
@@ -47,16 +47,20 @@ def load(uid):
             challenge = FarmerChallege(config)
         else:
             raise Exception('Invalid or missing challenge type')
+    challenge.speed = 'fastest'
     challenge.setup()
+    challenge.speed = 'normal'
     return challenge
 
-def create(uid,ctype):
+def create(uid,ctype,start_direction=0):
     '''Combine with `save_as_solution()` to create new challenges'''
     fname = path.join('challenges',uid+'.json')
     assert not path.isfile(fname), '{} already exists'.format(fname)
-    config = {}
-    config['uid'] = uid
-    config['type'] = ctype
+    config = {
+        'uid': uid,
+        'type': ctype,
+        'start-direction': start_direction
+    }
     if ctype == 'artist':
         challenge = ArtistChallenge(config)
     elif ctype == 'maze':
