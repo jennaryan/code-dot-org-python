@@ -62,12 +62,15 @@ Keep in mind that if you want to change your saved challenge later you
 will have to remove the `json` file in the `challenges` folder that you
 saved for it.
 
-Can't Find CodeStudio?
+Gotchas for Developers
 ======================
 
-Try adding `..` to your `PYTHONPATH` however that works for you:
+Don't forget to add the following two lines so that folks can just
+solve these extras without moving anything or setting their
+`PYTHONPATH`, which they might not have learned how to do yet:
 
 ```
-PYTHONPATH=.. python3 sample.py
+import sys
+sys.path.append('..')
 ```
 

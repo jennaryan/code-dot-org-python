@@ -140,13 +140,13 @@ class Artist():
         }
 
     def save(self,name=None,fname=None):
-        if path.isdir('challenges'):
-            fname = path.join('challenges', name + '.json')
-            assert not path.isfile(fname), '{} exists'.format(name)
+        if os.path.isdir('challenges'):
+            fname = os.path.join('challenges', name + '.json')
+            assert not os.path.isfile(fname), '{} exists'.format(name)
         else:
             fname = name + '.json' 
         if not name and not fname:
-            name = path.splitext(path.basename(__file__))[0]
+            name = os.path.splitext(os.path.basename(__file__))[0]
             name = name + tstamp()
         with open(fname,'w') as f:
             f.write(str(self))
@@ -246,19 +246,21 @@ class ArtistChallenge(Challenge):
         solution = [tuple(l[0:4]) for l in self.solution.lines]
         number = len(set(solution))
         if len(set(lines)) != number:
-            return self.try_again('Need more.')
+            return self.try_again()
         for line in solution:
             backward = (line[2],line[3],line[0],line[1])
             if line not in lines and backward not in lines:
-                return self.try_again('Missing' + str(line))
+                return self.try_again()
         return self.good_job()
 
-    def try_again(self,msg=''):
-        print('Nope.',msg)
+    def try_again(self,message='Nope'):
+        # TODO replace with a canvas splash window graphic
+        print(message)
         self.canvas.exit_on_click()
 
-    def good_job(self,msg=None):
-        print('Perfect! Congrats!')
+    def good_job(self,message='Perfect! Congrats!'):
+        # TODO replace with a canvas splash window graphic
+        print(message)
         self.canvas.exit_on_click()
 
     def speed(self,speed):
