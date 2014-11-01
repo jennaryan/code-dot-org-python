@@ -61,3 +61,13 @@ artist.check()
 Keep in mind that if you want to change your saved challenge later you
 will have to remove the `json` file in the `challenges` folder that you
 saved for it.
+
+Can't Find CodeStudio?
+======================
+
+Try adding `..` to your `PYTHONPATH` however that works for you:
+
+```
+PYTHONPATH=.. python3 sample.py
+```
+

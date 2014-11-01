@@ -256,15 +256,11 @@ class ArtistChallenge(Challenge):
 
     def try_again(self,msg=''):
         print('Nope.',msg)
-        self.canvas.bind('<Button>',lambda s: exit())
-        self.canvas.mainloop()
-        return False
+        self.canvas.exit_on_click()
 
     def good_job(self,msg=None):
         print('Perfect! Congrats!')
-        self.canvas.bind('<Button>',lambda s: exit())
-        self.canvas.mainloop()
-        return True
+        self.canvas.exit_on_click()
 
     def speed(self,speed):
         return self.artist.speed(speed)

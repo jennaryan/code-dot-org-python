@@ -29,6 +29,10 @@ class Canvas(tk.Canvas):
         self._delay = 0
         self.speed = speed 
 
+    def exit_on_click(self):
+        self.bind('<Button>',lambda s: exit())
+        self.mainloop()
+
     def __setattr__(self,name,value):
         if name == 'title':
             self.master.title(value)
