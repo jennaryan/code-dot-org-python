@@ -253,7 +253,7 @@ class ArtistChallenge(Challenge):
                 return self.try_again()
         return self.good_job()
 
-    def try_again(self,message='Nope'):
+    def try_again(self,message='Nope.'):
         # TODO replace with a canvas splash window graphic
         print(message)
         self.canvas.exit_on_click()

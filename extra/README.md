@@ -65,6 +65,8 @@ saved for it.
 Gotchas for Developers
 ======================
 
+# Don't forget `sys.path.append('..')`
+
 Don't forget to add the following two lines so that folks can just
 solve these extras without moving anything or setting their
 `PYTHONPATH`, which they might not have learned how to do yet:
@@ -74,3 +76,8 @@ import sys
 sys.path.append('..')
 ```
 
+# You don't need `__author__` and `__credits__`
+
+People can see who contributed what by looking where they should, at
+the source files on GitHub. Adding these tags just makes more work
+to maintain them.
