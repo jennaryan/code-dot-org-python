@@ -9,7 +9,6 @@ def hello_world():
     print("Hello from 'mymod'")
 
 def draw_square(artist,size):
-    for count in range(4):
-        artist.move_forward(size)
-        artist.turn_right(90)
+    # TODO draw a square based on size parameter
+    pass
 

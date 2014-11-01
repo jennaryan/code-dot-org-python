@@ -250,17 +250,20 @@ class ArtistChallenge(Challenge):
             return self.try_again('Need more.')
         for line in solution:
             backward = (line[2],line[3],line[0],line[1])
-            # TODO raise instead of return
             if line not in lines and backward not in lines:
                 return self.try_again('Missing' + str(line))
         return self.good_job()
 
     def try_again(self,msg=''):
         print('Nope.',msg)
+        self.canvas.bind('<Button>',lambda s: exit())
+        self.canvas.mainloop()
         return False
 
     def good_job(self,msg=None):
         print('Perfect! Congrats!')
+        self.canvas.bind('<Button>',lambda s: exit())
+        self.canvas.mainloop()
         return True
 
     def speed(self,speed):
