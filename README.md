@@ -22,6 +22,12 @@ consistently, even automatically.
 Detailed descriptions of the sections of each ported Python file are
 embedded as comments in these examples.
 
-As students progress in their porting to more complicated challenges that
-require use and creation of functions they put them into their own version
-of the `mymod` module file. 
+As students progress in their porting to more complicated challenges
+that require use and creation of functions they put them into their own
+version of the `mymod` module file.
+
+Finally students can create their own `extra` challenges
+for themselves and others by contributing to the [extra
+collection](http://github.com/skilstak/code-org-python/tree/master/extra),
+which may eventually become its own site to students to challenge
+each other.
