@@ -37,21 +37,20 @@ programming but builds on a foundation of challenge and solution, (which
 
 '''
 
-import tkinter as tk
+import json
 import random
+import os
+import math
+import datetime
+
 from .canvas import Canvas
 from .challenge import Challenge
-from math import radians,sin,cos
-from codecs import encode
-import json
-from os import path
-#import logging as log
-#log.basicConfig(level=log.DEBUG)
+from .sprite import Sprite
 
-from datetime import datetime
+#--------------------------------------------------------------------------
 
 def tstamp():
-    return datetime.now().strftime("%Y%m%d%H%M%S")
+    return datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
 #--------------------------------------------------------------------------
 
@@ -143,7 +142,7 @@ class Artist():
     def save(self,name=None,fname=None):
         if path.isdir('challenges'):
             fname = path.join('challenges', name + '.json')
-            assert not path.isfile(fname), '{} already exists'.format(name)
+            assert not path.isfile(fname), '{} exists'.format(name)
         else:
             fname = name + '.json' 
         if not name and not fname:
@@ -165,8 +164,8 @@ class Artist():
         '''Returns a new (x,y) coordinate after adding the amount in
         the given direction
         '''
-        newx = round(sin(radians(direction)) * amount) + x
-        newy = round(cos(radians(direction)) * amount) + y
+        newx = round(math.sin(math.radians(direction)) * amount) + x
+        newy = round(math.cos(math.radians(direction)) * amount) + y
         return (newx,newy)
 
     def _move(self,amount):
