@@ -18,8 +18,10 @@ needing code.org or even to be online, but looking back at completed
 clean, curly-free syntax means that the count of lines of code directly
 translates to number of blocks allowed from the puzzles.
 
-Students save their work into a `code-org` repo so it can be checked
-consistently, even automatically.
+Students fork this repo or download the zip (to the right on github.com) and
+complete the challenges with a vanilla installation of Python on their local
+computer. The results of their code solutions is checked against a saved
+solution (in JSON format) in the `challenges` directory.
 
 Detailed descriptions of the sections of each ported Python file are
 embedded as comments in these examples.
