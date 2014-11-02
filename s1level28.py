@@ -1,9 +1,13 @@
+"""Puzzle 5 of 10
+
+Now, for practice, draw a triangle and then a square to draw an envelope.
+
+"""
+
 import codestudio
 artist = codestudio.load('s1level28')
 
 for count in range(3):
-    # TODO draw a square
-    # TODO draw part of a triangle to make an envelope
-    pass
+    pass # replace
     
 artist.check()

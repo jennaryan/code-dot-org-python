@@ -1,6 +1,3 @@
-__author__ = 'code.org'
-__contributors__ = ['SkilStak Coding Arts']
-
 import codestudio
 artist = codestudio.load('s1level41')
 

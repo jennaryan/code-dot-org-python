@@ -1,3 +1,4 @@
+* lines of code counter
 * hint system
     * basic parse code with reg expressions
     * pluggable so others can contribute

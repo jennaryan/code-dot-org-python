@@ -164,8 +164,8 @@ class Artist():
         '''Returns a new (x,y) coordinate after adding the amount in
         the given direction
         '''
-        newx = round(math.sin(math.radians(direction)) * amount) + x
-        newy = round(math.cos(math.radians(direction)) * amount) + y
+        newx = (math.sin(math.radians(direction) * amount)) + x
+        newy = (math.cos(math.radians(direction) * amount)) + y
         return (newx,newy)
 
     def _move(self,amount):
@@ -253,7 +253,7 @@ class ArtistChallenge(Challenge):
                 return self.try_again()
         return self.good_job()
 
-    def try_again(self,message='Nope.'):
+    def try_again(self,message='Nope. Try again.'):
         # TODO replace with a canvas splash window graphic
         print(message)
         self.canvas.exit_on_click()
@@ -263,6 +263,9 @@ class ArtistChallenge(Challenge):
         print(message)
         self.canvas.exit_on_click()
 
+    def wait_for_click(self):
+        return self.good_job('Beautiful!')
+
     def speed(self,speed):
         return self.artist.speed(speed)
 
@@ -271,7 +274,13 @@ class ArtistChallenge(Challenge):
 
     move_forward = move
 
-    def move_backward(self,amount):
+    def forward(self,amount=100):
+        return self.move(amount)
+
+    def move_backward(self,amount=100):
+        return self.move(-amount)
+
+    def backward(self,amount=100):
         return self.move(-amount)
 
     def jump(self,amount):
@@ -279,7 +288,7 @@ class ArtistChallenge(Challenge):
 
     jump_forward = jump
 
-    def jump_backward(self,amount):
+    def jump_backward(self,amount=100):
         return self.jump(-amount)
 
     def turn(self,amount):
@@ -287,8 +296,14 @@ class ArtistChallenge(Challenge):
 
     turn_right = turn
 
-    def turn_left(self,amount):
-        return self.artist.turn_left(amount)
+    def right(self,amount=90):
+        return self.turn(amount)
+
+    def turn_left(self,amount=90):
+        return self.artist.turn(-amount)
+
+    def left(self,amount=90):
+        return self.turn(-amount)
 
     def save_eps(self,name=__name__):
         self.canvas.save_eps(name)

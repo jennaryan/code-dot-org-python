@@ -1,14 +1,12 @@
-'''
-Add your functions to this library module to use them again
-in other challenges.
-'''
+"""Example module to contain functions and variables to reuse.
+
+This file gets loaded as a module (sometimes also called a library) when
+you call `import mymod` in your scripts.
+
+"""
 
 import codestudio
 
-def hello_world():
-    print("Hello from 'mymod'")
-
 def draw_square(artist,size):
-    # TODO draw a square based on size parameter
-    pass
+    pass # TODO replace with code to draw a square
 
