@@ -1,5 +1,5 @@
-Code.org Introduction to Computer Science in Python
-===================================================
+Code.org Intro to Computer Science in Python
+============================================
 
 Often coding is about creative expression, but not always. Sometimes the
 working world demands coders &mdash; especially juniors &mdash; to create
