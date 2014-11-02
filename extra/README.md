@@ -23,7 +23,7 @@ import sys
 sys.path.append('..')
 
 import codestudio
-artist = codestudio.create('square-loop','artist',90)
+artist = codestudio.create('square-loop','artist',90,0,0)
 
 # TODO draw a square in 3 lines of code
 for count in range(4):
@@ -35,6 +35,15 @@ artist.save()
 
 This will automatically save it into the `challenges` directory for you
 and make sure there isn't one already saved there with your unique name.
+
+The parameters to `create()` are to help identify the challenge solution and
+setup the starting settings:
+
+1. A required string that will be the unique name and file name
+2. A required type of code.org challenge ('artist', 'maze', or 'farmer')
+3. An optional starting direction to face (default 0, which is up)
+4. An optional starting x coordinate offset (default 0)
+5. An optional starting y coordinate offset (default 0) 
 
 All you need to do after that is test your challenge by changing
 `create()` and `save()` to `load()` and `check()`:
