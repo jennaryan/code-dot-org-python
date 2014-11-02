@@ -53,13 +53,15 @@ def load(uid):
     challenge.speed = 'normal'
     return challenge
 
-def create(uid,ctype,start_direction=0):
+def create(uid,ctype,direction=0,x=0,y=0):
     '''Combine with `save_as_solution()` to create new challenges'''
     fname = path.join('challenges',uid+'.json')
     assert not path.isfile(fname), '{} already exists'.format(fname)
     config = {
         'uid': uid,
-        'start-direction': start_direction
+        'start-direction': direction,
+        'startx': x,
+        'starty': y
     }
     if ctype == 'artist':
         challenge = ArtistChallenge(config)

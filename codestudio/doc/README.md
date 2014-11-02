@@ -22,3 +22,15 @@ git submodule add http://github.com/skilstak/codestudio.git`
 
 For testing and other distribution forms see the
 [codestudio-project](http://github.com/skilstak/codestudio-project) repo.
+
+FAQ
+===
+
+**Why not round off the large floating point numbers written to the json
+files when saving a challenge?**
+
+Not only does this precision allow for implementation on other visualization
+systems later, it makes it more difficult for students and others to 'hack'
+solutions of their own rather than just writing the Python to create them.
+Any language that handles floating point math the same way should be able to
+use these challenge solutions.

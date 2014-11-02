@@ -98,17 +98,19 @@ class Artist():
     def __init__(self,canvas=None,pen=None,lines=[],
             startx=0,starty=0,start_direction=0,
             speed=20):
-        self.canvas = canvas if canvas else Canvas()
+        self.canvas = canvas if canvas else Canvas(startx,starty)
+        self.canvas.centerx = startx
+        self.canvas.centery = starty
         self.pen = pen if pen else Pen()
         self.lines = lines
         self._cache = []
         self.startx = startx
         self.starty = starty
-        self.x = startx
-        self.y = starty
+        self.x = 0                       # relative to artist, not canvas
+        self.y = 0
         self.lastx = self.x
         self.lasty = self.y
-        self.direction = 0
+        self.direction = start_direction 
         self.start_direction = start_direction
         self.last_direction = 0
         self.speed = speed
@@ -166,8 +168,6 @@ class Artist():
         '''
         newx = math.sin(math.radians(direction)) * amount + x
         newy = math.cos(math.radians(direction)) * amount + y
-        print('newx',newx)
-        print('newy',newy)
         return (newx,newy)
 
     def _move(self,amount):
@@ -215,29 +215,39 @@ class ArtistChallenge(Challenge):
 
     def __init__(self,config=None):
         self.solution = Solution()
-        self.canvas = Canvas()
-        self.artist = Artist(self.canvas)
-        self.pen = self.artist.pen
+        title = 'Artist'
         self.uid = 'code.org'
-        self.title = 'Artist'
+        self.startx = 0
+        self.starty = 0
+        self.start_direction = 0
         if config:
             config_keys = config.keys()
             if 'uid' in config_keys:
                 self.uid = config['uid']
-                self.title += ' ({})'.format(self.uid)
+                title += ' ({})'.format(self.uid)
             if 'title' in config_keys:
-                self.title += ' {}'.format(config['title'])
+                title += ' {}'.format(config['title'])
             if 'start-direction' in config_keys:
-                self.artist.direction = config['start-direction']
-                self.artist.start_direction = config['start-direction']
+                self.start_direction = config['start-direction']
+            if 'startx' in config_keys:
+                self.startx = config['startx']
+            if 'starty' in config_keys:
+                self.starty = config['starty']
             if 'lines' in config_keys:
                 for line in config['lines']:
                     self.solution.lines.append(tuple(line))
+        # composition
+        self.canvas = Canvas(self.startx,self.starty)
+        self.artist = Artist(self.canvas,startx=self.startx,starty=self.starty,
+                start_direction=self.start_direction)
+        self.pen = self.artist.pen
+        self.title = title
 
     def setup(self):
         self.solution.draw(self.canvas)
 
     def draw_solution(self):
+        print(self.canvas)
         return self.solution.draw(self.canvas)
 
     def save(self):
@@ -267,6 +277,8 @@ class ArtistChallenge(Challenge):
 
     def wait_for_click(self):
         return self.good_job('Beautiful!')
+
+    wait = wait_for_click
 
     def speed(self,speed):
         return self.artist.speed(speed)

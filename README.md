@@ -11,10 +11,12 @@ in a third programming language.
 
 This repo contains code stubs for all of the challenges from
 the Introduction to Computer Science organized by the unique
-identifier in the URL for each challenge. The solutions are loaded
-from `challenges` allowing everything to be done without needing
-code.org or even to be online, but looking back at completed
-[learn.code.org](http://learn.code.org) activities will help.
+identifier in the URL for each challenge. The solutions are
+loaded from `challenges` allowing everything to be done without
+needing code.org or even to be online, but looking back at completed
+[learn.code.org](http://learn.code.org) activities will help. Python's
+clean, curly-free syntax means that the count of lines of code directly
+translates to number of blocks allowed from the puzzles.
 
 Students save their work into a `code-org` repo so it can be checked
 consistently, even automatically.
