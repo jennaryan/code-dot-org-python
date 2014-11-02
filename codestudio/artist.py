@@ -164,8 +164,10 @@ class Artist():
         '''Returns a new (x,y) coordinate after adding the amount in
         the given direction
         '''
-        newx = (math.sin(math.radians(direction) * amount)) + x
-        newy = (math.cos(math.radians(direction) * amount)) + y
+        newx = math.sin(math.radians(direction)) * amount + x
+        newy = math.cos(math.radians(direction)) * amount + y
+        print('newx',newx)
+        print('newy',newy)
         return (newx,newy)
 
     def _move(self,amount):

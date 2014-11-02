@@ -1,10 +1,13 @@
-"""Puzzle 8 of 10
+"""Stage 5: Puzzle 8 of 10
 
 Ok, try to figure out what happens if you run this code (or run it).
 Then, repeat it enough times to complete the drawing. The
 colors will be different every time.
 
 """
+
+import sys
+sys.path.append('..')
 
 import codestudio
 artist = codestudio.load('s1level31')

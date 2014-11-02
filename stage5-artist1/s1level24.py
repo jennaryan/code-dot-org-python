@@ -1,4 +1,4 @@
-"""Puzzle 1 of 10
+"""Stage 5: Puzzle 1 of 10
 
 Hi meet the artist. You can write code to make the artist draw almost anything.
 Run this code to see the goal. Then add a few lines of code to make the
@@ -27,7 +27,14 @@ highlight TODO brightly to draw attention to them.
 
 """
 
-# Here are your import statments. They always come immediately after any
+# These two lines tell Python to look in the parent directory that contains
+# the folder this file is in. This just means you can run all the challenges
+# without having to install the codestudio module and just use it where it is.
+# (In programmer terms, this adds to PYTHONPATH where Python searches for mods.)
+import sys
+sys.path.append('..')
+
+# Here is your main import statment. They always come immediately after any
 # docstring comments for your script or module. Every puzzle challenge
 # depends on `import codestudio` to work.
 import codestudio

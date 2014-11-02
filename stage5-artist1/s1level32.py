@@ -1,9 +1,12 @@
-"""Puzzle 9 of 10
+"""Stage 5: Puzzle 9 of 10
 
 Can you figure out what number to replace the 25 with to
 draw a circle?
 
 """
+
+import sys
+sys.path.append('..')
 
 import codestudio
 artist = codestudio.load('s1level32')
