@@ -7,6 +7,10 @@ you call `import mymod` in your scripts.
 
 import codestudio
 
-def draw_square(artist,size):
-    pass # TODO replace with code to draw a square
+class Artist(codestudio.artist.Artist):
+
+    def draw_square(self,size):
+        for count in range(4):
+            self.move(size)
+            self.right()
 

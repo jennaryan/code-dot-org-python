@@ -23,8 +23,6 @@ its use as a graphics engine for this project. It also allows the base
 object-oriented languages.
 
 """
-__version = '1.0.1'
-__author__ = 'Rob Muhlestein <rob@skilstak.com>'
 
 import json
 from .artist import ArtistChallenge
@@ -34,9 +32,13 @@ from os import path
 
 def load(uid):
     '''Loads an artist challenge config (json) file'''
-    fname = path.join('challenges',uid+'.json')
-    assert path.isfile(fname), 'Challenge {} not yet ready.'.format(uid) 
-    with open(fname, 'r') as f:
+    fname = uid + '.json'
+    local = path.isfile(path.join('.',fname))
+    pname = path.join('challenges',fname)
+    if path.isfile(local):
+        pname = local
+    assert path.isfile(pname), 'Challenge {} not yet ready.'.format(uid) 
+    with open(pname, 'r') as f:
         config = json.load(f)
         if not 'uid' in config.keys(): config['uid'] = uid
         ctype = config['type']

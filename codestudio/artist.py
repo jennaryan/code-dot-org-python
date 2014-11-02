@@ -97,7 +97,7 @@ class Artist():
 
     def __init__(self,canvas=None,pen=None,lines=[],
             startx=0,starty=0,start_direction=0,
-            speed=20):
+            speed=20,challenge=None):
         self.canvas = canvas if canvas else Canvas(startx,starty)
         self.canvas.centerx = startx
         self.canvas.centery = starty
