@@ -29,7 +29,7 @@ class Canvas(tk.Canvas):
         self.speed = speed 
 
     def exit_on_click(self):
-        self.bind('<Button>',lambda s: exit())
+        self.bind('<Button>',lambda e: e.widget.quit())
         self.mainloop()
 
     def __setattr__(self,name,value):

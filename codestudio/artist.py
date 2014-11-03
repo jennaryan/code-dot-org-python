@@ -254,14 +254,17 @@ class ArtistChallenge(Challenge):
         return self.artist.save(self.uid)
 
     def check(self):
-        lines = [tuple(l[0:4]) for l in self.artist.lines]
-        solution = [tuple(l[0:4]) for l in self.solution.lines]
+        lines = [tuple([round(n) for n in l[0:4]]) for l in self.artist.lines]
+        solution = [tuple([round(n) for n in l[0:4]]) for l in self.solution.lines]
+        print(lines)
+        print(solution)
         number = len(set(solution))
         if len(set(lines)) != number:
             return self.try_again()
         for line in solution:
             backward = (line[2],line[3],line[0],line[1])
             if line not in lines and backward not in lines:
+                print('solution line:',line)
                 return self.try_again()
         return self.good_job()
 

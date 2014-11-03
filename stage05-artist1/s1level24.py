@@ -63,9 +63,10 @@ artist.speed = 'slower'
 artist.move_forward(100)
 
 # TODO make the artist turn right
-#artist.turn_right(90)
+artist.turn_right(90)
 
 # TODO make the artist move forward
+artist.move_forward(100)
 
 # This is how you check your code. It always comes at the end.
 artist.check()
