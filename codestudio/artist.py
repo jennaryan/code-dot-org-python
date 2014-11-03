@@ -256,8 +256,6 @@ class ArtistChallenge(Challenge):
     def check(self):
         lines = [tuple([round(n) for n in l[0:4]]) for l in self.artist.lines]
         solution = [tuple([round(n) for n in l[0:4]]) for l in self.solution.lines]
-        print(lines)
-        print(solution)
         number = len(set(solution))
         if len(set(lines)) != number:
             return self.try_again()
