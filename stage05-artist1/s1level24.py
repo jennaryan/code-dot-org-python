@@ -66,6 +66,7 @@ artist.move_forward(100)
 # TODO make the artist turn right
 
 # TODO make the artist move forward
+artist.move_forward(100)
 
 # This is how you check your code. It always comes at the end.
 artist.check()

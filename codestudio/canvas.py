@@ -76,11 +76,6 @@ class Canvas(JSONMixin):
         self._canvas.bind('<Button>',lambda e: e.widget.quit())
         self._canvas.mainloop()
 
-    def save_eps(self,name):
-        #TODO check for existing fname and if so just increment name by 1
-        fname = name + '.eps'
-        return self._canvas.postscript(file=fname)
-
     def draw_line(self,line,color=None,width=7):
         n = len(line)
         master_color = color
