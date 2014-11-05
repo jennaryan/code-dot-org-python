@@ -8,7 +8,7 @@ artist.speed = 'fastest'
 
 # TODO make less Vegas
 
-while True:
+for counter2 in range(1000):
     for counter in range(1,720):
         artist.color= 'random'
         artist.move(10)
