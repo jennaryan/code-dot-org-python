@@ -1,4 +1,4 @@
-from .maze import MazeChallenge,MazePlayer
+from .maze import MazePlayer
 
 class Farmer(MazePlayer):
 
@@ -8,6 +8,8 @@ class Farmer(MazePlayer):
     def fill(self,count=1):
         pass
 
-class FarmerChallenge(MazeChallenge):
+class Solution():
     pass
 
+class Challenge():
+    pass

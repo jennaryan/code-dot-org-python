@@ -12,7 +12,7 @@ import codestudio
 artist = codestudio.load('s1level25')
 
 # TODO draw a square using 11 code-lines or less
-artist.pen.color= 'red'
+artist.color= 'red'
 artist.move_forward(100)
 
 artist.check()

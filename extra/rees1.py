@@ -8,7 +8,7 @@ artist = codestudio.load('rees1')
 
 for count in range(4):
     for count in range(4):
-        artist.pen.color = 'random'
+        artist.color = 'random'
         artist.move_forward(20)
         artist.turn_right(90)
     artist.turn_left(90)

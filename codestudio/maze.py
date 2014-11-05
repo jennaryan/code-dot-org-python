@@ -1,8 +1,12 @@
+from .jsonmixin import JSONMixin
 
-class MazePlayer():
-    def __init__(self,maze=None):
+class MazePlayer(JSONMixin):
+    def __init__(self):
         pass
 
-class MazeChallenge():
+class Solution():
+    pass
+
+class Challenge():
     def __init__(self,config=None):
         pass

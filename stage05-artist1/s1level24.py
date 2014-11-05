@@ -41,6 +41,7 @@ import codestudio
 
 # Here is how you load a puzzle challenge and create an artist
 artist = codestudio.load('s1level24')
+#artist = codestudio.create('s1level24','artist',90)
 
 # You can set the artist's pen color with the following (default black)
 #artist.pen.color = 'red'
@@ -63,7 +64,6 @@ artist.speed = 'slower'
 artist.move_forward(100)
 
 # TODO make the artist turn right
-#artist.turn_right(90)
 
 # TODO make the artist move forward
 

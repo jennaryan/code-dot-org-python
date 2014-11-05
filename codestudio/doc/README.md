@@ -34,3 +34,15 @@ systems later, it makes it more difficult for students and others to 'hack'
 solutions of their own rather than just writing the Python to create them.
 Any language that handles floating point math the same way should be able to
 use these challenge solutions.
+
+**Why all the `to_json` and `from_json` instead of `jsonpickle` and the
+like?**
+
+Mostly because even though we could bundle those dependencies in this module
+we wanted to keep it mostly vanilla Python, which makes for a good example
+itself of what those learning Python can do without the extra steps of
+getting external libraries.
+
+In other words, we wanted `codestudio` itself to serve as class material
+that can be reconstructed entirely step-by-step to introduce more complex
+module/package development to those new to it.

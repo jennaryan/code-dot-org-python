@@ -12,7 +12,7 @@ sys.path.append('..')
 import codestudio
 artist = codestudio.load('s1level31')
 
-artist.pen.color = 'random'
+artist.color = 'random'
 artist.move_forward(100)
 artist.move_backward(100)
 artist.turn_right(45)

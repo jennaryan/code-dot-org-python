@@ -25,50 +25,48 @@ object-oriented languages.
 """
 
 import json
-from .artist import ArtistChallenge
-from .maze import MazeChallenge
-from .farmer import FarmerChallenge
 from os import path
+from .artist import Artist
+from .maze import MazePlayer
+from .farmer import Farmer
 
 def load(uid):
-    '''Loads an artist challenge config (json) file'''
     fname = uid + '.json'
     local = path.isfile(path.join('.',fname))
-    pname = path.join('challenges',fname)
+    pname = path.join('puzzles',fname)
     if path.isfile(local):
         pname = local
-    assert path.isfile(pname), 'Challenge {} not yet ready.'.format(uid) 
+    assert path.isfile(pname), 'Puzzle not found for {}.'.format(uid) 
     with open(pname, 'r') as f:
         config = json.load(f)
         if not 'uid' in config.keys(): config['uid'] = uid
         ctype = config['type']
         if ctype == 'artist':
-            challenge = ArtistChallenge(config)
+            player = Artist.from_json(config)
         elif ctype == 'maze':
-            challenge = MazeChallenge(config)
+            player = MazePlayer.from_json(config)
         elif ctype == 'farmer':
-            challenge = FarmerChallege(config)
+            player = Farmer.from_json(config)
         else:
-            raise Exception('Invalid or missing challenge type')
-    challenge.speed = 'fastest'
-    challenge.setup()
-    challenge.speed = 'normal'
-    return challenge
+            raise Exception('Invalid or missing puzzle type')
+    player.setup()
+    return player
 
 def create(uid,ctype,direction=0,x=0,y=0):
-    '''Combine with `save_as_solution()` to create new challenges'''
-    fname = path.join('challenges',uid+'.json')
+    '''Combine with `save()` to create new puzzles'''
+    fname = path.join('puzzles',uid+'.json')
     assert not path.isfile(fname), '{} already exists'.format(fname)
     config = {
         'uid': uid,
-        'start-direction': direction,
+        'start_direction': direction,
         'startx': x,
         'starty': y
     }
     if ctype == 'artist':
-        challenge = ArtistChallenge(config)
+        player = Artist.from_json(config)
     elif ctype == 'maze':
-        challenge = MazeChallenge(config)
+        player = MazePlayer.from_json(config)
     elif ctype == 'farmer':
-        challenge = FarmerChallege(config)
-    return challenge
+        player = Farmer.from_json(config)
+    player.setup()
+    return player

@@ -1,14 +1,15 @@
-r'''The basis for the Artist challenges from <http://code.org> built
-on `tkinter` only. 
+"""Artist puzzles from <http://code.org> built on `tkinter` only. 
 
 Artist is similar to the great `turtle` standard module for teaching
 programming but builds on a foundation of challenge and solution, (which
 `turtle` does not):
 
-- Solutions created by students with Artist can be checked against
+- Subset of basic Python turtle commands (all needed for puzzles).
+
+- Puzzles created by students with Artist can be checked against
   a known solution saved as JSON.
 
-- New challenges can be created with Artist by simply `artist.save()` and
+- New puzzles can be created with Artist by simply `artist.save()` and
   creating challenge stub programs for students to complete that `load()`
   the saved challenge. 
 
@@ -27,139 +28,143 @@ programming but builds on a foundation of challenge and solution, (which
 - Artist metaphor matches 'canvas' metaphor used in all graphics coding.
 
 - Artist draws lines individually instead of updating a single line with
-  new coordinates so that the `lineslog` can be checked to see if the
-  line was drawn forward or backward and give credit for that specific
-  line segment. This allows set() to isolate the essential lines when
-  checking solutions without throwing out an otherwise good solution
-  that was drawn in a different way. This is critical for code.org
-  challenges since often there is more than one way to retrace drawn lines
-  to get to a new position.
+  new coordinates so that the artists drawn `lines` can be checked to
+  see if the line was drawn forward or backward and give credit for that
+  specific line segment. This allows set() to isolate the essential lines
+  when checking solutions without throwing out an otherwise good solution
+  that was drawn in a different way. This is critical for code.org puzzles
+  since often there is more than one way to retrace drawn lines to get
+  to a new position.
 
-'''
+"""
 
-import json
-import random
 import os
+import json
 import math
-import datetime
+import random
 
 from .canvas import Canvas
-from .challenge import Challenge
 from .sprite import Sprite
+from .jsonmixin import JSONMixin
 
-#--------------------------------------------------------------------------
-
-def tstamp():
-    return datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-
-#--------------------------------------------------------------------------
-
-class Pen():
-    '''Gimme somethin' to write with, man.'''
+class Artist(JSONMixin):
 
     def __init__(self):
-        self.on = True
+        """In most cases you want Artist.from_json() instead."""
+        self.uid = 'artist'
+        self.type = 'artist'
+
+        # aggregate
+        self._canvas = Canvas()
+        self.puzzle = []
+        self.lines = []                   # logged
+        self._lines_to_draw = []          # drawing cache
+
+        # pen
         self.color = 'black'
-        self.width = 7
+        self.width = '7'
+
+        # usually from json
+        self.startx = 0
+        self.starty = 0
+        self.start_direction = 0
+
+        self.x = 0                       # relative to artist, not canvas
+        self.y = 0
+        self.direction = 0
+
+        self.lastx = 0
+        self.lasty = 0
+        self.last_direction = 0
+
+        self.speed = 'normal'
 
     def __setattr__(self,name,value):
+        if name == 'speed':
+            self._canvas.speed = value
         if name == 'color':
             if value == 'random':
                 value = self.random_color()
         super().__setattr__(name,value)
 
-    @staticmethod
-    def random_color():
-        r = random.randint(0,255)
-        g = random.randint(0,255)
-        b = random.randint(0,255)
-        return '#{:02x}{:02x}{:02x}'.format(r,g,b)
+    def setup(self):
+        self.direction = self.start_direction
+        self.x = self.startx
+        self.y = self.starty
+        self.speed = 'fastest'
+        self.draw_lines(self.puzzle, color='lightgrey')
+        self.speed = 'normal'
 
-#--------------------------------------------------------------------------
+    def set_color(self,value):
+        self.color = value 
+        return self.color
 
-class Solution():
+    pencolor = set_color
 
-    def __init__(self):
-        self.lines = []
-        self.image = None
+    def set_width(self,value):
+        self.width = value 
+        return self.color
 
-    def draw(self,canvas):
-        '''Draws solution fast (image) or slow (lines) way'''
-        if self.image:
-            canvas.draw_image(self)
-        else:
-            canvas.draw_lines(self.lines,color='lightgrey')
+    penwidth = set_width
+    pensize = penwidth
 
-#--------------------------------------------------------------------------
-
-class Artist():
-    logging = True
-
-    def __init__(self,canvas=None,pen=None,lines=[],
-            startx=0,starty=0,start_direction=0,
-            speed=20,challenge=None):
-        self.canvas = canvas if canvas else Canvas(startx,starty)
-        self.canvas.centerx = startx
-        self.canvas.centery = starty
-        self.pen = pen if pen else Pen()
-        self.lines = lines
-        self._cache = []
-        self.startx = startx
-        self.starty = starty
-        self.x = 0                       # relative to artist, not canvas
-        self.y = 0
-        self.lastx = self.x
-        self.lasty = self.y
-        self.direction = start_direction 
-        self.start_direction = start_direction
-        self.last_direction = 0
-        self.speed = speed
-
-    def __setattr__(self,name,value):
-        if name == 'speed':
-            self.canvas.speed = value
-        super().__setattr__(name,value)
-
-    def __str__(self):
-        return json.dumps(self._json())
-
-    def _json(self):
-        return {
-            "type" : 'artist',
-            "lines" : self.lines,
-            "startx": self.startx,
-            "starty": self.starty,
-            "lastx": self.lastx,
-            "lasty": self.lasty,
-            "x": self.x,
-            "y": self.y,
-            "start-direction": self.start_direction,
-            "direction": self.direction,
-            "pen": {
-                "color": self.pen.color,
-                "width": self.pen.width
-            }
-        }
+    def check(self):
+        lines = [tuple([round(n) for n in l[0:4]]) for l in self.lines]
+        puzzle = [tuple([round(n) for n in l[0:4]]) for l in self.puzzle]
+        number = len(set(puzzle))
+        if len(set(lines)) != number:
+            return self.try_again()
+        for line in puzzle:
+            backward = (line[2],line[3],line[0],line[1])
+            if line not in lines and backward not in lines:
+                return self.try_again()
+        return self.good_job()
 
     def save(self,name=None,fname=None):
-        if os.path.isdir('challenges'):
-            fname = os.path.join('challenges', name + '.json')
+        name = name if name else self.uid
+        if os.path.isdir('puzzles'):
+            fname = os.path.join('puzzles', name + '.json')
             assert not os.path.isfile(fname), '{} exists'.format(name)
         else:
             fname = name + '.json' 
-        if not name and not fname:
-            name = os.path.splitext(os.path.basename(__file__))[0]
-            name = name + tstamp()
         with open(fname,'w') as f:
-            f.write(str(self))
+            f.write(json.dumps({
+                "uid": self.uid,
+                "type": self.type,
+                "startx": self.startx,
+                "starty": self.starty,
+                "start_direction": self.start_direction,
+                "puzzle": self.lines
+            }))
+
+    def try_again(self,message='Nope. Try again.'):
+        # TODO replace with a canvas splash window graphic
+        print(message)
+        self._canvas.exit_on_click()
+
+    def good_job(self,message='Perfect! Congrats!'):
+        # TODO replace with a canvas splash window graphic
+        print(message)
+        self._canvas.exit_on_click()
+
+    def wait_for_click(self):
+        return self.good_job('Beautiful!')
+
+    wait = wait_for_click
 
     def clear(self):
-        self._cache = []
+        self._lines_to_draw = []
         self.lines = []
 
+    def draw_lines(self,lines,color=None):
+        if color:
+            self._canvas.draw_lines(lines,color=color)
+        else:
+            self._canvas.draw_lines(lines)
+
     def draw(self):
-        self.canvas.draw_lines(self._cache)
-        self._cache = []
+        self.draw_lines(self._lines_to_draw)
+        self._lines_to_draw = []
 
     @staticmethod
     def xy_plus_vec(x=0,y=0,direction=0,amount=0):
@@ -179,16 +184,21 @@ class Artist():
         self.lasty = self.y
         self._move(amount)
         line = (self.lastx,self.lasty,self.x,self.y,
-                self.pen.color,self.pen.width)
-        self._cache.append(line)
-        if self.logging:
-            self.lines.append(line)
+                self.color,self.width)
+        self._lines_to_draw.append(line)
+        self.lines.append(line)
         self.draw()
 
     move_forward = move
+    forward = move
+    fd = move
 
     def move_backward(self,amount):
         self.move(-amount)
+
+    backward = move_backward
+    back = move_backward
+    bk = move_backward
 
     def jump(self,amount):
         self._move(amount)
@@ -201,123 +211,23 @@ class Artist():
     def turn(self,amount):
         self.last_direction = self.direction
         self.direction += amount
-        self.canvas.delay()
+        self._canvas.delay()
 
     def turn_right(self,amount=90):
         self.turn(amount)
 
+    right = turn_right
+    rt = turn_right
+
     def turn_left(self,amount=90):
         self.turn(-amount)
 
-#--------------------------------------------------------------------------
+    left =  turn_left
+    lt = turn_left
 
-class ArtistChallenge(Challenge):
-
-    def __init__(self,config=None):
-        self.solution = Solution()
-        title = 'Artist'
-        self.uid = 'code.org'
-        self.startx = 0
-        self.starty = 0
-        self.start_direction = 0
-        if config:
-            config_keys = config.keys()
-            if 'uid' in config_keys:
-                self.uid = config['uid']
-                title += ' ({})'.format(self.uid)
-            if 'title' in config_keys:
-                title += ' {}'.format(config['title'])
-            if 'start-direction' in config_keys:
-                self.start_direction = config['start-direction']
-            if 'startx' in config_keys:
-                self.startx = config['startx']
-            if 'starty' in config_keys:
-                self.starty = config['starty']
-            if 'lines' in config_keys:
-                for line in config['lines']:
-                    self.solution.lines.append(tuple(line))
-        # composition
-        self.canvas = Canvas(self.startx,self.starty)
-        self.artist = Artist(self.canvas,startx=self.startx,starty=self.starty,
-                start_direction=self.start_direction)
-        self.pen = self.artist.pen
-        self.title = title
-
-    def setup(self):
-        self.solution.draw(self.canvas)
-
-    def draw_solution(self):
-        print(self.canvas)
-        return self.solution.draw(self.canvas)
-
-    def save(self):
-        return self.artist.save(self.uid)
-
-    def check(self):
-        lines = [tuple(l[0:4]) for l in self.artist.lines]
-        solution = [tuple(l[0:4]) for l in self.solution.lines]
-        number = len(set(solution))
-        if len(set(lines)) != number:
-            return self.try_again()
-        for line in solution:
-            backward = (line[2],line[3],line[0],line[1])
-            if line not in lines and backward not in lines:
-                return self.try_again()
-        return self.good_job()
-
-    def try_again(self,message='Nope. Try again.'):
-        # TODO replace with a canvas splash window graphic
-        print(message)
-        self.canvas.exit_on_click()
-
-    def good_job(self,message='Perfect! Congrats!'):
-        # TODO replace with a canvas splash window graphic
-        print(message)
-        self.canvas.exit_on_click()
-
-    def wait_for_click(self):
-        return self.good_job('Beautiful!')
-
-    wait = wait_for_click
-
-    def speed(self,speed):
-        return self.artist.speed(speed)
-
-    def move(self,amount):
-        return self.artist.move(amount)
-
-    move_forward = move
-
-    def forward(self,amount=100):
-        return self.move(amount)
-
-    def move_backward(self,amount=100):
-        return self.move(-amount)
-
-    def backward(self,amount=100):
-        return self.move(-amount)
-
-    def jump(self,amount):
-        return self.artist.jump(amount)
-
-    jump_forward = jump
-
-    def jump_backward(self,amount=100):
-        return self.jump(-amount)
-
-    def turn(self,amount):
-        return self.artist.turn(amount)
-
-    turn_right = turn
-
-    def right(self,amount=90):
-        return self.turn(amount)
-
-    def turn_left(self,amount=90):
-        return self.artist.turn(-amount)
-
-    def left(self,amount=90):
-        return self.turn(-amount)
-
-    def save_eps(self,name=__name__):
-        self.canvas.save_eps(name)
+    @staticmethod
+    def random_color():
+        r = random.randint(0,255)
+        g = random.randint(0,255)
+        b = random.randint(0,255)
+        return '#{:02x}{:02x}{:02x}'.format(r,g,b)
