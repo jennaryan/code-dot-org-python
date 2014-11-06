@@ -20,7 +20,7 @@ class Zombie(codestudio.Artist):
     """
     start_direction = 90            # facing the east, or right of screen
     speed = 'slow'                  # it is a zombie after all
-    color = 'red'                   # it is a zombie after all
+    color = 'green'                 # it is a zombie after all
 
     def draw_square(self,size):
         for count in range(4):
