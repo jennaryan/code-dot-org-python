@@ -1,5 +1,7 @@
 REQUIRED
 ========
+* must have optional background images to save on puzzle solution load
+
 * line joiner multiple small lines in same direction into one longer line
 * lines of code counter
 
