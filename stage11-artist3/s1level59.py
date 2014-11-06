@@ -13,7 +13,5 @@ import codestudio
 zombie = codestudio.load('s1level59')
 
 # TODO finish drawing a square using a repeat (for) loop
-zombie.move(100)
-zombie.right()
 
 zombie.check()
