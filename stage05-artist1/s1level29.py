@@ -14,6 +14,6 @@ artist = codestudio.load('s1level29')
 
 # TODO draw the triangle and square in 8 lines or less
 for count in range(3):
-    pass # replace
+    pass # <--- TODO replace this line
     
 artist.check()
