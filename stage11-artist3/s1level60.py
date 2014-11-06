@@ -46,7 +46,7 @@ class Zombie(codestudio.Artist):
     speed = 'slow'                  # it is a zombie after all
     color = 'green'                 # it is a zombie after all
 
-    def draw_square(self,size):
+    def draw_square(self,length):
         pass # <--- TODO replace with code to draw a square
 
 # This following line is standard best  practice to separate classes

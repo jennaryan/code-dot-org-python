@@ -3,18 +3,6 @@
 Draw squares with sides of 50, 60, 70, 80, and 90 pixels. You'll need to call
 the `draw_square()` method 5 times.
 
-This is the first time you have done counter loops in Python so let's talk
-about them a bit. Counter loops are the same as the simple `for count in
-range(4):` loops just with extra numbers inside the parenthesis. Compared
-to JavaScript (from 'Show Code') Python counter loops are a bit easier
-to understand just by looking at them:
-
-    for counter in range(5,50,5):
-        print(counter)
-
-The first number is the one to start with, the second the one to end with,
-and the third is how much to count by.
-
 """
 
 import sys

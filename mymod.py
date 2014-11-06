@@ -22,7 +22,7 @@ class Zombie(codestudio.Artist):
     speed = 'slow'                  # it is a zombie after all
     color = 'green'                 # it is a zombie after all
 
-    def draw_square(self,size):
+    def draw_square(self,length):
         for count in range(4):
-            self.move(size)
-            self.right()
+            self.move_forward(length)
+            self.turn_right(90)
