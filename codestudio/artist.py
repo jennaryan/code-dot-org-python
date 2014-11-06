@@ -95,6 +95,10 @@ class Artist():
             if key in ('puzzle','uid','title','type'):
                 setattr(self,key,conf[key])
 
+    def pen_color(self,color):
+        """Just to be compatible with 'Show Code' JavaScript"""
+        self.color = color
+
     @classmethod
     def from_json(cls,json_):
         if type(json_) is str:
