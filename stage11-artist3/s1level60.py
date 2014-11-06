@@ -1,13 +1,12 @@
 """Stage 11: Puzzle 2 of 11
 
-Welcome to using methods (you learned about functions on code.org)!
-Methods are functions or procedures that go with a class, (not like in
-school, like in a classification). Classes let you organize code into
-objects. This is called object-oriented programming. You have been using
-it all along. An `artist` object (also called an instance) is created
-every time you write the line `artist = codestudio.load()`. Then you tell
-the artist what to do by calling its methods, `artist.move_forward(100)`
-for example.
+Welcome to using methods )!  Methods are functions (or procedures) that
+go with a class, (not like in school, like in a classification). Classes
+let you organize code into objects. This is called object-oriented
+programming. You have been using it all along. An `artist` object (also
+called an instance) is created every time you write the line `artist =
+codestudio.load()`. Then you tell the artist what to do by calling its
+methods, `artist.move_forward(100)` for example.
 
 In this puzzle we've created a new Zombie class for you below and started
 to define the method `def draw_square(self):`. Complete the method so that it

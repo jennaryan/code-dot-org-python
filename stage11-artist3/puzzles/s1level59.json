@@ -1,6 +1,6 @@
 {
    "startx" : 0,
-   "start-direction" : 90,
+   "start_direction" : 90,
    "type" : "artist",
    "starty" : 0,
    "puzzle" : [
