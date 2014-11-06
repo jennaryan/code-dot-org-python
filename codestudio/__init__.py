@@ -27,8 +27,8 @@ object-oriented languages.
 import json
 from os import path
 from .artist import Artist
-from .maze import MazePlayer
-from .farmer import Farmer
+#from .maze import MazePlayer
+#from .farmer import Farmer
 
 def load(uid):
     fname = uid + '.json'
@@ -43,10 +43,10 @@ def load(uid):
         ctype = config['type']
         if ctype == 'artist':
             player = Artist.from_json(config)
-        elif ctype == 'maze':
-            player = MazePlayer.from_json(config)
-        elif ctype == 'farmer':
-            player = Farmer.from_json(config)
+        #elif ctype == 'maze':
+        #    player = MazePlayer.from_json(config)
+        #elif ctype == 'farmer':
+        #    player = Farmer.from_json(config)
         else:
             raise Exception('Invalid or missing puzzle type')
     player.setup()
@@ -64,9 +64,9 @@ def create(uid,ctype,direction=0,x=0,y=0):
     }
     if ctype == 'artist':
         player = Artist.from_json(config)
-    elif ctype == 'maze':
-        player = MazePlayer.from_json(config)
-    elif ctype == 'farmer':
-        player = Farmer.from_json(config)
+    #elif ctype == 'maze':
+    #    player = MazePlayer.from_json(config)
+    #elif ctype == 'farmer':
+    #    player = Farmer.from_json(config)
     player.setup()
     return player

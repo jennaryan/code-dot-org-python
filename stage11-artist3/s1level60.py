@@ -13,9 +13,12 @@ sys.path.append('..')
 
 import codestudio
 import mymod 
-zombie = codestudio.load('s1level59')
+#zombie = codestudio.load('s1level60')
+zombie = codestudio.create('s1level60','artist',90)
+myzombie = mymod.Artist(zombie.canvas)
 
-zombie.draw_square(50)
+myzombie.speed = 'slow'
 
+myzombie.draw_square(50)
 
 zombie.wait()

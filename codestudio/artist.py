@@ -44,30 +44,25 @@ import math
 import random
 
 from .canvas import Canvas
-from .sprite import Sprite
-from .jsonmixin import JSONMixin
 
-class Artist(JSONMixin):
+class Artist():
+    start_direction = 0
+    startx = 0
+    starty = 0
+    color = 'black'
+    width = 7
+    speed = 'normal'
 
-    def __init__(self):
+    def __init__(self,canvas=None):
         """In most cases you want Artist.from_json() instead."""
-        self.uid = 'artist'
+        self.uid = None
         self.type = 'artist'
 
         # aggregate
-        self._canvas = Canvas()
+        self._canvas = canvas if canvas else Canvas()
         self.puzzle = []
         self.lines = []                   # logged
         self._lines_to_draw = []          # drawing cache
-
-        # pen
-        self.color = 'black'
-        self.width = '7'
-
-        # usually from json
-        self.startx = 0
-        self.starty = 0
-        self.start_direction = 0
 
         self.x = 0                       # relative to artist, not canvas
         self.y = 0
@@ -77,8 +72,6 @@ class Artist(JSONMixin):
         self.lasty = 0
         self.last_direction = 0
 
-        self.speed = 'normal'
-
     def __setattr__(self,name,value):
         if name == 'speed':
             self._canvas.speed = value
@@ -86,6 +79,30 @@ class Artist(JSONMixin):
             if value == 'random':
                 value = self.random_color()
         super().__setattr__(name,value)
+
+    @property
+    def canvas(self):
+        return self._canvas
+
+    @canvas.setter
+    def canvas(self,other):
+        self._canvas = other
+
+    def config(self,conf):
+        """Sets attributes based dictionary (usually after JSON load)."""
+        for key in conf:
+            if key in ('startx','starty','start_direction'):
+                setattr(__class__,key,conf[key])
+            if key in ('puzzle','uid','title','type'):
+                setattr(self,key,conf[key])
+
+    @classmethod
+    def from_json(cls,json_):
+        if type(json_) is str:
+            json_ = json.loads(json_) 
+        instance = cls()
+        instance.config(json_)
+        return instance
 
     def setup(self):
         self.direction = self.start_direction

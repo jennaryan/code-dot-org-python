@@ -16,10 +16,8 @@ class here does not directly subclass the tk.Canvas object.
 """
 
 import tkinter as tk
-import json
-from .jsonmixin import JSONMixin
 
-class Canvas(JSONMixin):
+class Canvas():
     speed_scale = 1000
     speed_slowest = 0.5
     speed_slower = 5 
