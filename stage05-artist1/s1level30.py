@@ -12,6 +12,6 @@ sys.path.append('..')
 import codestudio
 artist = codestudio.load('s1level30')
 
-artist.turn_left(90)
+# TODO draw two 100 pixel squares with 50 pixels between
 
 artist.check()
