@@ -14,7 +14,7 @@ artist = codestudio.load('s1level39')
 artist.speed = 'faster'
 
 for count2 in range(36):
-    artist.pen.color = 'random'
+    artist.color = 'random'
     for count in range(3):
         artist.move_forward(100)
         artist.turn_right(120)

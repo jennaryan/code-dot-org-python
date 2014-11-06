@@ -13,11 +13,11 @@ artist = codestudio.load('s1level36')
 artist.speed = 'slower'
 
 # TODO adjust the following to turn right 90 at the spot in the code
-artist.pen.color = 'random'
+artist.color = 'random'
 for count in range(3):
     artist.move_forward(100)
     artist.turn_right(120)
-artist.pen.color = 'random'
+artist.color = 'random'
 for count in range(3):
     artist.move_forward(100)
     artist.turn_right(120)

@@ -865,8 +865,8 @@
          7
       ]
    ],
-   "start-direction" : 90,
+   "start_direction" : 90,
    "starty" : 0,
    "startx" : 0,
-   "type" : "artist",
+   "type" : "artist"
 }

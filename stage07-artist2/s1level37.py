@@ -13,7 +13,7 @@ artist = codestudio.load('s1level37')
 artist.speed = 'slow'
 
 # TODO make a flower by putting this code in a for loop and turning
-artist.pen.color = 'random'
+artist.color = 'random'
 for count in range(3):
     artist.move_forward(100)
     artist.turn_right(120)
