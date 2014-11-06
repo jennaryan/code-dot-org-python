@@ -1,10 +1,21 @@
 """Stage 11: Puzzle 2 of 11
 
-Welcome to using functions, which let you reuse code with your own
-action funtion calls! Try to draw a small 50x50 green square with the
-`draw_square()` function imported from your new, very own `mymod` Python
-module. Hint: think of modules as checking out a spellbook from a library of
-magic to do more with your coding wizardry.
+Welcome to using methods (you learned about functions on code.org)!
+Methods are functions or procedures that go with a class, (not like in
+school, like in a classification). Classes let you organize code into
+objects. This is called object-oriented programming. You have been using
+it all along. An `artist` object (also called an instance) is created
+every time you write the line `artist = codestudio.load()`. Then you tell
+the artist what to do by calling its methods, `artist.move_forward(100)`
+for example.
+
+In this puzzle we've created a new Zombie class for you below and started
+the to define the method `draw_square()`. Complete the method so that it
+will draw a small 50x50 green square when called in the main program.
+
+The `start_direction` and `speed` are special variables that goes with
+all Zombies. These are called class or static attributes. An attribute
+is a variable that goes with a class or the objects created from a class.
 
 """
 
@@ -12,13 +23,29 @@ import sys
 sys.path.append('..')
 
 import codestudio
-import mymod 
-#zombie = codestudio.load('s1level60')
-zombie = codestudio.create('s1level60','artist',90)
-myzombie = mymod.Artist(zombie.canvas)
 
-myzombie.speed = 'slow'
+# We have to define the new class here because it extends the parent class
+# from codestudio.Artist
 
-myzombie.draw_square(50)
+class Zombie(codestudio.Artist):
+    start_direction = 90            # facing the east, or right of screen
+    speed = 'slow'                  # it is a zombie after all
+    color = 'red'                   # it is a zombie after all
 
-zombie.wait()
+    def draw_square(self,size):
+        pass # <--- TODO replace with code to draw a square
+
+# this following line is standard best  practice to separate classes
+# from the main code notice how we have to indent
+
+if __name__ == '__main__':
+
+    artist = codestudio.load('s1level60')
+
+    # this line makes a new zombie who knows everything the artist does
+    zombie = Zombie(artist)
+
+    # and more ...
+    zombie.draw_square(50)
+
+    zombie.check()

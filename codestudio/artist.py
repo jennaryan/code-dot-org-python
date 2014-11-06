@@ -53,40 +53,39 @@ class Artist():
     width = 7
     speed = 'normal'
 
-    def __init__(self,canvas=None):
+    def __init__(self,proto=None):
         """In most cases you want Artist.from_json() instead."""
-        self.uid = None
-        self.type = 'artist'
 
         # aggregate
-        self._canvas = canvas if canvas else Canvas()
-        self.puzzle = []
-        self.lines = []                   # logged
+        if proto:
+            self.canvas = proto.canvas 
+            self.puzzle = proto.puzzle
+            self.log = proto.log
+            self.uid = proto.uid
+            self.type = proto.type
+            self.x = proto.x
+            self.y = proto.y 
+            self.direction = proto.start_direction
+            self.startx = proto.startx
+            self.starty = proto.starty
+            self.lastx = proto.lastx
+            self.lasty = proto.lasty 
+            self.last_direction = proto.direction
+        else:
+            self.canvas = Canvas()
+            self.puzzle = []
+            self.log = []
+            self.uid = None
+            self.type = 'artist'
+            self.x = self.startx
+            self.y = self.starty 
+            self.direction = self.start_direction
+            self.lastx = self.x
+            self.lasty = self.y 
+            self.last_direction = self.direction
+
+        self.speed = self.speed           # triggers __setattr__
         self._lines_to_draw = []          # drawing cache
-
-        self.x = 0                       # relative to artist, not canvas
-        self.y = 0
-        self.direction = 0
-
-        self.lastx = 0
-        self.lasty = 0
-        self.last_direction = 0
-
-    def __setattr__(self,name,value):
-        if name == 'speed':
-            self._canvas.speed = value
-        if name == 'color':
-            if value == 'random':
-                value = self.random_color()
-        super().__setattr__(name,value)
-
-    @property
-    def canvas(self):
-        return self._canvas
-
-    @canvas.setter
-    def canvas(self,other):
-        self._canvas = other
 
     def config(self,conf):
         """Sets attributes based dictionary (usually after JSON load)."""
@@ -108,32 +107,17 @@ class Artist():
         self.direction = self.start_direction
         self.x = self.startx
         self.y = self.starty
-        self.speed = 'fastest'
-        self.draw_lines(self.puzzle, color='lightgrey')
-        self.speed = 'normal'
-
-    def set_color(self,value):
-        self.color = value 
-        return self.color
-
-    pencolor = set_color
-
-    def set_width(self,value):
-        self.width = value 
-        return self.color
-
-    penwidth = set_width
-    pensize = penwidth
+        self.draw_lines(self.puzzle, color='lightgrey', speed='fastest')
 
     def check(self):
-        lines = [tuple([round(n) for n in l[0:4]]) for l in self.lines]
+        log = [tuple([round(n) for n in l[0:4]]) for l in self.log]
         puzzle = [tuple([round(n) for n in l[0:4]]) for l in self.puzzle]
         number = len(set(puzzle))
-        if len(set(lines)) != number:
+        if len(set(log)) != number:
             return self.try_again()
         for line in puzzle:
             backward = (line[2],line[3],line[0],line[1])
-            if line not in lines and backward not in lines:
+            if line not in log and backward not in log:
                 return self.try_again()
         return self.good_job()
 
@@ -151,18 +135,18 @@ class Artist():
                 "startx": self.startx,
                 "starty": self.starty,
                 "start_direction": self.start_direction,
-                "puzzle": self.lines
+                "puzzle": self.log
             }))
 
     def try_again(self,message='Nope. Try again.'):
         # TODO replace with a canvas splash window graphic
         print(message)
-        self._canvas.exit_on_click()
+        self.canvas.exit_on_click()
 
     def good_job(self,message='Perfect! Congrats!'):
         # TODO replace with a canvas splash window graphic
         print(message)
-        self._canvas.exit_on_click()
+        self.canvas.exit_on_click()
 
     def wait_for_click(self):
         return self.good_job('Beautiful!')
@@ -171,13 +155,15 @@ class Artist():
 
     def clear(self):
         self._lines_to_draw = []
-        self.lines = []
+        self.log = []
 
-    def draw_lines(self,lines,color=None):
+    def draw_lines(self,lines,color=None,speed=None):
+        speed = speed if speed else self.speed
+        self.canvas.speed = speed
         if color:
-            self._canvas.draw_lines(lines,color=color)
+            self.canvas.draw_lines(lines,color=color)
         else:
-            self._canvas.draw_lines(lines)
+            self.canvas.draw_lines(lines)
 
     def draw(self):
         self.draw_lines(self._lines_to_draw)
@@ -200,10 +186,13 @@ class Artist():
         self.lastx = self.x
         self.lasty = self.y
         self._move(amount)
-        line = (self.lastx,self.lasty,self.x,self.y,
-                self.color,self.width)
+        if self.color == 'random':
+            color = self.random_color()
+        else:
+            color = self.color
+        line = (self.lastx,self.lasty,self.x,self.y,color,self.width)
         self._lines_to_draw.append(line)
-        self.lines.append(line)
+        self.log.append(line)
         self.draw()
 
     move_forward = move
@@ -228,7 +217,7 @@ class Artist():
     def turn(self,amount):
         self.last_direction = self.direction
         self.direction += amount
-        self._canvas.delay()
+        self.canvas.delay()
 
     def turn_right(self,amount=90):
         self.turn(amount)
@@ -248,3 +237,5 @@ class Artist():
         g = random.randint(0,255)
         b = random.randint(0,255)
         return '#{:02x}{:02x}{:02x}'.format(r,g,b)
+
+    colour_random = random_color
