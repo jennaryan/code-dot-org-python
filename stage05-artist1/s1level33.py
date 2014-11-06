@@ -17,4 +17,4 @@ artist = codestudio.load('s1level33')
 
 artist.move_forward(100)
 
-artist.wait_for_click()
+artist.wait()
