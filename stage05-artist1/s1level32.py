@@ -9,11 +9,17 @@ import sys
 sys.path.append('..')
 
 import codestudio
-artist = codestudio.load('s1level32')
+#artist = codestudio.load('s1level32')
+artist = codestudio.create('s1level32','artist',90)
 artist.speed = 'fastest'
 
-for count in range(25):
+#for count in range(25):
+#    artist.move_forward(1)
+#    artist.turn_right(1)
+
+for count in range(360):
     artist.move_forward(1)
     artist.turn_right(1)
 
-artist.check()
+#artist.check()
+artist.wait()
