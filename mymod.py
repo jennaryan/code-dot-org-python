@@ -26,3 +26,15 @@ class Zombie(codestudio.Artist):
         for count in range(4):
             self.move_forward(length)
             self.turn_right(90)
+
+    def draw_snowman(self,length):
+        self.left()
+        distances = [length * 0.5, length * 0.3, length * 0.2]
+        for counter in range(6):
+            distance = distances[counter if counter < 3 else 5 - counter] / 57.5
+            for degree in range(90):
+                self.move(distance)
+                self.right(2)
+            if counter != 2:
+                self.left(180)
+        self.left()
