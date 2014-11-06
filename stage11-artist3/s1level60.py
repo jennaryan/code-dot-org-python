@@ -10,7 +10,7 @@ the artist what to do by calling its methods, `artist.move_forward(100)`
 for example.
 
 In this puzzle we've created a new Zombie class for you below and started
-the to define the method `draw_square()`. Complete the method so that it
+to define the method `def draw_square(self):`. Complete the method so that it
 will draw a small 50x50 green square when called in the main program.
 
 The `start_direction` and `speed` are special variables that goes with
@@ -30,7 +30,7 @@ import codestudio
 class Zombie(codestudio.Artist):
     start_direction = 90            # facing the east, or right of screen
     speed = 'slow'                  # it is a zombie after all
-    color = 'red'                   # it is a zombie after all
+    color = 'green'                 # it is a zombie after all
 
     def draw_square(self,size):
         pass # <--- TODO replace with code to draw a square
