@@ -128,6 +128,7 @@ class Artist():
         return instance
 
     def setup(self):
+        self.title = self._title                     # for missing uid
         self.direction = self.start_direction
         self.x = self.startx
         self.y = self.starty
