@@ -1,8 +1,8 @@
 """Stage 11: Puzzle 6 of 11
 
-Ok, this program will use a counter, to draw the same squares as last
-time. You want the square to be the same size as the counter, so use the
-"counter" loop. Here's how.
+Ok, this program will use a counter to draw the same squares as last time
+(50,60,70,80,90). You want the square to be the same size as the counter,
+so use the "counter" loop. Here's how:
 
 Counter loops are the same as the simple `for counter in range(4):` loops
 just with extra `range()` parameters and we actually use the `counter`
@@ -14,8 +14,8 @@ be named `counter` but we use that name for consistency in these puzzles.
 
 The first number (5) is the one to start with.
 
-The second number (51) is the maximum. We add a 1 so that 50 will be
-included.
+The second number (51) is the maximum plus 1. We add a 1 so that 50 will
+be included.
 
 The third (5) is how much to count by (5,10,15,...50).
 
@@ -33,7 +33,11 @@ artist = codestudio.load('s1level63')
 zombie = mymod.Zombie(artist)
 zombie.speed = 'fast'
 
-for counter in range(50,91,10):
-    zombie.draw_square(10)                       # ???
+smallest = 10                                    # ???
+longest = 60                                     # ???
+by = 20                                          # ??? 
+
+for counter in range(smallest, longest + 1, by):
+    zombie.draw_square(counter)
 
 zombie.check()
