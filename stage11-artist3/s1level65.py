@@ -1,16 +1,19 @@
 """Stage 11: Puzzle 7 of 11
 
 Here's a program to draw a spiral Make a new program using counter loop
-instead of the long way.
+and your `draw_square()` function instead of the long way.
 
 """
 
 import sys
 sys.path.append('..')
 import codestudio
-import mymod
-artist = codestudio.load('s1level65')
-zombie = mymod.Zombie(artist)
+zombie = codestudio.load('s1level65')
+
+def draw_square(length):
+    for count in range(4):
+        zombie.move_forward(length)
+        zombie.turn_right(90)
 
 # zombie.move_forward(25)
 # zombie.turn_right(90)

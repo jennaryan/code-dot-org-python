@@ -11,11 +11,14 @@ library module for you.
 import sys
 sys.path.append('..')
 import codestudio
-import mymod
-artist = codestudio.load('s1level61')
-zombie = mymod.Zombie(artist)
+zombie = codestudio.load('s1level61')
+
+def draw_square(length):
+    for count in range(4):
+        zombie.move_forward(length)
+        zombie.turn_right(90)
 
 zombie.color = zombie.random_color()
-zombie.draw_square(100)
+draw_square(100)
 
 zombie.check()

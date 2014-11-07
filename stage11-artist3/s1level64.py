@@ -28,9 +28,13 @@ Code') and other languages.
 import sys
 sys.path.append('..')
 import codestudio
-import mymod
-artist = codestudio.load('s1level64')
-zombie = mymod.Zombie(artist)
+zombie = codestudio.load('s1level64')
+
+def draw_square(length):
+    for count in range(4):
+        zombie.move_forward(length)
+        zombie.turn_right(90)
+
 zombie.speed = 'fast'
 
 smallest = 10                                    # ???
@@ -38,6 +42,6 @@ longest = 60                                     # ???
 by = 20                                          # ??? 
 
 for counter in range(smallest, longest + 1, by):
-    zombie.draw_square(counter)
+    draw_square(counter)
 
 zombie.check()
