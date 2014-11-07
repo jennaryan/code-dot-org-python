@@ -29,7 +29,7 @@ import sys
 sys.path.append('..')
 import codestudio
 import mymod
-artist = codestudio.load('s1level63')
+artist = codestudio.load('s1level64')
 zombie = mymod.Zombie(artist)
 zombie.speed = 'fast'
 
