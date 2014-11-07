@@ -1,1 +1,0 @@
-{"start-direction": 90, "type": "artist", "starty": 0, "startx": 0, "x": 0, "pen": {"width": 7, "color": "red"}, "y": 0, "lasty": -100, "puzzle": [[0, 0, 100, 0, "red", 7], [100, 0, 100, -100, "red", 7], [100, -100, 0, -100, "red", 7], [0, -100, 0, 0, "red", 7]], "direction": 450, "lastx": 0}
