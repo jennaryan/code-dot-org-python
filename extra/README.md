@@ -6,7 +6,7 @@ very easy, some very hard. See if you can do them. Then, create your own
 challenges to submit and we'll include them as well. Here's how ...
 
 1. Copy the `sample.py` or another than you like.
-2. Change `load(whatever)` to `create(your_challenge_name,type,start_direction)` 
+2. Change `load(whatever)` to `create(your_challenge_name,type,start_direction,startx,starty)` 
 3. Change `check()` to `wait()` until you perfect your challenge
 4. Change `wait()` to `save()` when you are ready to save it. Then run again.
 5. Change the `create()` to `load(your_challenge_name)`
@@ -16,7 +16,8 @@ challenges to submit and we'll include them as well. Here's how ...
 9. Run one last time to test what your players will see
 10. Commit your changes to github and let us know about them to include
 
-That's it. Here's an example:
+`start_direction`, `startx` and `starty` are optional. That's it. Here's
+an example:
 
 ```
 import sys
