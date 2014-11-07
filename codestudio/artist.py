@@ -87,6 +87,26 @@ class Artist():
         self.speed = self.speed           # triggers __setattr__
         self._lines_to_draw = []          # drawing cache
 
+    @property
+    def title(self):
+        return self.canvas.title
+
+    @title.setter
+    def title(self,new):
+        self._title = new
+        if not new:
+            if self.uid:
+                self.canvas.title = self.uid
+        else:
+            if self.uid:
+                self.canvas.title = new + '  [' + self.uid + ']'
+            else:
+                self.canvas.title = new
+
+    @title.deleter
+    def title(self):
+        self.canvas.title = self.uid
+
     def config(self,conf):
         """Sets attributes based dictionary (usually after JSON load)."""
         for key in conf:
@@ -114,8 +134,8 @@ class Artist():
         self.draw_lines(self.puzzle, color='lightgrey', speed='fastest')
 
     def check(self):
-        log = [tuple([round(n) for n in l[0:4]]) for l in self.log]
-        puzzle = [tuple([round(n) for n in l[0:4]]) for l in self.puzzle]
+        log = [tuple(l[0:4]) for l in self.log]
+        puzzle = [tuple(l[0:4]) for l in self.puzzle]
         number = len(set(puzzle))
         if len(set(log)) != number:
             return self.try_again()
@@ -136,6 +156,7 @@ class Artist():
             f.write(json.dumps({
                 "uid": self.uid,
                 "type": self.type,
+                "title": self._title,
                 "startx": self.startx,
                 "starty": self.starty,
                 "start_direction": self.start_direction,

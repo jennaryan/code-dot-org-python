@@ -52,7 +52,7 @@ def load(uid):
     player.setup()
     return player
 
-def create(uid,ctype,direction=0,x=0,y=0):
+def create(uid,ctype,direction=0,x=0,y=0,title=None):
     '''Combine with `save()` to create new puzzles'''
     fname = path.join('puzzles',uid+'.json')
     assert not path.isfile(fname), '{} already exists'.format(fname)
@@ -60,7 +60,8 @@ def create(uid,ctype,direction=0,x=0,y=0):
         'uid': uid,
         'start_direction': direction,
         'startx': x,
-        'starty': y
+        'starty': y,
+        'title': title
     }
     if ctype == 'artist':
         player = Artist.from_json(config)

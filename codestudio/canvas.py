@@ -41,7 +41,7 @@ class Canvas():
 
     @property
     def title(self):
-        return self.title
+        return self._master.title
 
     @title.setter
     def title(self,value):
@@ -49,7 +49,7 @@ class Canvas():
 
     @title.deleter
     def title(self):
-        self._master.title(None)
+        self._master.title('')
 
     @property
     def speed(self):
