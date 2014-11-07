@@ -8,11 +8,10 @@ colors will be different every time.
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level31')
 
-artist.color = 'random'
+artist.color = artist.random_color()
 artist.move_forward(100)
 artist.move_backward(100)
 artist.turn_right(45)

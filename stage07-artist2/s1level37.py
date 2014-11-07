@@ -7,13 +7,11 @@ repeat (for) loop and turn function call to make a pretty flower?
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level37')
 artist.speed = 'slow'
 
-# TODO make a flower by putting this code in a for loop and turning
-artist.color = 'random'
+artist.color = artist.color_random()
 for count in range(3):
     artist.move_forward(100)
     artist.turn_right(120)

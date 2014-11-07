@@ -8,15 +8,13 @@ to draw anything you want.
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level45')
 artist.speed = 'fastest'
 
-# TODO alter or replace this code to draw whatever you want
 for count3 in range(18):
     for count2 in range(10):
-        artist.color = 'random'
+        artist.color = artist.color_random()
         for count in range(4):
             artist.move_forward(20)
             artist.turn_right(90)

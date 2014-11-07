@@ -27,46 +27,14 @@ highlight TODO brightly to draw attention to them.
 
 """
 
-# These two lines tell Python to look in the parent directory that contains
-# the folder this file is in. This just means you can run all the challenges
-# without having to install the codestudio module and just use it where it is.
-# (In programmer terms, this adds to PYTHONPATH where Python searches for mods.)
 import sys
 sys.path.append('..')
-
-# Here is your main import statment. They always come immediately after any
-# docstring comments for your script or module. Every puzzle challenge
-# depends on `import codestudio` to work.
 import codestudio
-
-# Here is how you load a puzzle challenge and create an artist
 artist = codestudio.load('s1level24')
-#artist = codestudio.create('s1level24','artist',90)
-
-# You can set the artist's pen color with the following (default black)
-#artist.pen.color = 'red'
-#artist.pen.color = 'random'
-
-# You can change the artist pen size (width) as well (default 7)
-#artist.pen.width = 20
-
-# You can change the artist's speed with any of the following (default normal)
-#artist.speed = 'slowest'
-artist.speed = 'slower'
-#artist.speed = 'slow'
-#artist.speed = 'normal'
-#artist.speed = 'fast'
-#artist.speed = 'faster'
-#artist.speed = 'fastest'
-
-# Use a few commands to make the artist draw over the grey lines. 
 
 artist.move_forward(100)
+# TODO replace this line with code to make the artist turn right
+# TODO replace this line with code make the artist move forward
 
-# TODO make the artist turn right
-
-# TODO make the artist move forward
-
-# This is how you check your code. It always comes at the end.
 artist.check()
 

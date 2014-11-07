@@ -242,4 +242,6 @@ class Artist():
         b = random.randint(0,255)
         return '#{:02x}{:02x}{:02x}'.format(r,g,b)
 
+    random_colour = random_color
     colour_random = random_color
+    color_random = random_color

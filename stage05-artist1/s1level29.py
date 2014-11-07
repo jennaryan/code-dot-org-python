@@ -8,12 +8,10 @@ square.
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level29')
 
-# TODO draw the triangle and square in 8 lines or less
 for count in range(3):
-    pass # <--- TODO replace this line
+    pass
     
 artist.check()

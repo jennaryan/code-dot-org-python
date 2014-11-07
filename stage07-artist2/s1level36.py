@@ -7,17 +7,15 @@ program already written below to draw these triangles.
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level36')
 artist.speed = 'slower'
 
-# TODO adjust the following to turn right 90 at the spot in the code
-artist.color = 'random'
+artist.color = artist.random_color()
 for count in range(3):
     artist.move_forward(100)
     artist.turn_right(120)
-artist.color = 'random'
+artist.color = artist.random_color()
 for count in range(3):
     artist.move_forward(100)
     artist.turn_right(120)

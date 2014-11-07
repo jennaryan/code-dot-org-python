@@ -8,16 +8,15 @@ of turning the drawing will come full circle)
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level39')
 artist.speed = 'faster'
 
 for count2 in range(36):
-    artist.color = 'random'
+    artist.color = artist.random_color()
     for count in range(3):
         artist.move_forward(100)
         artist.turn_right(120)
-    artist.turn_right(2) # TODO fix this
+    artist.turn_right(2)                         # ???
 
 artist.check()

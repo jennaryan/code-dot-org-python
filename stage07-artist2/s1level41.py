@@ -8,12 +8,10 @@ more lines of code.
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level41')
 
-# TODO draw 10 adjacent squares like a ladder in 8 lines of code or less
-artist.color = 'random'
+artist.color = artist.random_colour()
 for count in range(4):
     artist.move_forward(20)
     artist.turn_right(90)

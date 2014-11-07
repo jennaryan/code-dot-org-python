@@ -7,10 +7,9 @@ lines of code? Hint: use a repeat (for) loop.
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level35')
 
-# TODO draw a triangle with 4 lines of code or less
+# ???
 
 artist.check()

@@ -9,13 +9,11 @@ full circle)
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level38')
 
-# TODO correct the number of repeats in the for loop
 for count2 in range(2):
-    artist.color = 'random'
+    artist.color = artist.colour_random()
     for count in range(3):
         artist.move_forward(100)
         artist.turn_right(120)

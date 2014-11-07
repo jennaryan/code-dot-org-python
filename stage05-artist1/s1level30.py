@@ -8,10 +8,9 @@ apart. Don't forget to draw in green!
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level30')
 
-# TODO draw two 100 pixel squares with 50 pixels between
+
 
 artist.check()
