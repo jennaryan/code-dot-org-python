@@ -8,16 +8,15 @@ to 'normal', 'fast', 'faster', 'fastest' or a number.
 
 import sys
 sys.path.append('..')
-
 import codestudio
 import mymod
 artist = codestudio.load('s1level62')
 zombie = mymod.Zombie(artist)
 zombie.speed = 'faster'
 
-for count in range(10):  # hummm
+for count in range(10):                          # ???
     zombie.color = zombie.random_color()
-    zombie.draw_square(50) # hummm
-    zombie.turn_right(20) # humm
+    zombie.draw_square(50)                       # ???
+    zombie.turn_right(20)                        # ???
 
 zombie.check()

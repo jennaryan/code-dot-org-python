@@ -10,7 +10,6 @@ library module for you.
 
 import sys
 sys.path.append('..')
-
 import codestudio
 import mymod
 artist = codestudio.load('s1level61')

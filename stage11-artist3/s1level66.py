@@ -7,7 +7,6 @@ Our Zombie has a new `draw_snowman()` method. Draw two snowmen, of height
 
 import sys
 sys.path.append('..')
-
 import codestudio
 import mymod
 artist = codestudio.load('s1level66')

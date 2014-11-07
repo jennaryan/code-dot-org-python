@@ -4,34 +4,36 @@ Ok, this program will use a counter, to draw the same squares as last
 time. You want the square to be the same size as the counter, so use the
 "counter" loop. Here's how.
 
-Counter loops are the same as the simple `for count in range(4):` loops
-just with extra numbers inside the parenthesis and instead of ignoring
-the `count` variable that gets set every time through the loop we name is
-`counter` and use it in the loop in place of something else. It doesn't
-have to be named `counter` but we use that name for consistency in these
-puzzles. 
+Counter loops are the same as the simple `for counter in range(4):` loops
+just with extra `range()` parameters and we actually use the `counter`
+variable that gets set every time through the loop. It doesn't have to
+be named `counter` but we use that name for consistency in these puzzles.
 
-    for counter in range(5,50,5):
+    for counter in range(5,51,5):
         print(counter)
 
-The first number is the one to start with, the second the one to end with,
-and the third is how much to count by.
+The first number (5) is the one to start with.
 
-Note how much cleaner Python loops are than the ones used in JavaScript
-(from 'Show Code') and other languages.
+The second number (51) is the maximum. We add a 1 so that 50 will be
+included.
+
+The third (5) is how much to count by (5,10,15,...50).
+
+Even though we have to add 1 to count the way we want, note how much
+cleaner Python loops are than the ones used in JavaScript (from 'Show
+Code') and other languages.
 
 """
 
 import sys
 sys.path.append('..')
-
 import codestudio
 import mymod
 artist = codestudio.load('s1level63')
 zombie = mymod.Zombie(artist)
 zombie.speed = 'fast'
 
-for counter in range(50,90,10):
-    zombie.draw_square()  # TODO fix me
+for counter in range(50,91,10):
+    zombie.draw_square(10)                       # ???
 
 zombie.check()

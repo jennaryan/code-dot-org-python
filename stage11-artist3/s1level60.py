@@ -1,45 +1,54 @@
 """Stage 11: Puzzle 2 of 11
 
-Welcome to using methods!  Methods are functions that go with a
-class, (think classification, not school). Classes let you organize
-code into objects so thinking about them makes sense when things
-get complicated. This is called object-oriented programming. You
-have been using it all along. An `artist` object (also called
-an instance) is created every time you write the line `artist =
-codestudio.load()`. Then you tell the artist what to do by calling its
-methods, `artist.move_forward(100)` for example. Some compare this to
-having a cookie cutter (a class) and making cookies (objects or instances)
-using it.
+Welcome to using object-oriented programming! Classes, objects, methods
+and attributes! We'll use our zombie artist but with more power!  Still no
+reason fear. For this puzzle complete the method in the Zombie class so
+your zombie will draw a small 50x50 green square.
 
-In this puzzle we've created a new Zombie class for you below and started
-to define the method `draw_square(self)`. The 'self' is a special variable
-that we'll talk about later. It contains a reference to the object so this
-method function can see and use other stuff in that same object.
+Classes are used to make objects (like classification, not school
+class). Sometimes we use the word 'instance' instead of 'object'. You
+have been using objects all along. An `artist` is an object instance
+of the `Artist` class. Note the capital letter 'A'. Class names are
+always capitalized.
 
-Complete the method so that it will draw a small 50x50 green square when
-called in the main program.
+Methods are special functions tied to a class. They tell us what objects
+from that class can do. For example, all artists can `move_forward(100)`.
+Methods always have a dot linking them to the object from that class
+(`artist.move_forward(100)`). Methods usually start with a verb, but
+not always.
 
+Attributes are special variables tied to a class. They tell us about the
+object and let us change them. For example, all artists have 'color',
+'width', and 'speed' attributes that we have been changing. Usually
+we change attributes like any variable, by assigning to them
+(`artist.color = 'red'`). Sometimes attributes are changed with methods
+(`artist.pencolor('red')`). It really just depends on how the class
+was designed.
+
+Classes really help us out because they let us organize code into objects
+like in the real-world so thinking about them makes sense when your
+code gets long and complicated (as most all code does). This is called
+"object-oriented programming". We think you'll love it. Let's build a
+Zombie class using OOP!
 
 """
 
 import sys
 sys.path.append('..')
-
 import codestudio
 
-# We have to define the new class here because it extends the parent class
-# from codestudio.Artist
-
 class Zombie(codestudio.Artist):
-    """An Artist with a propensity for brains and drawing squares.
+    """An Artist who likes to eat brains and draw squares.
 
-    While class definitions look like function definitions they are different.
-    The parameter inside the parenthesis () is the parent class. This means
-    all Zombies are Artists and can do everything an Artist can do.
+    Class definitions look like function definitions but are
+    different. The parameter inside the parenthesis (`codestudio.Artist`)
+    says that Zombies can do everything an Artist can do.
 
-    The `start_direction` and `speed` are special variables that goes with
-    all Zombies. These are called class or static attributes. An attribute
-    is a variable that goes with a class or the objects created from a class.
+    The `start_direction` and `speed` are special variables that goes
+    with all Zombies. These are called class or static attributes. An
+    attribute is a variable that goes with a class or the objects created
+    from a class.
+
     """
 
     start_direction = 90            # facing the east, or right of screen
@@ -47,22 +56,17 @@ class Zombie(codestudio.Artist):
     color = 'green'                 # it is a zombie after all
 
     def draw_square(self,length):
-        pass # <--- TODO replace with code to draw a square
+        pass                                     # ???
 
-# This following line is standard best  practice to separate classes
-# from the main code in Python. Notice how we have to indent.
+#----------------------------------------------------------------
+"""
+We still need an artist so we can let the zombie use his puzzle and
+canvas to draw on. We won't see the artist though. He took a break
+and and let's the zombie do all the work.
+"""
 
-if __name__ == '__main__':
+artist = codestudio.load('s1level60')
+zombie = Zombie(artist)
+zombie.draw_square(50)
 
-    artist = codestudio.load('s1level60')
-
-    # This line makes a new zombie who knows everything the artist does.
-    # We pass in the original 'artist' so our zombie can borrow his
-    # puzzle to look at and his canvas to draw on.
-
-    zombie = Zombie(artist)
-
-    # and more ...
-    zombie.draw_square(50)
-
-    zombie.check()
+zombie.check()
