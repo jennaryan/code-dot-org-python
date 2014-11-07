@@ -27,6 +27,14 @@ class Zombie(codestudio.Artist):
             self.move_forward(length)
             self.turn_right(90)
 
+    def draw_circle(self):
+        saved_speed = zombie.speed
+        zombie.speed = 'fastest'
+        for count in range(360):
+            zombie.move_forward(1)
+            zombie.turn_right(1)
+        zombie.speed = saved_speed
+
     def draw_snowman(self,length):
         self.left()
         distances = [length * 0.5, length * 0.3, length * 0.2]

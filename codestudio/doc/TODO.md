@@ -1,6 +1,7 @@
 REQUIRED
 ========
 * must have optional background images to save on puzzle solution load
+* figure out where to introduce classes, objects, methods and attributes
 
 * line joiner multiple small lines in same direction into one longer line
 * lines of code counter
