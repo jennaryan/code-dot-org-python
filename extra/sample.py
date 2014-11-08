@@ -1,6 +1,5 @@
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('sample')
 
