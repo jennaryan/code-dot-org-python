@@ -135,12 +135,13 @@ class Artist():
         self.draw_lines(self.puzzle, color='lightgrey', speed='fastest')
 
     def check(self):
-        log = [tuple(l[0:4]) for l in self.log]
-        puzzle = [tuple(l[0:4]) for l in self.puzzle]
+        log = [tuple([round(i) for i in l[0:4]]) for l in self.log]
+        puzzle = [tuple([round(i) for i in l[0:4]]) for l in self.puzzle]
         number = len(set(puzzle))
         if len(set(log)) != number:
             return self.try_again()
         for line in puzzle:
+            print(line)
             backward = (line[2],line[3],line[0],line[1])
             if line not in log and backward not in log:
                 return self.try_again()
