@@ -5,6 +5,7 @@ figure out how it works? (Or delete it and replace it with something
 totally different)
 
 """
+
 import sys
 sys.path.append('..')
 import codestudio

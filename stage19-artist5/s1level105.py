@@ -5,10 +5,11 @@ figure out how it works? (Or delete it and replace it with something
 totally different)
 
 """
+
 import sys
 sys.path.append('..')
 import codestudio
-zombie = codestudio.load('s1level103')
+zombie = codestudio.load('s1level105')
 
 for counter in range(1,300,1):
     zombie.color = zombie.random_color()
