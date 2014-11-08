@@ -71,7 +71,7 @@ class Canvas():
             self._delay = round((1/value) * self.speed_scale)
 
     def exit_on_click(self):
-        self._canvas.bind('<Button>',lambda e: e.widget.quit())
+        self._canvas.bind('<Button>',lambda e: self._master.destroy())
         self._canvas.mainloop()
 
     def draw_line(self,line,color=None,width=7):
