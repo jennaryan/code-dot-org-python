@@ -64,6 +64,16 @@ def line_length(line):
     dy = line[3] - line[1]
     return math.sqrt(dx**2 + dy**2) 
 
+def line_contains(line,point):
+    x, y = point[0], point[1]
+    x1, y1 = line[0], line[1]
+    x2, y2 = line[2], line[3]
+    factor = (x2-x1) * (x-x1) - (y2-y1) * (y-y1)
+    if 0 <= factor < 0.0001:
+        if x1 <= x <= x2 and y1 <= y <= y2:
+            return True
+    return False
+
 def xy_plus_vec(x=0,y=0,direction=0,amount=0):
     '''Returns a new (x,y) coordinate after adding the amount in
     the given direction

@@ -2,6 +2,7 @@ import sys
 sys.path.append('..')
 import codestudio.artist as a
 from nose.tools import assert_equals
+from nose.tools import assert_raises
 
 def line_length_test():
     assert_equals(a.line_length((0,0,2,2)), 2.8284271247461903)
@@ -28,6 +29,15 @@ def angle_test():
     assert_equals(round(a.angle((0,0,-2,2))), 315)
     assert_equals(round(a.angle((0,0,-1,2))), 333)
 
+def line_contains_test():
+    assert a.line_contains((0,0,4,4),(2,2))
+    assert a.line_contains((1,1,4,4),(2,2))
+    assert a.line_contains((2,2,2,2),(2,2))
+    assert not a.line_contains((0,0,5,10),(2,2))
+    assert not a.line_contains((3,3,4,4),(2,2))
+    assert not a.line_contains((3,3,4,4),(10,100))
+
+'''
 def join_segments_continuous_test():
     test = [
         [0,0,3,3,'black',7],
@@ -40,3 +50,4 @@ def join_segments_continuous_test():
     ]
     joined = a.join_segments(test)
     assert_equals(joined,correct)
+'''
