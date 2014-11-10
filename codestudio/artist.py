@@ -45,6 +45,19 @@ import random
 
 from .canvas import Canvas
 
+def angle(line):
+    dx = line[2] - line[0]
+    dy = line[3] - line[1]
+    angle = math.degrees(math.atan2(dy,dx))
+    if 0 <= angle <= 90:
+        return 90 - angle
+    elif 90 < angle <= 180:
+        return 180 - angle + 270 
+    elif 0 > angle >= -90:
+        return 90 - angle
+    elif -90 > angle > -180:
+        return 90 - angle
+
 class Artist():
     start_direction = 0
     startx = 0
@@ -137,6 +150,8 @@ class Artist():
     def check(self):
         log = [tuple([round(i) for i in l[0:4]]) for l in self.log]
         puzzle = [tuple([round(i) for i in l[0:4]]) for l in self.puzzle]
+        #log = self.simplify_lines(log)
+        #puzzle = self.simplify_lines(puzzle)
         number = len(set(puzzle))
         if len(set(log)) != number:
             return self.try_again()
@@ -146,6 +161,28 @@ class Artist():
             if line not in log and backward not in log:
                 return self.try_again()
         return self.good_job()
+
+    @classmethod
+    def simplify_lines(cls,lines):
+        lines = cls.join_line_segments(lines)
+        lines = cls.remove_redundant_lines(lines)
+        return lines
+
+    @staticmethod
+    def join_line_segments(lines):
+        """Join lines with a common direction and beginning or end."""
+        for line in lines:
+            x1 = line[0]
+            y1 = line[1]
+            x2 = line[2]
+            y2 = line[3]
+            pass # TODO
+
+    @staticmethod
+    def remove_redundant_lines(lines):
+        for line in lines:
+            pass # TODO
+
 
     def save(self,name=None,fname=None):
         name = name if name else self.uid
