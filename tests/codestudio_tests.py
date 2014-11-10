@@ -4,6 +4,7 @@ import codestudio.artist as a
 from nose.tools import assert_equals
 
 def angle_test():
+    assert_equals(round(a.angle((0,0,0,2))), 0)
     assert_equals(round(a.angle((0,0,1,2))), 27)
     assert_equals(a.angle((0,0,2,2)), 45)
     assert_equals(round(a.angle((0,0,2,1))), 63)
@@ -19,4 +20,3 @@ def angle_test():
     assert_equals(round(a.angle((0,0,-2,1))), 297)
     assert_equals(round(a.angle((0,0,-2,2))), 315)
     assert_equals(round(a.angle((0,0,-1,2))), 333)
-    assert_equals(round(a.angle((0,0,0,2))), 0)
