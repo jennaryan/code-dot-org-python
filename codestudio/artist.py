@@ -35,7 +35,6 @@ programming but builds on a foundation of challenge and solution, (which
   that was drawn in a different way. This is critical for code.org puzzles
   since often there is more than one way to retrace drawn lines to get
   to a new position.
-
 """
 
 import os
@@ -44,127 +43,7 @@ import math
 import random
 
 from .canvas import Canvas
-
-def angle(line):
-    dx = line[2] - line[0]
-    dy = line[3] - line[1]
-    angle = math.degrees(math.atan2(dy,dx))
-    if 0 <= angle <= 90:
-        return 90 - angle
-    elif 90 < angle <= 180:
-        return 180 - angle + 270 
-    elif 0 > angle >= -90:
-        return 90 - angle
-    elif -90 > angle > -180:
-        return 90 - angle
-
-def line_length(line):
-    """Thank you Pythagoras. You would have loved Python."""
-    dx = line[2] - line[0]
-    dy = line[3] - line[1]
-    return math.sqrt(dx**2 + dy**2) 
-
-def line_contains(line,point):
-    x, y = point[0], point[1]
-    x1, y1 = line[0], line[1]
-    x2, y2 = line[2], line[3]
-    factor = (x2-x1) * (x-x1) - (y2-y1) * (y-y1)
-    if 0 <= factor < 0.0001:
-        if x1 <= x <= x2 and y1 <= y <= y2:
-            return True
-    return False
-
-def xy_plus_vec(x=0,y=0,direction=0,amount=0):
-    '''Returns a new (x,y) coordinate after adding the amount in
-    the given direction
-    '''
-    newx = math.sin(math.radians(direction)) * amount + x
-    newy = math.cos(math.radians(direction)) * amount + y
-    return (newx,newy)
-
-def join_segments(lines):
-    print('join segments')
-    joined = []
-    for line in lines:
-        print('line',line)
-        start = (line[0],line[1])
-        end = (line[2],line[3])
-        length = line_length(line)
-        color = line[4]
-        width = line[5]
-        direction = angle(line)
-        reversed_direction = direction + 180
-        print('start',start)
-        print('end',end)
-        print('length',length)
-        print('color',color)
-        print('widt',width)
-        print('direction',direction)
-        print('reversed_direction',reversed_direction)
-        if reversed_direction > 360:
-            reversed_direction -= 360
-        for other in lines:
-            print('=' * 60)
-            print('other',other)
-            o_start = (other[0],other[1])
-            o_end = (other[2],other[3])
-            o_length = line_length(line)
-            o_direction = angle(other)
-            o_color = other[4]
-            o_width = other[5]
-            o_reversed_direction = o_direction + 180
-            print('o_start',o_start)
-            print('o_end',o_end)
-            print('o_length',o_length)
-            print('o_color',o_color)
-            print('o_width',o_width)
-            print('o_direction',o_direction)
-            print('o_reversed_direction',o_reversed_direction)
-            shorter = length < o_length
-            same_direction = direction == o_direction
-            opposite_direction = reversed_direction == o_direction
-            same_start = start == o_start
-            same_end = end == o_end
-            start_end = start == o_end
-            end_start = end == o_start
-            attached = same_start or same_end or start_end or end_start
-            same = same_start and same_end
-            flipped = start_end and end_start
-            continuous = same_direction and end_start
-            facing = opposite_direction and same_end
-            away = opposite_direction and same_start
-            subseg = same_direction and same_start and shorter
-            subsegr = opposite_direction and same_end and shorter
-            if same or flipped or subseg or subsegr:
-                print('same')
-                continue
-            if continuous:
-                print('continuous')
-                new_line = [
-                    start[0],start[1],
-                    o_end[0],o_end[1],
-                    color, width
-                ]
-                joined.append(new_line)
-            elif facing:
-                print('facing')
-                new_line = [
-                    end[0],end[1],
-                    o_end[0],o_end[1],
-                    color, width
-                ]
-                joined.append(new_line)
-            elif away:
-                print('away')
-                new_line = [
-                    start[0],start[1],
-                    o_start[0],o_start[1],
-                    color, width
-                ]
-                joined.append(new_line)
-            else:
-                print('not attached')
-    return joined
+from .geometry import *
 
 class Artist():
     start_direction = 0
