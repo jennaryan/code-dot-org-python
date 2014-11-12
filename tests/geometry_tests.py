@@ -22,6 +22,8 @@ def Line_test():
     f = l.flipped()
     assert f.to_tuple() == (3,3,0,0)
     assert f.angle == 225
+    f.length += 1
+    '''
     f += 1
     assert l < f
     assert l <= l
@@ -29,6 +31,7 @@ def Line_test():
     assert l != f
     assert f > l
     assert f >= f
+    '''
     assert l in f
     assert l.to_tuple() in f
     assert f not in l
@@ -53,6 +56,11 @@ def Line_test():
     sw.flip()
     assert ne.facing(sw)
 
+def flip_test():
+    line = g.Line((0,0,1,1))
+    g.flip(line)
+    assert_equals(str(line),"[1, 1, 0, 0, 'black', 7]")
+
 def unique_lines_test():
     lines = [
         [0,0,0,0,'black',7],
@@ -74,6 +82,8 @@ def unique_lines_test():
         (0,0,-3,-3),
         (-4,-4,0,0)
     ] 
+
+    print(g.unique(lines))
     assert_equals(g.unique(lines),unique)
 
 def length_test():

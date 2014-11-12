@@ -34,12 +34,7 @@ class Line():
         return (self.x,self.y,self.dx,self.dy)
 
     def flip(self):
-        x = self.dx
-        y = self.dy
-        self.dx = self.x
-        self.dy = self.y
-        self.x = x
-        self.y = y
+        return flip(self)
 
     def flipped(self):
         f = __class__()
@@ -54,6 +49,7 @@ class Line():
     def __str__(self):
         return str([self.x,self.y,self.dx,self.dy,self.color,self.width])
 
+    '''
     def __lt__(self,other):
         return self.length < other.length
         
@@ -79,6 +75,7 @@ class Line():
         else:
             raise TypeError()
         return self
+    '''
 
     def __setattr__(self,name,value):
         d = self.__dict__
@@ -97,6 +94,7 @@ class Line():
             super().__setattr__(name,value)
 
     def __contains__(self, item):
+        print('yesss')
         itype = type(item)
         if itype is Line:
             line = self.to_tuple()
@@ -161,6 +159,29 @@ class Line():
         if not self.angle == line.flipped().angle: return False
         return True
  
+def flip(line):
+    ltype = type(line)
+    if ltype is tuple:
+        return (line[2],line[3],line[0],line[1])
+    elif ltype is list:
+        x = line[0]
+        y = line[1]
+        line[0] = line[2]
+        line[1] = line[3]
+        line[2] = x
+        line[3] = y
+        return line
+    elif ltype is Line:
+        x = line.dx
+        y = line.dy
+        line.dx = line.x
+        line.dy = line.y
+        line.x = x
+        line.y = y
+    else:
+        raise TypeError()
+    return line
+
 def angle(line):
     dx = line[2] - line[0]
     dy = line[3] - line[1]
@@ -205,12 +226,59 @@ def xy_plus_vec(x=0, y=0, direction=0, amount=0):
     newy = math.cos(math.radians(direction)) * amount + y
     return (newx,newy)
 
+def to_tuples(lines):
+    converted = []
+    for line in lines:
+        ltype = type(line)
+        if ltype is Line:
+            line = line.to_tuple()
+        elif ltype is tuple or ltype is list:
+            line = tuple(line[0:4])
+        else:
+            raise TypeError()
+        converted.append(line)
+    return converted
+
+def to_lines(lines):
+    converted = []
+    for line in lines:
+        ltype = type(line)
+        if ltype is tuple:
+            line = Line(line)
+        elif ltype is list:
+            line = Line(tuple(line))
+        elif ltype is Line:
+            pass
+        else:
+            raise TypeError()
+        converted.append(line)
+    return converted
+
 def unique(lines):
-    tuples =  [tuple(l[0:4]) for l in lines]
-    unique = []
-    for t in tuples:
-        flipped = (t[2],t[3],t[0],t[1])
-        if t not in unique and flipped not in unique:
-            unique.append(t)
+    lines = to_tuples(lines)
+    unique = [] 
+    for line in lines:
+        flipped = flip(line)
+        if line not in unique and flipped not in unique:
+            unique.append(line)
     return unique
 
+def _find_joinable(line,lines):
+    new_joined = []
+    line = Line(line)
+    for other in lines:
+        other = Line(other)
+        if line.precedes(other):
+            new_joined.append((line[0],line[1],other[2],other[3]))
+            continue
+        elif line.continues(other):
+            new_joined.append((other[0],other[1],line[2],line[3]))
+            continue
+    return new_joined 
+
+def simplify(lines):
+    lines = unique(to_tuples(lines))
+    simplified = []
+    for line in lines:
+        pass
+    return simplified
