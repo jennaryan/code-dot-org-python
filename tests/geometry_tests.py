@@ -33,6 +33,25 @@ def Line_test():
     assert l.tuple() in f
     assert f not in l
     assert f.tuple() not in l
+    one = g.Line()
+    two = g.Line()
+    assert one.same(two)
+    two.x = 1
+    assert not one.same(two)
+    two.y = 1
+    one.dx = 1
+    one.dy = 1
+    assert one.attached(two)
+    assert one.start_end(two)
+    assert two.end_start(one)
+    one.flip()
+    assert two.same(one)
+    ne = g.Line((0,0,1,1))
+    sw = g.Line((0,0,-1,-1))
+    assert ne.opposing(sw)
+    ne.flip()
+    sw.flip()
+    assert ne.facing(sw)
 
 def line_length_test():
     assert g.line_length((0,0,2,2)) == 2.8284271247461903
