@@ -30,7 +30,7 @@ class Line():
         d['width'] = width
         self.x = line[0]     # triggers setattr
 
-    def tuple(self):
+    def to_tuple(self):
         return (self.x,self.y,self.dx,self.dy)
 
     def flip(self):
@@ -86,7 +86,7 @@ class Line():
             d[name] = value
             line = (d['x'],d['y'],d['dx'],d['dy'])
             d['angle'] = angle(line)
-            d['length'] = line_length(line)
+            d['length'] = length(line)
         elif name == 'length':
             d['length'] = value 
             (d['dx'],d['dy']) = xy_plus_vec(d['x'],d['y'],d['angle'],value)
@@ -99,22 +99,22 @@ class Line():
     def __contains__(self, item):
         itype = type(item)
         if itype is Line:
-            line = self.tuple()
+            line = self.to_tuple()
             has_xy = contains(line,(item.x,item.y))
             has_dxdy = contains(line,(item.dx,item.dy))
             return has_xy and has_dxdy
         elif itype is tuple or itype is list:
             if len(item) == 4:
-                has_xy = contains(self.tuple(),(item[0],item[1])) 
-                has_dxdy = contains(self.tuple(),(item[2],item[3])) 
+                has_xy = contains(self.to_tuple(),(item[0],item[1])) 
+                has_dxdy = contains(self.to_tuple(),(item[2],item[3])) 
                 return has_xy and has_dxdy
             elif len(item) == 2:
-                return contains(self.tuple(),(item[0],item[1])) 
+                return contains(self.to_tuple(),(item[0],item[1])) 
         else:
             raise TypeError()
     
     def attached(self,line):
-        if type(line) is __class__: l = line.tuple()
+        if type(line) is __class__: l = line.to_tuple()
         same_start = self.x == l[0] and self.y == l[1]
         same_end = self.dx == l[2] and self.dy == l[3]
         start_end = self.x == l[2] and self.y == l[3]
@@ -122,31 +122,31 @@ class Line():
         return same_start or same_end or start_end or end_start
 
     def same(self,line):
-        if type(line) is __class__: l = line.tuple()
-        return self.tuple() == l
+        if type(line) is __class__: l = line.to_tuple()
+        return self.to_tuple() == l
 
     def same_start(self,line):
-        if type(line) is __class__: l = line.tuple()
+        if type(line) is __class__: l = line.to_tuple()
         return self.x == l[0] and self.y == l[1]
 
     def same_end(self,line):
-        if type(line) is __class__: l = line.tuple()
+        if type(line) is __class__: l = line.to_tuple()
         return self.dx == l[2] and self.dy == l[3]
 
     def start_end(self,line):
-        if type(line) is __class__: l = line.tuple()
+        if type(line) is __class__: l = line.to_tuple()
         return self.x == l[2] and self.y == l[3]
 
     def end_start(self,line):
-        if type(line) is __class__: l = line.tuple()
+        if type(line) is __class__: l = line.to_tuple()
         return self.dx == l[0] and self.dy == l[1]
 
     def continues(self,line):
-        if type(line) is __class__: l = line.tuple()
+        if type(line) is __class__: l = line.to_tuple()
         return self.angle == angle(l) and self.start_end(l) 
 
     def precedes(self,line):
-        if type(line) is __class__: l = line.tuple()
+        if type(line) is __class__: l = line.to_tuple()
         return self.angle == angle(l) and self.end_start(l) 
 
     def opposing(self,line):
@@ -174,7 +174,7 @@ def angle(line):
     elif -90 > angle > -180:
         return 90 - angle
 
-def line_length(line):
+def length(line):
     """Thank you Pythagoras. You would have loved Python."""
     dx = line[2] - line[0]
     dy = line[3] - line[1]
@@ -213,3 +213,4 @@ def unique(lines):
         if t not in unique and flipped not in unique:
             unique.append(t)
     return unique
+

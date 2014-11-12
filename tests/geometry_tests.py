@@ -10,17 +10,17 @@ def Line_test():
     assert l.y == 1
     assert l.dx == 1
     assert l.dy == 1
-    assert l.tuple() == (1,1,1,1)
+    assert l.to_tuple() == (1,1,1,1)
     l.x = 0
     l.y = 0
-    assert l.tuple() == (0,0,1,1)
+    assert l.to_tuple() == (0,0,1,1)
     assert l.angle == 45
     l.dx = 3
     l.dy = 3
-    assert l.tuple() == (0,0,3,3)
+    assert l.to_tuple() == (0,0,3,3)
     assert l.angle == 45
     f = l.flipped()
-    assert f.tuple() == (3,3,0,0)
+    assert f.to_tuple() == (3,3,0,0)
     assert f.angle == 225
     f += 1
     assert l < f
@@ -30,9 +30,9 @@ def Line_test():
     assert f > l
     assert f >= f
     assert l in f
-    assert l.tuple() in f
+    assert l.to_tuple() in f
     assert f not in l
-    assert f.tuple() not in l
+    assert f.to_tuple() not in l
     one = g.Line()
     two = g.Line()
     assert one.same(two)
@@ -76,8 +76,8 @@ def unique_lines_test():
     ] 
     assert_equals(g.unique(lines),unique)
 
-def line_length_test():
-    assert g.line_length((0,0,2,2)) == 2.8284271247461903
+def length_test():
+    assert g.length((0,0,2,2)) == 2.8284271247461903
 
 def xy_plus_vec_test():
     returned = [round(n) for n in g.xy_plus_vec(0,0,45,2.8284271247461903)]
