@@ -204,3 +204,12 @@ def xy_plus_vec(x=0, y=0, direction=0, amount=0):
     newx = math.sin(math.radians(direction)) * amount + x
     newy = math.cos(math.radians(direction)) * amount + y
     return (newx,newy)
+
+def unique(lines):
+    tuples =  [tuple(l[0:4]) for l in lines]
+    unique = []
+    for t in tuples:
+        flipped = (t[2],t[3],t[0],t[1])
+        if t not in unique and flipped not in unique:
+            unique.append(t)
+    return unique

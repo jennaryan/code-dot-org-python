@@ -169,7 +169,6 @@ class Artist():
         for line in lines:
             pass # TODO
 
-
     def save(self,name=None,fname=None):
         name = name if name else self.uid
         if os.path.isdir('puzzles'):

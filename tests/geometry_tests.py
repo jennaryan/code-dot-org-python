@@ -53,6 +53,29 @@ def Line_test():
     sw.flip()
     assert ne.facing(sw)
 
+def unique_lines_test():
+    lines = [
+        [0,0,0,0,'black',7],
+        [0,0,1,1,'blue',7],
+        [0,0,2,2,'red',7],
+        [0,0,2,2,'green',7],
+        [0,0,1,1,'purple',7],
+        [1,1,0,0,'orange',7],
+        [0,0,1,1,'yellow',7],
+        [-2,-2,1,1,'pink',7],
+        [0,0,-3,-3,'chartreuse',7],
+        [-4,-4,0,0,'goldenrod',7]
+    ]
+    unique = [
+        (0,0,0,0),
+        (0,0,1,1),
+        (0,0,2,2),
+        (-2,-2,1,1),
+        (0,0,-3,-3),
+        (-4,-4,0,0)
+    ] 
+    assert_equals(g.unique(lines),unique)
+
 def line_length_test():
     assert g.line_length((0,0,2,2)) == 2.8284271247461903
 
