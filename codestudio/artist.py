@@ -137,8 +137,8 @@ class Artist():
     def check(self):
         log = [tuple([round(i) for i in l[0:4]]) for l in self.log]
         puzzle = [tuple([round(i) for i in l[0:4]]) for l in self.puzzle]
-        #log = self.simplify_lines(log)
-        #puzzle = self.simplify_lines(puzzle)
+        #log = simplify(log)
+        #puzzle = simplify(puzzle)
         number = len(set(puzzle))
         if len(set(log)) != number:
             return self.try_again()
