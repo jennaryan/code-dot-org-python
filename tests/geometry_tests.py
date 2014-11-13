@@ -118,8 +118,7 @@ def find_joins_test():
     assert_equals(_new,new)
     assert_equals(_remove,remove)
 
-'''
-def reduce_lines_test():
+def join_lines_test():
     lines = [
         [0,0,0,0,'black',7],
         [0,0,1,1,'blue',7],
@@ -132,30 +131,15 @@ def reduce_lines_test():
         [0,0,-3,-3,'chartreuse',7],
         [-4,-4,0,0,'goldenrod',7]
     ]
-    reduced = [
-        (-4,-4,2,2),
-        (-4, -4, 0, 0),
-        (0, 0, 1, 1),
-        (-4, -4, 1, 1),
-        (0, 0, 2, 2),
-        (0, 0, 0, 0),
-        (0, 0, -3, -3)
-    ]
-    _reduced, _new = g.reduce_lines(lines)
-    assert_equals(_reduced,reduced)
-    reduced = [
-        (-4,-4,2,2),
-        (-4, -4, 1, 1),
-        (0, 0, 2, 2),
-        (0, 0, 0, 0),
-        (0, 0, -3, -3)
-    ]
-    _reduced, _new = g.reduce_lines(reduced)
-    assert_equals(_reduced,reduced)
+    joined = [
+        (-2, -2, 1, 1), (-2, -2, 1, 1), (1, 1, -3, -3),
+            (-3, -3, 1, 1), (-4, -4, 0, 0), (-4, -4, 1, 1), (-4, -4, 2, 2), (2, 2, -3, -3), (0, 0, 1, 1), (-3, -3, 2, 2), (0, 0, 2, 2), (0, 0, -3, -3)]
+    _joined, _new = g.join_lines(lines)
+    #print('_JOINED:',_joined)
+    #print('JOINED:',joined)
+    print('NEW:',_new.keys())
+    assert_equals(_joined,joined)
 
-'''
-
-'''
 def simplify_test():
     lines = [
         [0,0,0,0,'black',7],
@@ -169,12 +153,8 @@ def simplify_test():
         [0,0,-3,-3,'chartreuse',7],
         [-4,-4,0,0,'goldenrod',7]
     ]
-    simplified = [
-        (0,0,2,2),
-        (-4,-4,1,1)
-    ]
+    simplified = [(-4,-4,2,2)]
     assert_equals(g.simplify(lines),simplified)
-'''
 
 def length_test():
     assert g.length((0,0,2,2)) == 2.8284271247461903
