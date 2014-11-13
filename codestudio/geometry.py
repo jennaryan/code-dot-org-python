@@ -260,21 +260,54 @@ def unique(lines):
 
 def find_joins(line,lines):
     line = Line(line)
+    line_t = line.to_tuple()
     new = {}
     remove = {}
     for other in lines:
         other = Line(other)
-        if line.precedes(other):
-            remove[line.to_tuple()] = True
-            remove[other.to_tuple()] = True
-            new[(line.x,line.y,other.dx,other.dy)] = True
-        elif line.continues(other):
-            remove[line.to_tuple()] = True
-            remove[other.to_tuple()] = True
-            new[(other.x,other.y,line.dx,line.dy)] = True
+        other_t = other.to_tuple()
+        #print(line,'-->',other,'?')
+        if other in line:
+            #print('contains')
+            remove[other_t] = True
+            #print(line_t)
+            new[line_t] = True
         elif line in other:
-            remove[line.to_tuple()] = True
-    print(remove)
+            #print('contained in')
+            remove[line_t] = True
+            #print(other_t)
+            new[other_t] = True
+        elif line.precedes(other):
+            #print('precedes')
+            remove[line_t] = True
+            remove[other_t] = True
+            n = (line.x,line.y,other.dx,other.dy)
+            #print(n)
+            new[n] = True
+        elif line.continues(other):
+            #print('continues')
+            remove[line_t] = True
+            remove[other_t] = True
+            n = (other.x,other.y,line.dx,line.dy)
+            #print(n)
+            new[n] = True
+        elif line.opposes(other):
+            #print('opposes')
+            remove[line_t] = True
+            remove[other_t] = True
+            n = (line.dx,line.dy,other.dx,other.dy)
+            #print(n)
+            new[n] = True
+        elif line.faces(other):
+            #print('faces')
+            remove[line_t] = True
+            remove[other_t] = True
+            n = (line.x,line.y,other.x,other.y)
+            #print(n)
+            new[n] = True
+        else:
+            pass
+            #print('nope')
     return new, remove
 
 def reduce_lines(lines):

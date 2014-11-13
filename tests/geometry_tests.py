@@ -99,20 +99,61 @@ def find_joins_test():
         [0,0,-3,-3,'chartreuse',7],
         [-4,-4,0,0,'goldenrod',7]
     ]
-
     new = {
+        (-1,-1,0,0): True,
         (-1,-1,1,1): True,
-        (-1,-1,2,2): True
+        (-1,-1,2,2): True,
+        (-4,-4,0,0): True,
+        (-2,-2,1,1): True,
+        (0,0,-3,-3): True
     }
-
     remove = {
+        (0,0,0,0): True,
         (0,0,1,1): True,
         (0,0,2,2): True,
         (1,1,0,0): True,
+        (-1,-1,0,0): True
     } 
     _new, _remove = g.find_joins((-1,-1,0,0),lines)
     assert_equals(_new,new)
     assert_equals(_remove,remove)
+
+'''
+def reduce_lines_test():
+    lines = [
+        [0,0,0,0,'black',7],
+        [0,0,1,1,'blue',7],
+        [0,0,2,2,'red',7],
+        [0,0,2,2,'green',7],
+        [0,0,1,1,'purple',7],
+        [1,1,0,0,'orange',7],
+        [0,0,1,1,'yellow',7],
+        [-2,-2,1,1,'pink',7],
+        [0,0,-3,-3,'chartreuse',7],
+        [-4,-4,0,0,'goldenrod',7]
+    ]
+    reduced = [
+        (-4,-4,2,2),
+        (-4, -4, 0, 0),
+        (0, 0, 1, 1),
+        (-4, -4, 1, 1),
+        (0, 0, 2, 2),
+        (0, 0, 0, 0),
+        (0, 0, -3, -3)
+    ]
+    _reduced, _new = g.reduce_lines(lines)
+    assert_equals(_reduced,reduced)
+    reduced = [
+        (-4,-4,2,2),
+        (-4, -4, 1, 1),
+        (0, 0, 2, 2),
+        (0, 0, 0, 0),
+        (0, 0, -3, -3)
+    ]
+    _reduced, _new = g.reduce_lines(reduced)
+    assert_equals(_reduced,reduced)
+
+'''
 
 '''
 def simplify_test():
