@@ -49,34 +49,6 @@ class Line():
     def __str__(self):
         return str([self.x,self.y,self.dx,self.dy,self.color,self.width])
 
-    '''
-    def __lt__(self,other):
-        return self.length < other.length
-        
-    def __le__(self,other):
-        return self.length <= other.length
-
-    def __eq__(self,other):
-        return self.length == other.length
-
-    def __ne__(self,other):
-        return self.length != other.length
-
-    def __gt__(self,other):
-        return self.length > other.length
-
-    def __ge__(self,other):
-        return self.length >= other.length
-
-    def __iadd__(self,other):
-        otype = type(other)
-        if otype is int or otype is float:
-            self.length += other
-        else:
-            raise TypeError()
-        return self
-    '''
-
     def __setattr__(self,name,value):
         d = self.__dict__
         if name in ('x','y','dx','dy'):
@@ -94,7 +66,6 @@ class Line():
             super().__setattr__(name,value)
 
     def __contains__(self, item):
-        print('yesss')
         itype = type(item)
         if itype is Line:
             line = self.to_tuple()
@@ -120,45 +91,69 @@ class Line():
         return same_start or same_end or start_end or end_start
 
     def same(self,line):
-        if type(line) is __class__: l = line.to_tuple()
-        return self.to_tuple() == l
+        if type(line) is __class__:  line = line.to_tuple()
+        return self.to_tuple() == line
 
     def same_start(self,line):
-        if type(line) is __class__: l = line.to_tuple()
-        return self.x == l[0] and self.y == l[1]
+        if type(line) is __class__: line = line.to_tuple()
+        return self.x == line[0] and self.y == line[1]
 
     def same_end(self,line):
-        if type(line) is __class__: l = line.to_tuple()
-        return self.dx == l[2] and self.dy == l[3]
+        if type(line) is __class__: line = line.to_tuple()
+        return self.dx == line[2] and self.dy == line[3]
 
     def start_end(self,line):
-        if type(line) is __class__: l = line.to_tuple()
-        return self.x == l[2] and self.y == l[3]
+        if type(line) is __class__: line = line.to_tuple()
+        return self.x == line[2] and self.y == line[3]
 
     def end_start(self,line):
-        if type(line) is __class__: l = line.to_tuple()
-        return self.dx == l[0] and self.dy == l[1]
+        if type(line) is __class__: line = line.to_tuple()
+        return self.dx == line[0] and self.dy == line[1]
 
     def continues(self,line):
-        if type(line) is __class__: l = line.to_tuple()
-        return self.angle == angle(l) and self.start_end(l) 
+        if type(line) is tuple: line = Line(line)
+        if not self.start_end(line):
+            return False
+        elif self.length == 0 or line.length == 0:
+            return True
+        elif self.angle == line.angle:
+            return True
+        else:
+            return False
 
     def precedes(self,line):
-        if type(line) is __class__: l = line.to_tuple()
-        return self.angle == angle(l) and self.end_start(l) 
-
-    def opposing(self,line):
         if type(line) is tuple: line = Line(line)
-        if not self.same_start(line): return False
-        if not self.angle == line.flipped().angle: return False
-        return True
+        if not self.end_start(line):
+            return False
+        elif self.length == 0 or line.length == 0:
+            return True
+        elif self.angle == line.angle:
+            return True
+        else:
+            return False
 
-    def facing(self,line):
+    def opposes(self,line):
         if type(line) is tuple: line = Line(line)
-        if not self.same_end(line): return False
-        if not self.angle == line.flipped().angle: return False
-        return True
- 
+        if not self.same_start(line):
+            return False
+        elif self.length == 0 or line.length == 0:
+            return True
+        elif self.angle == line.flipped().angle:
+            return True
+        else:
+            return False
+
+    def faces(self,line):
+        if type(line) is tuple: line = Line(line)
+        if not self.same_end(line):
+            return False
+        elif self.length == 0 or line.length == 0:
+            return True
+        elif self.angle == line.flipped().angle:
+            return True
+        else:
+            return False
+
 def flip(line):
     ltype = type(line)
     if ltype is tuple:
@@ -263,22 +258,40 @@ def unique(lines):
             unique.append(line)
     return unique
 
-def _find_joinable(line,lines):
-    new_joined = []
+def find_joins(line,lines):
     line = Line(line)
+    new = {}
+    remove = {}
     for other in lines:
         other = Line(other)
         if line.precedes(other):
-            new_joined.append((line[0],line[1],other[2],other[3]))
-            continue
+            remove[line.to_tuple()] = True
+            remove[other.to_tuple()] = True
+            new[(line.x,line.y,other.dx,other.dy)] = True
         elif line.continues(other):
-            new_joined.append((other[0],other[1],line[2],line[3]))
-            continue
-    return new_joined 
+            remove[line.to_tuple()] = True
+            remove[other.to_tuple()] = True
+            new[(other.x,other.y,line.dx,line.dy)] = True
+        elif line in other:
+            remove[line.to_tuple()] = True
+    print(remove)
+    return new, remove
+
+def reduce_lines(lines):
+    lines = unique(lines)
+    remove = {}
+    new = {} 
+    for line in lines:
+        _new, _remove = find_joins(line,lines)
+        new.update(_new)
+        remove.update(_remove)
+    reduced = [l for l in lines if l not in remove]
+    reduced.extend(new)
+    return reduced, new
 
 def simplify(lines):
-    lines = unique(to_tuples(lines))
-    simplified = []
-    for line in lines:
-        pass
-    return simplified
+    while True:
+        lines, new = reduce_lines(lines)
+        if not new:
+            break
+    return lines

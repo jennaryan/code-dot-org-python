@@ -51,10 +51,14 @@ def Line_test():
     assert two.same(one)
     ne = g.Line((0,0,1,1))
     sw = g.Line((0,0,-1,-1))
-    assert ne.opposing(sw)
+    assert ne.opposes(sw)
+    zero = g.Line((0,0,0,0))
+    assert ne.continues(zero)
+    assert zero.continues(zero)
+    assert zero.precedes(ne)
     ne.flip()
     sw.flip()
-    assert ne.facing(sw)
+    assert ne.faces(sw)
 
 def flip_test():
     line = g.Line((0,0,1,1))
@@ -62,6 +66,27 @@ def flip_test():
     assert_equals(str(line),"[1, 1, 0, 0, 'black', 7]")
 
 def unique_lines_test():
+    lines = [
+        [0,0,1,1,'blue',7],
+        [0,0,2,2,'red',7],
+        [0,0,2,2,'green',7],
+        [0,0,1,1,'purple',7],
+        [1,1,0,0,'orange',7],
+        [0,0,1,1,'yellow',7],
+        [-2,-2,1,1,'pink',7],
+        [0,0,-3,-3,'chartreuse',7],
+        [-4,-4,0,0,'goldenrod',7]
+    ]
+    unique = [
+        (0,0,1,1),
+        (0,0,2,2),
+        (-2,-2,1,1),
+        (0,0,-3,-3),
+        (-4,-4,0,0)
+    ] 
+    assert_equals(g.unique(lines),unique)
+
+def find_joins_test():
     lines = [
         [0,0,0,0,'black',7],
         [0,0,1,1,'blue',7],
@@ -74,17 +99,41 @@ def unique_lines_test():
         [0,0,-3,-3,'chartreuse',7],
         [-4,-4,0,0,'goldenrod',7]
     ]
-    unique = [
-        (0,0,0,0),
-        (0,0,1,1),
-        (0,0,2,2),
-        (-2,-2,1,1),
-        (0,0,-3,-3),
-        (-4,-4,0,0)
-    ] 
 
-    print(g.unique(lines))
-    assert_equals(g.unique(lines),unique)
+    new = {
+        (-1,-1,1,1): True,
+        (-1,-1,2,2): True
+    }
+
+    remove = {
+        (0,0,1,1): True,
+        (0,0,2,2): True,
+        (1,1,0,0): True,
+    } 
+    _new, _remove = g.find_joins((-1,-1,0,0),lines)
+    assert_equals(_new,new)
+    assert_equals(_remove,remove)
+
+'''
+def simplify_test():
+    lines = [
+        [0,0,0,0,'black',7],
+        [0,0,1,1,'blue',7],
+        [0,0,2,2,'red',7],
+        [0,0,2,2,'green',7],
+        [0,0,1,1,'purple',7],
+        [1,1,0,0,'orange',7],
+        [0,0,1,1,'yellow',7],
+        [-2,-2,1,1,'pink',7],
+        [0,0,-3,-3,'chartreuse',7],
+        [-4,-4,0,0,'goldenrod',7]
+    ]
+    simplified = [
+        (0,0,2,2),
+        (-4,-4,1,1)
+    ]
+    assert_equals(g.simplify(lines),simplified)
+'''
 
 def length_test():
     assert g.length((0,0,2,2)) == 2.8284271247461903
