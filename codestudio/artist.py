@@ -43,7 +43,7 @@ import math
 import random
 
 from .canvas import Canvas
-from .gamegrid import Grid
+from .gamegrids import XYGrid
 
 def xy_plus_vec(x=0, y=0, direction=0, amount=0):
     '''Returns a new (x,y) coordinate after adding the amount in
