@@ -43,7 +43,15 @@ import math
 import random
 
 from .canvas import Canvas
-from .geometry import *
+from .gamegrid import Grid
+
+def xy_plus_vec(x=0, y=0, direction=0, amount=0):
+    '''Returns a new (x,y) coordinate after adding the amount in
+    the given direction
+    '''
+    newx = math.sin(math.radians(direction)) * amount + x
+    newy = math.cos(math.radians(direction)) * amount + y
+    return (newx,newy)
 
 class Artist():
     start_direction = 0
