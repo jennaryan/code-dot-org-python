@@ -13,7 +13,7 @@ class TestXYGrid():
         eq_(self.grid,[[]])
 
     def init_test(self):
-        self.grid.init(3,2,'~')
+        eq_(self.grid.init(3,2,'~'), self.grid)
         eq_(self.grid,[['','',''],['','~','~',],['','~','~'],['','~','~']])
         self.grid[1][1] = '*'
         eq_(self.grid,[['','',''],['','*','~',],['','~','~'],['','~','~']])

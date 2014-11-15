@@ -55,7 +55,8 @@ class Artist():
 
     def __init__(self,proto=None):
         """In most cases you want Artist.from_json() instead."""
-        self._grid = XYGrid().init(400,400)
+        self.grid = None
+        self.solution = None
 
         # aggregate
         if proto:
@@ -85,7 +86,6 @@ class Artist():
             self.lasty = self.y 
             self.last_direction = self.direction
 
-        self.speed = self.speed           # triggers __setattr__
         self._lines_to_draw = []          # drawing cache
 
     @property
@@ -133,21 +133,16 @@ class Artist():
         self.direction = self.start_direction
         self.x = self.startx
         self.y = self.starty
+        self.grid = XYGrid().init(400,400,0)
         self.draw_lines(self.puzzle, color='lightgrey', speed='fastest')
+        self.solution = self.grid
+        self.grid = XYGrid().init(400,400,0) # wipe
 
     def check(self):
-        log = [tuple([round(i) for i in l[0:4]]) for l in self.log]
-        puzzle = [tuple([round(i) for i in l[0:4]]) for l in self.puzzle]
-        #log = simplify(log)
-        #puzzle = simplify(puzzle)
-        number = len(set(puzzle))
-        if len(set(log)) != number:
+        if self.grid == self.solution:
+            return self.good_job()
+        else:
             return self.try_again()
-        for line in puzzle:
-            backward = (line[2],line[3],line[0],line[1])
-            if line not in log and backward not in log:
-                return self.try_again()
-        return self.good_job()
 
     @classmethod
     def simplify_lines(cls,lines):
@@ -209,7 +204,7 @@ class Artist():
 
     def draw_lines(self,lines,color=None,speed=None):
         self.canvas.speed = speed if speed else self.speed
-        self._grid.draw_lines(lines)
+        self.grid.draw_lines(lines,1)
         if color:
             self.canvas.draw_lines(lines,color=color)
         else:
@@ -219,7 +214,6 @@ class Artist():
     def draw(self):
         self.draw_lines(self._lines_to_draw)
         self._lines_to_draw = []
-
 
     def _move(self,amount):
         (self.x,self.y) = xy(self.x,self.y,self.direction,amount)

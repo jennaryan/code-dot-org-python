@@ -21,18 +21,19 @@ class XYGrid(UserList):
             self.data[x][0] = ''
         for y in range(ysize+1):
             self.data[0][y] = ''
+        return self
 
     def to_text(self):
         d = self.data
         string = ''
         for y in range(self.ysize):
             for x in range(self.xsize):
-                string += d[x+1][y+1] + ' '
+                string += str(d[x+1][y+1]) + ' '
             string += "\n"
         return string
 
     def draw_line(self,line,value=1):
-        (x1,y1,x2,y2) = line
+        (x1,y1,x2,y2) = [round(n) for n in line[0:4]]
         angle = bearing(line)
         self.data[x1][y1] = value
         self.data[x2][y2] = value
@@ -52,17 +53,17 @@ def bearing(line):
         return 180 - angle + 270 
     elif 0 > angle >= -90:
         return 90 - angle
-    elif -90 > angle > -180:
+    elif -90 > angle >= -180:
         return 90 - angle
 
 def length(line):
     """Thank you Pythagoras. You would have loved Python."""
     return math.sqrt((line[2] - line[0]) ** 2 + (line[3] - line[1]) ** 2)
 
-def xy(x=0, y=0, direction=0, amount=0):
+def xy(x=0, y=0, direction=0.0, amount=0):
     """Returns a new (x,y) coordinate after adding the amount in
     the given direction."""
-    angle = math.radians(direction)
+    angle = math.radians(float(direction))
     return (math.sin(angle) * amount + x, math.cos(angle) * amount + y)
 
 class XYZGrid(UserList):
