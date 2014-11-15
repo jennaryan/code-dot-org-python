@@ -43,15 +43,7 @@ import math
 import random
 
 from .canvas import Canvas
-#from .gamegrids import XYGrid
-
-def xy_plus_vec(x=0, y=0, direction=0, amount=0):
-    '''Returns a new (x,y) coordinate after adding the amount in
-    the given direction
-    '''
-    newx = math.sin(math.radians(direction)) * amount + x
-    newy = math.cos(math.radians(direction)) * amount + y
-    return (newx,newy)
+from .gamegrids import XYGrid,xy
 
 class Artist():
     start_direction = 0
@@ -63,6 +55,7 @@ class Artist():
 
     def __init__(self,proto=None):
         """In most cases you want Artist.from_json() instead."""
+        self._grid = XYGrid().init(400,400)
 
         # aggregate
         if proto:
@@ -216,6 +209,7 @@ class Artist():
 
     def draw_lines(self,lines,color=None,speed=None):
         self.canvas.speed = speed if speed else self.speed
+        self._grid.draw_lines(lines)
         if color:
             self.canvas.draw_lines(lines,color=color)
         else:
@@ -228,7 +222,7 @@ class Artist():
 
 
     def _move(self,amount):
-        (self.x,self.y) = xy_plus_vec(self.x,self.y,self.direction,amount)
+        (self.x,self.y) = xy(self.x,self.y,self.direction,amount)
 
     def move(self,amount):
         self.lastx = self.x

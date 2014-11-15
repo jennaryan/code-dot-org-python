@@ -54,6 +54,21 @@ class TestXYGrid():
                   "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \n")
         eq_(self.grid.to_text(),string)
 
+    def draw_lines_test(self):
+        self.grid.init(10,10,'~')
+        self.grid.draw_lines([(1,1,4,4),(10,0,10,10)],'*')
+        string = ("* ~ ~ ~ ~ ~ ~ ~ ~ * \n"
+                  "~ * ~ ~ ~ ~ ~ ~ ~ * \n"
+                  "~ ~ * ~ ~ ~ ~ ~ ~ * \n"
+                  "~ ~ ~ * ~ ~ ~ ~ ~ * \n"
+                  "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n"
+                  "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n"
+                  "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n"
+                  "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n"
+                  "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n"
+                  "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n")
+        eq_(self.grid.to_text(),string)
+
 def length_test():
     eq_(gg.length((0,0,1,3)),math.sqrt((1-2)**2+(3-0)**2))
 

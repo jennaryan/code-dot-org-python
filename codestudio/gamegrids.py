@@ -40,6 +40,10 @@ class XYGrid(UserList):
             (dx,dy) = xy(x1,y1,angle,i)
             self.data[round(dx)][round(dy)] = value
 
+    def draw_lines(self,lines,value=None):
+        for line in lines:
+            self.draw_line(line,value)
+
 def bearing(line):
     angle = math.degrees(math.atan2(line[3]-line[1],line[2]-line[0]))
     if 0 <= angle <= 90:
