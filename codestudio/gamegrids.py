@@ -34,16 +34,36 @@ class XYGrid(UserList):
 
     def draw_line(self,line,value=1):
         (x1,y1,x2,y2) = [round(n) for n in line[0:4]]
-        angle = bearing(line)
-        self.data[x1][y1] = value
-        self.data[x2][y2] = value
-        for i in range(round(length(line))):
-            (dx,dy) = xy(x1,y1,angle,i)
-            self.data[round(dx)][round(dy)] = value
+        m = slope((x1,y1,x2,y2))
+        if m is None:                           # vertical line
+            if y1 <= y2:
+                for y in range(y1,y2+1):
+                    self.data[x1][y] = value
+            else:
+                for y in range(y1,y2-1,-1):
+                    self.data[x1][y] = value
+        else:
+            b = y1 - (m*x1)
+            if x1 <= x2:
+                for x in range(x1,x2+1):
+                    y = math.ceil(m*x+b)
+                    self.data[x][y] = value
+            else:
+                for x in range(x1,x2-1,-1):
+                    y = math.floor(m*x+b)
+                    self.data[x][y] = value
 
     def draw_lines(self,lines,value=None):
         for line in lines:
             self.draw_line(line,value)
+
+    def points_with(self,value):
+        points = []
+        for x in range(len(self.data)):
+            for y in range(len(self.data[x])):
+                if self.data[x][y] == value:
+                    points.append((x,y))
+        return set(points)
 
 def bearing(line):
     angle = math.degrees(math.atan2(line[3]-line[1],line[2]-line[0]))
@@ -55,6 +75,18 @@ def bearing(line):
         return 90 - angle
     elif -90 > angle >= -180:
         return 90 - angle
+
+def slope(line):
+    x1 = line[0]
+    y1 = line[1]
+    x2 = line[2]
+    y2 = line[3]
+    dx = x2 - x1
+    dy = y2 - y1
+    if not dx:
+        return None
+    else:
+        return dy / dx
 
 def length(line):
     """Thank you Pythagoras. You would have loved Python."""

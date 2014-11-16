@@ -135,7 +135,7 @@ class Artist():
         self.y = self.starty
         self.grid = XYGrid().init(400,400,0)
         self.draw_lines(self.puzzle, color='lightgrey', speed='fastest')
-        self.solution = self.grid
+        self.solution = XYGrid(self.grid)
         self.grid = XYGrid().init(400,400,0) # wipe
 
     def check(self):
@@ -144,26 +144,19 @@ class Artist():
         else:
             return self.try_again()
 
-    @classmethod
-    def simplify_lines(cls,lines):
-        lines = cls.join_line_segments(lines)
-        lines = cls.remove_redundant_lines(lines)
-        return lines
-
-    @staticmethod
-    def join_line_segments(lines):
-        """Join lines with a common direction and beginning or end."""
-        for line in lines:
-            x1 = line[0]
-            y1 = line[1]
-            x2 = line[2]
-            y2 = line[3]
-            pass # TODO
-
-    @staticmethod
-    def remove_redundant_lines(lines):
-        for line in lines:
-            pass # TODO
+    def show_check(self):
+        canvas = Canvas()
+        for y in range(-200,201):
+            for x in range(-200,201):
+                if not self.solution[x][y] and not self.grid[x][y]:
+                    pass
+                elif self.solution[x][y] == self.grid[x][y]:
+                    canvas.poke(x,-y,'black')
+                elif self.solution[x][y]:
+                    canvas.poke(x,-y,'grey')
+                elif self.grid[x][y]:
+                    canvas.poke(x,-y,'lightgrey')
+        self.wait()
 
     def save(self,name=None,fname=None):
         name = name if name else self.uid

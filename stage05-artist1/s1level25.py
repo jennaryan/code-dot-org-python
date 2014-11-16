@@ -11,8 +11,6 @@ import codestudio
 artist = codestudio.load('s1level25')
 
 artist.color = 'red'
-artist.move_forward(100)
-artist.right()
 
 # ???
 

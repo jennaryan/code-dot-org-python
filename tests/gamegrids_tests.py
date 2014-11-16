@@ -39,7 +39,7 @@ class TestXYGrid():
         self.grid[1][1] = '*'
         eq_(self.grid.to_text(),'* ~ ~ \n~ ~ ~ \n')
 
-    def draw_line_test(self):
+    def draw_line_1m_test(self):
         self.grid.init(10,10,'~')
         self.grid.draw_line((1,1,4,4),'*')
         string = ("* ~ ~ ~ ~ ~ ~ ~ ~ ~ \n"
@@ -67,7 +67,9 @@ class TestXYGrid():
                   "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n"
                   "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n"
                   "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n")
+        print(self.grid.to_text())
         eq_(self.grid.to_text(),string)
+        assert False
 
 def length_test():
     eq_(gg.length((0,0,1,3)),math.sqrt((1-2)**2+(3-0)**2))
@@ -75,3 +77,46 @@ def length_test():
 def xy_test():
     end = tuple(round(n) for n in gg.xy(1,3,30,2))
     eq_(end,(2,5))
+
+def slope_test():
+    lines = {
+        (0,0,1,1): 1.0,
+        (1,1,2,2): 1.0,
+        (1,1,1,1): None,
+        (1,2,2,2): 0.0,
+        (2,2,-1,-1): 1.0,
+        (0,0,2,3): 1.5,
+        (0,0,3,2): 2/3,
+        (5,0,10,0): 0.0,
+    }
+    for line in lines:
+        eq_(gg.slope(line),lines[line])
+
+'''
+def y_of_test():
+    arglist = [
+        [(0,0,1,1),1,1],
+        [(0,0,1,1),2,2],
+        [(0,0,0,0),2,None],
+        [(1,0,3,0),2,0],
+    ]
+    for args in arglist:
+        line,x,y = args
+        eq_(gg.y_of(line,x),y)
+
+def bounded_y_of_test():
+    arglist = [
+        [(0,0,1,1),1,1],
+        [(0,0,-1,-1),-0.5,-0.5],
+        [(0,0,1,1),2,1],
+        [(0,0,-1,-1),2,0],
+        [(0,0,-1,-1),-2,-1],
+        [(0,0,0,0),2,None],
+        [(1,0,3,0),2,0],
+    ]
+    for args in arglist:
+        line,x,y = args
+        print(line,x)
+        eq_(gg.bounded_y_of(line,x),y)
+'''
+
