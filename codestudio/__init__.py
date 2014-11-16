@@ -32,7 +32,7 @@ from .artist import Artist
 
 def load(uid):
     fname = uid + '.json'
-    local = path.isfile(path.join('.',fname))
+    local = path.join('.',fname)
     pname = path.join('puzzles',fname)
     if path.isfile(local):
         pname = local
