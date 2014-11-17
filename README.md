@@ -24,7 +24,7 @@ As students progress in their porting to more complicated puzzles that
 require use and creation of functions they put them into their own
 version of the [mymod.py](mymod.py) module file.
 
-Finally students can create their own `extra` puzzles for themselves
+Finally students can create their own puzzles for themselves
 and others by contributing to the [extra collection](/extra), which may
 eventually become its own site to students to puzzles each other.
 
