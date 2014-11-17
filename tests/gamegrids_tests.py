@@ -56,6 +56,7 @@ class TestXYGrid():
         ok_(self.grid.ping(3,3))
         ok_(not self.grid.ping(4,3))
         ok_(not self.grid.ping(4,2))
+        assert False
 
     def draw_line_1m_test(self):
         self.grid.init(10,10,'~')

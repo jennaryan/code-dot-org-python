@@ -69,10 +69,6 @@ class XYGrid(UserList):
 
         try: lxly = lx[y-1]
         except: lxly = False
-        #print('-' * 10)
-        #print(lxhy,mxhy,hxhy)
-        #print(lxmy,mxmy,hxmy)
-        #print(lxly,mxly,hxly)
         if hxhy or hxmy or hxly or mxhy or mxmy or mxly or lxhy or lxmy or lxly:
             return True
         return False

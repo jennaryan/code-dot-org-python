@@ -148,9 +148,11 @@ class Artist():
                 return self.try_again()
 
     def _close_enough(self):
-        for y in range(-200,201):
-            for x in range(-200,201):
+        for y in range(400):
+            for x in range(400):
                 if self.solution[x][y] and not self.grid.ping(x,y):
+                    return False
+                if self.grid[x][y] and not self.solution.ping(x,y):
                     return False
         return True
 

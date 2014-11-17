@@ -9,7 +9,7 @@ how to define them.
 
 """
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
 zombie = codestudio.load('s1level82')
 
@@ -26,6 +26,6 @@ def draw_circle():
         zombie.turn_right(1)
     zombie.speed = saved_speed
 
-# ???
+draw_square()
 
 zombie.check()

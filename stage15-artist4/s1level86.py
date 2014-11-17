@@ -9,21 +9,21 @@ the code you created in the last puzzle by replacing `pass`.
 import sys
 sys.path.append('..')
 import codestudio
-zombie = codestudio.load('s1level86')
+z = codestudio.load('s1level86')
 
 def draw_square():
     for count in range(4):
-        zombie.move_forward(100)
-        zombie.turn_right(90)
+        z.move_forward(100)
+        z.turn_right(90)
 
 def draw_triangle():
     for count in range(3):
-        zombie.move_forward(100)
-        zombie.turn_right(120)
+        z.move_forward(100)
+        z.turn_right(120)
 
 def draw_house():
     pass
 
 # ???
 
-zombie.check()
+z.check()
