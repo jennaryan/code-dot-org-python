@@ -5,7 +5,7 @@ This repo contains the puzzles from the [Introduction to Computer Science
 on code.org](http://learn.code.org/s/1) written in Python3 suitable for
 any learning environment requiring only vanilla Python3 to be installed.
 This includes the default Raspberry Pi setup. It was created to supplement
-or replace the Blockly activities for those ready to **actually** write 
+or replace the Blockly activities for those ready to ***actually*** write 
  code. [Students 'create' code with Blockly but they certainly don't
 'write' it.]
 
