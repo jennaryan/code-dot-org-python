@@ -18,7 +18,7 @@ format) in the `puzzles` directory. Detailed descriptions of the sections
 of each ported Python file are embedded as comments in these examples.  If
 students get stuck they can refer to the [solutions](/solutions). Teachers
 can easily create additional puzzles for which the solutions are not
-available to more formally assess students if needed.
+available for more formal assessments if needed.
 
 As students progress in their porting to more complicated puzzles that
 require use and creation of functions they put them into their own
