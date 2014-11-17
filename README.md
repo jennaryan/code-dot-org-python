@@ -17,7 +17,7 @@ and complete the puzzles with a vanilla installation of Python on
 their local computer. Student code solutions are checked when they
 run their code against a saved solution (in JSON format stored in a
 [puzzles](/stage05-artist1/puzzles) directory). Detailed descriptions
-from code.org for each puzzle included as long comments at the beginning
+from code.org for each puzzle are included as long comments at the beginning
 of each puzzle script. If students get stuck they can refer to the
 [solutions](/solutions). Teachers can easily create additional puzzles
 for which the solutions are not available for more formal assessments
