@@ -30,8 +30,10 @@ eventually become its own site to students to puzzles each other.
 
 The [codestudio](/codestudio) library module on which these puzzles
 are based contains tools to help create new puzzles easily as well as
-visualize puzzles and solutions. The module itself has been designed to
-serve as a basic for learning Python modules, object-oriented-programming,
-packaging, geometry/trigonometry, domain modeling, separation of concerns,
-exception handling, test-driven development, basic GUI development,
-cross-platform audio programming, JSON and more.
+visualize puzzles and solutions. The steps to create your own puzzles
+are outlined in [extras](/extra) with examples. The module itself
+has been designed to serve as a basic for learning Python modules,
+object-oriented-programming, packaging, geometry/trigonometry, domain
+modeling, separation of concerns, exception handling, test-driven
+development, basic GUI development, cross-platform audio programming,
+JSON and more.
