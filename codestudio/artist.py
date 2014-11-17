@@ -43,7 +43,7 @@ import math
 import random
 
 from .canvas import Canvas
-from .gamegrids import XYGrid,xy
+from .gamegrids import XYGrid,xy,slope,bearing,length
 
 class Artist():
     start_direction = 0
@@ -240,7 +240,7 @@ class Artist():
             self.canvas.draw_lines(lines)
         self.canvas.speed = self.speed
 
-    def draw(self):
+    def _draw(self):
         self.draw_lines(self._lines_to_draw)
         self._lines_to_draw = []
 
@@ -258,7 +258,7 @@ class Artist():
         line = (self.lastx,self.lasty,self.x,self.y,color,self.width)
         self._lines_to_draw.append(line)
         self.log.append(line)
-        self.draw()
+        self._draw()
 
     move_forward = move
     forward = move
@@ -301,6 +301,9 @@ class Artist():
             self.direction -= 180
         else:
             self.direction += 180
+
+    rev = flip
+    reverse = flip
 
     @staticmethod
     def random_color():
