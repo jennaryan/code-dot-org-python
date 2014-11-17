@@ -32,6 +32,51 @@ class XYGrid(UserList):
             string += "\n"
         return string
 
+    def ping(self,x,y):
+
+        try: hx = self.data[x+1]
+        except: hx = False
+
+        try: mx = self.data[x]
+        except: mx = False
+
+        try: lx = self.data[x-1]
+        except: lx = False
+
+        try: hxhy = hx[y+1]
+        except: hxhy = False
+
+        try: hxmy = hx[y]
+        except: hxmy = False
+
+        try: hxly = hx[y-1]
+        except: hxly = False
+
+        try: mxhy = mx[y+1]
+        except: mxhy = False
+
+        try: mxmy = mx[y]
+        except: mxmy = False
+
+        try: mxly = mx[y-1]
+        except: mxly = False
+
+        try: lxhy = lx[y+1]
+        except: lxhy = False
+
+        try: lxmy = lx[y]
+        except: lxmy = False
+
+        try: lxly = lx[y-1]
+        except: lxly = False
+        #print('-' * 10)
+        #print(lxhy,mxhy,hxhy)
+        #print(lxmy,mxmy,hxmy)
+        #print(lxly,mxly,hxly)
+        if hxhy or hxmy or hxly or mxhy or mxmy or mxly or lxhy or lxmy or lxly:
+            return True
+        return False
+
     def draw_line(self,line,value=1):
         (x1,y1,x2,y2) = [round(n) for n in line[0:4]]
         m = slope((x1,y1,x2,y2))
@@ -46,11 +91,11 @@ class XYGrid(UserList):
             b = y1 - (m*x1)
             if x1 <= x2:
                 for x in range(x1,x2+1):
-                    y = math.ceil(m*x+b)
+                    y = round(m*x+b)
                     self.data[x][y] = value
             else:
                 for x in range(x1,x2-1,-1):
-                    y = math.floor(m*x+b)
+                    y = round(m*x+b)
                     self.data[x][y] = value
 
     def draw_lines(self,lines,value=None):

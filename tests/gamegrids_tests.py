@@ -2,7 +2,7 @@ import sys
 import math
 sys.path.append('..')
 import codestudio.gamegrids as gg
-from nose.tools import eq_
+from nose.tools import eq_,ok_
 
 class TestXYGrid():
 
@@ -39,6 +39,24 @@ class TestXYGrid():
         self.grid[1][1] = '*'
         eq_(self.grid.to_text(),'* ~ ~ \n~ ~ ~ \n')
 
+    def ping_test(self):
+        self.grid.init(4,4)
+        eq_(self.grid.ping(1,1),False)
+        self.grid[2][2] = 1
+        print(self.grid.to_text())
+        print(self.grid.ping(1,2))
+        ok_(self.grid.ping(2,2))
+        ok_(self.grid.ping(1,2))
+        ok_(self.grid.ping(3,2))
+        ok_(self.grid.ping(2,1))
+        ok_(self.grid.ping(2,3))
+        ok_(self.grid.ping(3,1))
+        ok_(self.grid.ping(1,3))
+        ok_(self.grid.ping(1,1))
+        ok_(self.grid.ping(3,3))
+        ok_(not self.grid.ping(4,3))
+        ok_(not self.grid.ping(4,2))
+
     def draw_line_1m_test(self):
         self.grid.init(10,10,'~')
         self.grid.draw_line((1,1,4,4),'*')
@@ -69,7 +87,6 @@ class TestXYGrid():
                   "~ ~ ~ ~ ~ ~ ~ ~ ~ * \n")
         print(self.grid.to_text())
         eq_(self.grid.to_text(),string)
-        assert False
 
 def length_test():
     eq_(gg.length((0,0,1,3)),math.sqrt((1-2)**2+(3-0)**2))

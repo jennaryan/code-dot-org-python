@@ -142,7 +142,17 @@ class Artist():
         if self.grid == self.solution:
             return self.good_job()
         else:
-            return self.try_again()
+            if self._close_enough():
+                return self.good_job()
+            else:
+                return self.try_again()
+
+    def _close_enough(self):
+        for y in range(-200,201):
+            for x in range(-200,201):
+                if self.solution[x][y] and not self.grid.ping(x,y):
+                    return False
+        return True
 
     def show_check(self):
         canvas = Canvas()
@@ -151,11 +161,35 @@ class Artist():
                 if not self.solution[x][y] and not self.grid[x][y]:
                     pass
                 elif self.solution[x][y] == self.grid[x][y]:
-                    canvas.poke(x,-y,'black')
+                    canvas.poke(x,-y,'lightgreen')
                 elif self.solution[x][y]:
-                    canvas.poke(x,-y,'grey')
+                    canvas.poke(x,-y,'red')
                 elif self.grid[x][y]:
-                    canvas.poke(x,-y,'lightgrey')
+                    canvas.poke(x,-y,'orange')
+        self.wait()
+
+    def show_solution(self):
+        canvas = Canvas()
+        for y in range(-200,201):
+            for x in range(-200,201):
+                if self.grid[x][y]:
+                    canvas.poke(x,-y,'black')
+        self.wait()
+
+    def show_lines(self):
+        canvas = Canvas()
+        for y in range(-200,201):
+            for x in range(-200,201):
+                if self.grid[x][y]:
+                    canvas.poke(x,-y,'black')
+        self.wait()
+
+    def show_wrong(self):
+        canvas = Canvas()
+        for y in range(-200,201):
+            for x in range(-200,201):
+                if self.grid[x][y] and self.grid[x][y] != self.solution[x][y]:
+                    canvas.poke(x,-y,'black')
         self.wait()
 
     def save(self,name=None,fname=None):
@@ -259,6 +293,12 @@ class Artist():
 
     left =  turn_left
     lt = turn_left
+
+    def flip(self):
+        if self.direction > 0:
+            self.direction -= 180
+        else:
+            self.direction += 180
 
     @staticmethod
     def random_color():

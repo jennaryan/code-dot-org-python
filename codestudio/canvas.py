@@ -74,8 +74,9 @@ class Canvas():
         self._canvas.bind('<Button>',lambda e: self._master.destroy())
         self._canvas.mainloop()
 
-    def poke(self,x,y,color='black'):
-        self._canvas.create_oval(x,y,x,y,fill=color,outline=color)
+    def poke(self,x,y,color='black',width=0):
+        n = width/2
+        self._canvas.create_oval(x-n,y-n,x+n,y+n,fill=color,outline=color)
         self._canvas.update()
 
     def draw_line(self,line,color=None,width=7):
