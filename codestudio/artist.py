@@ -1,7 +1,7 @@
 """Artist puzzles from <http://code.org> built on `tkinter` only. 
 
 Artist is similar to the great `turtle` standard module for teaching
-programming but builds on a foundation of challenge and solution, (which
+programming but builds on a foundation of puzzle and solution, (which
 `turtle` does not):
 
 - Subset of basic Python turtle commands (all needed for puzzles).

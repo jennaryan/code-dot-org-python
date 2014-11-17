@@ -9,11 +9,11 @@ totally different)
 import sys
 sys.path.append('..')
 import codestudio
-zombie = codestudio.load('s1level103')
+z = codestudio.load('s1level103')
 
 for counter in range(1,201,1):
-    zombie.color = zombie.random_color()
-    zombie.move_forward(counter)
-    zombie.turn_right(90)
+    z.color = z.random_color()
+    z.move_forward(counter)
+    z.turn_right(90)
 
-zombie.wait()
+z.wait()
