@@ -10,15 +10,18 @@ or replace the Blockly activities for those ready to ***actually*** write
 it.]
 
 Students [fork this
-repo](http://github.com/skilstak/code-dot-org-python/fork) or [download
-the zip](http://github.com/skilstak/code-dot-org-python/archive/master.zip) and complete the puzzles with a vanilla
-installation of Python on their local computer. The results of their
-code solutions is checked in real-time against a saved solution (in JSON
-format) in the `puzzles` directory. Detailed descriptions of the sections
-of each ported Python file are embedded as comments in these examples.  If
-students get stuck they can refer to the [solutions](/solutions). Teachers
-can easily create additional puzzles for which the solutions are not
-available for more formal assessments if needed.
+repo](http://github.com/skilstak/code-dot-org-python/fork)
+or [download the
+zip](http://github.com/skilstak/code-dot-org-python/archive/master.zip)
+and complete the puzzles with a vanilla installation of Python on
+their local computer. Student code solutions are checked when they
+run their code against a saved solution (in JSON format stored in a
+(puzzles)[/stage05-artist1/puzzles] directory). Detailed descriptions
+from code.org for each puzzle included as long comments at the beginning
+of each puzzle script. If students get stuck they can refer to the
+[solutions](/solutions). Teachers can easily create additional puzzles
+for which the solutions are not available for more formal assessments
+if needed.
 
 As students progress in their porting to more complicated puzzles that
 require use and creation of functions they put them into their own
