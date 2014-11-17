@@ -1,13 +1,5 @@
-"""Stage 11: Puzzle 9 of 11
-
-This one's a bit tricky. Use the `draw_snowman()` function and the new
-`jump_forward(100)` or just `jump(100)`. Draw 3 snowmen in different
-colors, 100 pixels apart.
-
-"""
-
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
 z = codestudio.load('s1level67')
 

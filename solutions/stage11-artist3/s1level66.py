@@ -1,12 +1,5 @@
-"""Stage 11: Puzzle 8 of 11
-
-There's a new `draw_snowman()` function. Draw two snowmen, of height
-250 and 100.
-
-"""
-
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
 z = codestudio.load('s1level66')
 
@@ -25,6 +18,6 @@ def draw_snowman(length):
 z.speed = 'fastest'
 
 draw_snowman(250)
-# ???
+draw_snowman(100)
 
 z.check()
