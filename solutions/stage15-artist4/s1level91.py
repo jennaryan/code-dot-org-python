@@ -1,31 +1,34 @@
-"""Stage 15: Puzzle 10 of 10
-
-You've learned a lot! Now use it to draw whatever you want. Try to draw
-a star, or a spiral, or a fancy snowflake.
-
-"""
-
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
-zombie = codestudio.load('s1level91')
+z = codestudio.load('s1level91')
 
 def draw_square(length):
     for count in range(4):
-        zombie.move_forward(length)
-        zombie.turn_right(90)
+        z.move_forward(length)
+        z.turn_right(90)
 
 def draw_triangle(length):
     for count in range(3):
-        zombie.move_forward(length)
-        zombie.turn_right(120)
+        z.move_forward(length)
+        z.turn_right(120)
 
 def draw_house(length):
     draw_square(length)
-    zombie.move_forward(length)
-    zombie.turn_right(30)
+    z.move_forward(length)
+    z.turn_right(30)
     draw_triangle(length)
 
-# ???
+z.speed = 'faster'
+z.left()
+z.jump(170)
+z.right()
+z.jump(-25)
+for count in range(12):
+    z.color = z.random_color()
+    draw_house(30)
+    z.left(20)
+    z.jump(60)
+    z.right(20)
 
-zombie.wait()
+z.wait()

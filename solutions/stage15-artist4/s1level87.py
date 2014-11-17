@@ -1,25 +1,20 @@
-"""Stage 15: Puzzle 6 of 10
-
-Using `draw_square()` as an example, add an input named "length" to
-`draw_triangle()`. Then, draw triangles in different sizes. 
-
-"""
-
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
-zombie = codestudio.load('s1level87')
+z = codestudio.load('s1level87')
 
 def draw_square(length):
     for count in range(4):
-        zombie.move_forward(length)
-        zombie.turn_right(90)
+        z.move_forward(length)
+        z.turn_right(90)
 
-def draw_triangle():
+def draw_triangle(length):
     for count in range(3):
-        zombie.move_forward(100)
-        zombie.turn_right(120)
+        z.move_forward(length)
+        z.turn_right(120)
 
-# ???
+draw_triangle(100)
+z.move(100)
+draw_triangle(200)
 
-zombie.check()
+z.check()

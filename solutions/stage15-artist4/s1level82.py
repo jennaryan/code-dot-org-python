@@ -11,21 +11,21 @@ how to define them.
 import sys
 sys.path.append('../..')
 import codestudio
-zombie = codestudio.load('s1level82')
+z = codestudio.load('s1level82')
 
 def draw_square():
     for count in range(4):
-        zombie.move_forward(100)
-        zombie.turn_right(90)
+        z.move_forward(100)
+        z.turn_right(90)
 
 def draw_circle():
-    saved_speed = zombie.speed
-    zombie.speed = 'fastest'
+    saved_speed = z.speed
+    z.speed = 'fastest'
     for count in range(360):
-        zombie.move_forward(1)
-        zombie.turn_right(1)
-    zombie.speed = saved_speed
+        z.move_forward(1)
+        z.turn_right(1)
+    z.speed = saved_speed
 
 draw_square()
 
-zombie.check()
+z.check()

@@ -1,28 +1,31 @@
-"""Stage 15: Puzzle 9 of 10
-
-Can you re-create the `draw house(length)` function without help? Try it,
-and then draw a row of houses. Hint: replace 'pass' with your code.
-
-"""
-
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
-zombie = codestudio.load('s1level90')
+z = codestudio.load('s1level90')
 
 def draw_square(length):
     for count in range(4):
-        zombie.move_forward(length)
-        zombie.turn_right(90)
+        z.move_forward(length)
+        z.turn_right(90)
 
 def draw_triangle(length):
     for count in range(3):
-        zombie.move_forward(length)
-        zombie.turn_right(120)
+        z.move_forward(length)
+        z.turn_right(120)
 
 def draw_house(length):
-    pass
+    draw_square(length)
+    z.move(length)
+    z.right(30)
+    draw_triangle(length)
+    z.right(60)
+    z.move(length)
+    z.right()
+    z.move(length)
+    z.flip()
 
-# ???
+draw_house(50)
+draw_house(100)
+draw_house(150)
 
-zombie.check()
+z.check()

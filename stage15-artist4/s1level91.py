@@ -26,6 +26,16 @@ def draw_house(length):
     z.turn_right(30)
     draw_triangle(length)
 
-# ???
+z.speed = 'faster' 
+z.left()
+z.jump(170)
+z.right()
+z.jump(-25)
+for count in range(12):
+    z.color = z.random_color()
+    draw_house(30)
+    z.left(20)
+    z.jump(60)
+    z.right(20)
 
 z.wait()
