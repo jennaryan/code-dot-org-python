@@ -9,27 +9,27 @@ colors, 100 pixels apart.
 import sys
 sys.path.append('..')
 import codestudio
-zombie = codestudio.load('s1level67')
+z = codestudio.load('s1level67')
 
 def draw_snowman(length):
-    zombie.left()
+    z.left()
     distances = [length * 0.5, length * 0.3, length * 0.2]
     for counter in range(6):
         distance = distances[counter if counter < 3 else 5 - counter] / 57.5
         for degree in range(90):
-            zombie.move(distance)
-            zombie.right(2)
+            z.move(distance)
+            z.right(2)
         if counter != 2:
-            zombie.left(180)
-    zombie.left()
+            z.left(180)
+    z.left()
 
-zombie.speed = 'fastest'
+z.speed = 'fastest'
 
 for count in range(3):
-    zombie.color = zombie.random_color()
+    z.color = z.random_color()
     draw_snowman(150)
-    zombie.right()
-    zombie.jump(100)
-    zombie.left()
+    z.right()
+    z.jump(100)
+    z.left()
 
-zombie.check()
+z.check()

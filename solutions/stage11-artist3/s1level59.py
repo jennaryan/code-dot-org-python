@@ -1,16 +1,10 @@
-"""Stage 11: Puzzle 1 of 11
-
-Hello. Me zombie a. Me love drawing! Help me draw a square in a
-special color.  Important note: you have all the same actions just
-with a zombie a now.
-
-"""
-
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
-zombie = codestudio.load('s1level59')
+z = codestudio.load('s1level59')
 
-# ???
+for count in range(4):
+    z.move(100)
+    z.right()
 
-zombie.check()
+z.check()

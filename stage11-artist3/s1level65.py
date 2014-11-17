@@ -10,14 +10,11 @@ sys.path.append('..')
 import codestudio
 zombie = codestudio.load('s1level65')
 
-def draw_square(length):
-    for count in range(4):
-        zombie.move_forward(length)
-        zombie.turn_right(90)
-
 # zombie.move_forward(25)
 # zombie.turn_right(90)
 # zombie.move_forward(30)
+# zombie.turn_right(90)
+# zombie.move_forward(35)
 # zombie.turn_right(90)
 # zombie.move_forward(40)
 # zombie.turn_right(90)
@@ -28,8 +25,6 @@ def draw_square(length):
 # zombie.move_forward(55)
 # zombie.turn_right(90)
 # zombie.move_forward(60)
-# zombie.turn_right(90)
-# zombie.move_forward(70)
 # zombie.turn_right(90)
 
 zombie.check()

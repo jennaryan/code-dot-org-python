@@ -6,30 +6,30 @@ and your `draw_square()` function instead of the long way.
 """
 
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
-zombie = codestudio.load('s1level65')
+z = codestudio.load('s1level65')
+'''
+for length in range(25,71,5):
+    print(length)
+    z.move_forward(length)
+    z.right()
+'''
+z.move_forward(25)
+z.turn_right(90)
+z.move_forward(30)
+z.turn_right(90)
+z.move_forward(35)
+z.turn_right(90)
+z.move_forward(40)
+z.turn_right(90)
+z.move_forward(45)
+z.turn_right(90)
+z.move_forward(50)
+z.turn_right(90)
+z.move_forward(55)
+z.turn_right(90)
+z.move_forward(60)
+z.turn_right(90)
 
-def draw_square(length):
-    for count in range(4):
-        zombie.move_forward(length)
-        zombie.turn_right(90)
-
-# zombie.move_forward(25)
-# zombie.turn_right(90)
-# zombie.move_forward(30)
-# zombie.turn_right(90)
-# zombie.move_forward(40)
-# zombie.turn_right(90)
-# zombie.move_forward(45)
-# zombie.turn_right(90)
-# zombie.move_forward(50)
-# zombie.turn_right(90)
-# zombie.move_forward(55)
-# zombie.turn_right(90)
-# zombie.move_forward(60)
-# zombie.turn_right(90)
-# zombie.move_forward(70)
-# zombie.turn_right(90)
-
-zombie.check()
+z.check()

@@ -1,21 +1,18 @@
-"""Stage 11:Puzzle 5 of 11
-
-Draw squares with sides of 50, 60, 70, 80, and 90 pixels. You'll need
-to call the `draw_square()` function 5 times.
-
-"""
-
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
-zombie = codestudio.load('s1level63')
-zombie.speed = 'fast'
+z = codestudio.load('s1level63')
+z.speed = 'fast'
 
 def draw_square(length):
     for count in range(4):
-        zombie.move_forward(length)
-        zombie.turn_right(90)
+        z.move_forward(length)
+        z.turn_right(90)
 
 draw_square(50)
+draw_square(60)
+draw_square(70)
+draw_square(80)
+draw_square(90)
 
-zombie.check()
+z.check()
