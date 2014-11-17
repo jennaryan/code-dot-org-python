@@ -9,8 +9,9 @@ or replace the Blockly activities for those ready to ***actually*** write
  code. [Students 'create' code with Blockly but they certainly don't
 'write' it.]
 
-Students [fork this repo](/fork) or [download the
-zip](/archive/master.zip) and complete the puzzles with a vanilla
+Students [fork this
+repo](http://github.com/skilstak/code-dot-org-python/fork) or [download
+the zip](http://github.com/skilstak/code-dot-org-python/archive/master.zip) and complete the puzzles with a vanilla
 installation of Python on their local computer. The results of their
 code solutions is checked in real-time against a saved solution (in JSON
 format) in the `puzzles` directory. Detailed descriptions of the sections
