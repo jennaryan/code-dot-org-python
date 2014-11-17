@@ -5,9 +5,9 @@ This repo contains the puzzles from the [Introduction to Computer Science
 on code.org](http://learn.code.org/s/1) written in Python3 suitable for
 any learning environment requiring only vanilla Python3 to be installed.
 This includes the default Raspberry Pi setup. It was created to supplement
-or replace the Blockly activities for those ready to ***actually*** write 
- code. [Students 'create' code with Blockly but they certainly don't
-'write' it.]
+or replace the Blockly activities for those ready to ***actually*** write
+ code. [Students 'create' code with Blockly they don't really 'write'
+it.]
 
 Students [fork this
 repo](http://github.com/skilstak/code-dot-org-python/fork) or [download
@@ -32,8 +32,12 @@ The [codestudio](/codestudio) library module on which these puzzles
 are based contains tools to help create new puzzles easily as well as
 visualize puzzles and solutions. The steps to create your own puzzles
 are outlined in [extras](/extra) with examples. The module itself
-has been designed to serve as a basic for learning Python modules,
-object-oriented-programming, packaging, geometry/trigonometry, domain
-modeling, separation of concerns, exception handling, test-driven
+has been designed to serve as a basis for learning Python modules,
+object-oriented-programming, packaging, geometry/trigonometry functions,
+domain modeling, separation of concerns, exception handling, test-driven
 development, basic GUI development, cross-platform audio programming,
 JSON and more.
+
+All code and assets are released under the same terms as the
+[code-dot-org](http://github.com/code-dot-org) materials. We have
+collaborated closely with the project team there.
