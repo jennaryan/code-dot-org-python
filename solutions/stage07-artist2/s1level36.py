@@ -6,18 +6,19 @@ program already written below to draw these triangles.
 """
 
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import codestudio
-artist = codestudio.load('s1level36')
-artist.speed = 'slower'
+a = codestudio.load('s1level36')
+a.speed = 'slower'
 
-artist.color = artist.random_color()
+a.color = a.random_color()
 for count in range(3):
-    artist.move_forward(100)
-    artist.turn_right(120)
-artist.color = artist.random_color()
+    a.move_forward(100)
+    a.turn_right(120)
+a.color = a.random_color()
+a.right()
 for count in range(3):
-    artist.move_forward(100)
-    artist.turn_right(120)
+    a.move_forward(100)
+    a.turn_right(120)
 
-artist.check()
+a.check()

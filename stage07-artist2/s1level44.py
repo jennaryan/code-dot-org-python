@@ -7,7 +7,6 @@ repeat to complete the drawing?
 
 import sys
 sys.path.append('..')
-
 import codestudio
 artist = codestudio.load('s1level44')
 artist.speed = 'fastest'
