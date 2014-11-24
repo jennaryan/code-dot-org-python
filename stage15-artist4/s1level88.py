@@ -20,12 +20,11 @@ def draw_triangle(length):
         z.move_forward(length)
         z.turn_right(120)
 
-def draw_house():
-    draw_square(100)
-    z.move_forward(100)
+def draw_house(length):
+    draw_square(length)
+    z.move_forward(length)
     z.turn_right(30)
-    draw_triangle(100)
+    draw_triangle(length)
 
-# ???
-
+draw_house(150)
 z.check()

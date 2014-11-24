@@ -10,6 +10,7 @@ import codestudio
 artist = codestudio.load('s1level40')
 artist.speed = 'slow'
 
-# ???
-
+for count in range(4):
+    artist.move(20)
+    artist.right()
 artist.check()

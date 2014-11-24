@@ -9,8 +9,14 @@ import sys
 sys.path.append('..')
 import codestudio
 artist = codestudio.load('s1level28')
-
+artist.speed = 'slow'
 for count in range(3):
-    pass                                         # ???
+    artist.move(100)
+    artist.right(120)
+
+for count in range(4):
+    artist.move(100)
+    artist.right(90)
+    
 
 artist.check()

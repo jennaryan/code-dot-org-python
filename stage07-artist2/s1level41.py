@@ -12,8 +12,10 @@ import codestudio
 artist = codestudio.load('s1level41')
 
 artist.color = artist.random_colour()
-for count in range(4):
-    artist.move_forward(20)
-    artist.turn_right(90)
+for count in range(10):
+    for count in range(4):
+        artist.move_forward(20)
+        artist.turn_right(90)
+    artist.move(20)
 
 artist.check()

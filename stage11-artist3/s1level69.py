@@ -32,7 +32,9 @@ zombie.speed = 'fast'
 zombie.width = 1
 
 for counter in range(100):
+    zombie.color = 'random'
     zombie.move(counter)
     zombie.right(91)
+    zombie.left(134)
 
 zombie.wait()

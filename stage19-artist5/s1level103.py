@@ -14,6 +14,6 @@ z = codestudio.load('s1level103')
 for counter in range(1,201,1):
     z.color = z.random_color()
     z.move_forward(counter)
-    z.turn_right(90)
+    z.turn_right(150)
 
 z.wait()

@@ -27,4 +27,13 @@ zombie = codestudio.load('s1level65')
 # zombie.move_forward(60)
 # zombie.turn_right(90)
 
+
+smallest = 25
+longest = 60
+by = 5
+
+for counter in range(smallest, longest + 1, by):
+    zombie.move(counter)
+    zombie.right()
+
 zombie.check()

@@ -37,5 +37,7 @@ for count in range(12):
     z.left(20)
     z.jump(60)
     z.right(20)
+    z.jump(70)
+    z.right(20)
 
 z.wait()

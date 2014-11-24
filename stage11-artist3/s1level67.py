@@ -24,7 +24,10 @@ def draw_snowman(length):
     zombie.left()
 
 zombie.speed = 'fastest'
-
-draw_snowman(150)
+for count in range(3):
+    draw_snowman(150)
+    zombie.right()
+    zombie.jump(100)
+    zombie.left()
 
 zombie.check()

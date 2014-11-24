@@ -17,6 +17,6 @@ for count2 in range(36):
     for count in range(3):
         artist.move_forward(100)
         artist.turn_right(120)
-    artist.turn_right(2)                         # ???
+    artist.turn_right(70)                         # ???
 
 artist.check()

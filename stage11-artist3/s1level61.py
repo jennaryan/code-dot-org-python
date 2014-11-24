@@ -17,8 +17,9 @@ def draw_square(length):
     for count in range(4):
         zombie.move_forward(length)
         zombie.turn_right(90)
-
-zombie.color = zombie.random_color()
-draw_square(100)
+for count in range(3):
+    zombie.color = zombie.random_color()
+    draw_square(100)
+    zombie.right(120)
 
 zombie.check()

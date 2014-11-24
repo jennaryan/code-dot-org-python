@@ -9,9 +9,11 @@ import sys
 sys.path.append('..')
 import codestudio
 artist = codestudio.load('s1level33')
-
-artist.color = artist.random_color()
-artist.width = 1
-artist.move_forward(100)
+for count in range(100):
+    artist.color = artist.random_color()
+    artist.width = 5
+    artist.move_forward(100)
+    artist.left(90)
+    artist.move(50)
 
 artist.wait()

@@ -12,6 +12,8 @@ artist = codestudio.load('s1level25')
 
 artist.color = 'red'
 
-# ???
+for count in range (4):
+    artist.forward(100)
+    artist.right(90)
 
 artist.check()

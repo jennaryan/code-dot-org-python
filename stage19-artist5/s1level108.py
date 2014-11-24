@@ -23,6 +23,6 @@ def draw_tree(depth,branches):
         z.turn_left(50)
         z.jump_backward(7*depth)
 
-draw_tree(9,2)
+draw_tree(9,4)
 
 z.wait()

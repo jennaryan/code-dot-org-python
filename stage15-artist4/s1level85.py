@@ -16,9 +16,17 @@ def draw_square():
 
 def draw_triangle():
     for count in range(3):
-        z.move_forward(100)
-        z.turn_right(120)
+        z.right(120)
+        z.move(100)
 
-# ???
+draw_square()
+z.move(100)
+z.right()
+z.move(100)
+
+z.left(120)
+z.move(100)
+z.left(120)
+z.move(100)
 
 z.check()

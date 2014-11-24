@@ -23,6 +23,6 @@ for counter in range(4,9,4):
     for count in range(10):
         z.color = z.random_color()
         draw_circle(counter)
-        z.turn_right(36)
+        z.turn_right(367)
 
 z.wait()
